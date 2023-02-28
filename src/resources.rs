@@ -42,6 +42,7 @@ mod billing {
     pub mod invoice_ext;
     pub mod line_item_ext;
     pub mod subscription_ext;
+    pub mod tax_id_ext;
     pub mod usage_record_ext;
 }
 
@@ -179,6 +180,7 @@ pub use {
         line_item_ext::*,
         subscription_ext::*,
         usage_record_ext::*,
+        tax_id_ext::*
     },
     generated::billing::{
         billing_portal_session::*,
@@ -295,7 +297,7 @@ pub use {
 #[cfg(feature = "webhook-endpoints")]
 pub use {
     webhook_endpoints::webhook_endpoint_ext::*,
-    generated::webhook_endpoints::webhook_endpoint::*, 
+    generated::webhook_endpoints::webhook_endpoint::*,
 };
 
 #[cfg(not(feature = "full"))]
