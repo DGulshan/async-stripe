@@ -8,6 +8,11 @@ use crate::resources::{CollectionMethod, Invoice};
 #[deprecated(since = "0.12.0")]
 pub type InvoiceCollectionMethod = CollectionMethod;
 
+#[derive(Clone, Debug, Default, Serialize)]
+pub struct FinalizeInvoice {
+    pub auto_advance: Option<bool>,
+}
+
 impl Invoice {
     /// Retrieves the details of an upcoming invoice_id
     ///
@@ -21,6 +26,13 @@ impl Invoice {
     /// For more details see <https://stripe.com/docs/api#pay_invoice.>.
     pub fn pay(client: &Client, invoice_id: &InvoiceId) -> Response<Invoice> {
         client.post(&format!("/invoices/{}/pay", invoice_id))
+    }
+
+    /// Finalize an invoice.
+    ///
+    /// For more details see https://stripe.com/docs/api/invoices/finalize
+    pub fn finalize(client: &Client, invoice_id: &InvoiceId, params: &FinalizeInvoice) -> Response<Invoice> {
+        client.post_form(&format!("/invoices/{}/finalize", &invoice_id), &params)
     }
 }
 
