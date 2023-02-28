@@ -15,7 +15,7 @@ impl TaxId {
     pub fn create(
         client: &Client,
         customer_id: &CustomerId,
-        params: &CreateTaxId,
+        params: CreateTaxId,
     ) -> Response<TaxId> {
         client.post_form(&format!("/customers/{}/tax_ids", customer_id), params)
     }
