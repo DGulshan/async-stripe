@@ -1692,7 +1692,7 @@ pub struct TransferDataParams {
 }
 
 /// An enum representing the possible values of an `Charge`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ChargeStatus {
     Failed,
@@ -1728,7 +1728,7 @@ impl std::default::Default for ChargeStatus {
 }
 
 /// An enum representing the possible values of an `FraudDetailsParams`'s `user_report` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum FraudDetailsParamsUserReport {
     Fraudulent,
@@ -1762,7 +1762,7 @@ impl std::default::Default for FraudDetailsParamsUserReport {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsAchDebit`'s `account_holder_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsAchDebitAccountHolderType {
     Company,
@@ -1796,7 +1796,7 @@ impl std::default::Default for PaymentMethodDetailsAchDebitAccountHolderType {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsBancontact`'s `preferred_language` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsBancontactPreferredLanguage {
     De,
@@ -1834,7 +1834,7 @@ impl std::default::Default for PaymentMethodDetailsBancontactPreferredLanguage {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsCardPresent`'s `read_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsCardPresentReadMethod {
     ContactEmv,
@@ -1880,7 +1880,7 @@ impl std::default::Default for PaymentMethodDetailsCardPresentReadMethod {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsCardPresentReceipt`'s `account_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsCardPresentReceiptAccountType {
     Checking,
@@ -1918,7 +1918,7 @@ impl std::default::Default for PaymentMethodDetailsCardPresentReceiptAccountType
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsCardWallet`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsCardWalletType {
     AmexExpressCheckout,
@@ -1960,7 +1960,7 @@ impl std::default::Default for PaymentMethodDetailsCardWalletType {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsEps`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsEpsBank {
     ArzteUndApothekerBank,
@@ -2058,7 +2058,7 @@ impl std::default::Default for PaymentMethodDetailsEpsBank {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsFpx`'s `account_holder_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsFpxAccountHolderType {
     Company,
@@ -2092,7 +2092,7 @@ impl std::default::Default for PaymentMethodDetailsFpxAccountHolderType {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsFpx`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsFpxBank {
     AffinBank,
@@ -2166,7 +2166,7 @@ impl std::default::Default for PaymentMethodDetailsFpxBank {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsIdeal`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsIdealBank {
     AbnAmro,
@@ -2222,7 +2222,7 @@ impl std::default::Default for PaymentMethodDetailsIdealBank {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsIdeal`'s `bic` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsIdealBic {
     #[serde(rename = "ABNANL2A")]
@@ -2291,7 +2291,7 @@ impl std::default::Default for PaymentMethodDetailsIdealBic {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsInteracPresent`'s `read_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsInteracPresentReadMethod {
     ContactEmv,
@@ -2337,7 +2337,7 @@ impl std::default::Default for PaymentMethodDetailsInteracPresentReadMethod {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsInteracPresentReceipt`'s `account_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsInteracPresentReceiptAccountType {
     Checking,
@@ -2373,7 +2373,7 @@ impl std::default::Default for PaymentMethodDetailsInteracPresentReceiptAccountT
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsKonbiniStore`'s `chain` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsKonbiniStoreChain {
     Familymart,
@@ -2411,7 +2411,7 @@ impl std::default::Default for PaymentMethodDetailsKonbiniStoreChain {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsP24`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsP24Bank {
     AliorBank,
@@ -2491,7 +2491,7 @@ impl std::default::Default for PaymentMethodDetailsP24Bank {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsSofort`'s `preferred_language` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsSofortPreferredLanguage {
     De,
@@ -2535,7 +2535,7 @@ impl std::default::Default for PaymentMethodDetailsSofortPreferredLanguage {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsUsBankAccount`'s `account_holder_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsUsBankAccountAccountHolderType {
     Company,
@@ -2569,7 +2569,7 @@ impl std::default::Default for PaymentMethodDetailsUsBankAccountAccountHolderTyp
 }
 
 /// An enum representing the possible values of an `PaymentMethodDetailsUsBankAccount`'s `account_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDetailsUsBankAccountAccountType {
     Checking,

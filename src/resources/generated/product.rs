@@ -631,7 +631,7 @@ pub struct CreateProductDefaultPriceDataCurrencyOptionsTiers {
 }
 
 /// An enum representing the possible values of an `CreateProductDefaultPriceDataCurrencyOptions`'s `tax_behavior` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateProductDefaultPriceDataCurrencyOptionsTaxBehavior {
     Exclusive,
@@ -667,7 +667,7 @@ impl std::default::Default for CreateProductDefaultPriceDataCurrencyOptionsTaxBe
 }
 
 /// An enum representing the possible values of an `CreateProductDefaultPriceDataRecurring`'s `interval` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateProductDefaultPriceDataRecurringInterval {
     Day,
@@ -705,7 +705,7 @@ impl std::default::Default for CreateProductDefaultPriceDataRecurringInterval {
 }
 
 /// An enum representing the possible values of an `CreateProductDefaultPriceData`'s `tax_behavior` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateProductDefaultPriceDataTaxBehavior {
     Exclusive,
@@ -741,7 +741,7 @@ impl std::default::Default for CreateProductDefaultPriceDataTaxBehavior {
 }
 
 /// An enum representing the possible values of an `Product`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ProductType {
     Good,

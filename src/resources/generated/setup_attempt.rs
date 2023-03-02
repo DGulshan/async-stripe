@@ -324,7 +324,7 @@ impl Paginable for ListSetupAttempts<'_> {
     }
 }
 /// An enum representing the possible values of an `SetupAttempt`'s `flow_directions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupAttemptFlowDirections {
     Inbound,
@@ -358,7 +358,7 @@ impl std::default::Default for SetupAttemptFlowDirections {
 }
 
 /// An enum representing the possible values of an `SetupAttemptPaymentMethodDetailsBancontact`'s `preferred_language` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupAttemptPaymentMethodDetailsBancontactPreferredLanguage {
     De,
@@ -396,7 +396,7 @@ impl std::default::Default for SetupAttemptPaymentMethodDetailsBancontactPreferr
 }
 
 /// An enum representing the possible values of an `SetupAttemptPaymentMethodDetailsIdeal`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupAttemptPaymentMethodDetailsIdealBank {
     AbnAmro,
@@ -452,7 +452,7 @@ impl std::default::Default for SetupAttemptPaymentMethodDetailsIdealBank {
 }
 
 /// An enum representing the possible values of an `SetupAttemptPaymentMethodDetailsIdeal`'s `bic` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupAttemptPaymentMethodDetailsIdealBic {
     #[serde(rename = "ABNANL2A")]
@@ -521,7 +521,7 @@ impl std::default::Default for SetupAttemptPaymentMethodDetailsIdealBic {
 }
 
 /// An enum representing the possible values of an `SetupAttemptPaymentMethodDetailsSofort`'s `preferred_language` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupAttemptPaymentMethodDetailsSofortPreferredLanguage {
     De,

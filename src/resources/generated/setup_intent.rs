@@ -1900,7 +1900,7 @@ pub struct UpdateSetupIntentPaymentMethodOptionsUsBankAccountNetworks {
 }
 
 /// An enum representing the possible values of an `CreateSetupIntent`'s `flow_directions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentFlowDirections {
     Inbound,
@@ -1934,7 +1934,7 @@ impl std::default::Default for CreateSetupIntentFlowDirections {
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentMandateDataCustomerAcceptance`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentMandateDataCustomerAcceptanceType {
     Offline,
@@ -1968,7 +1968,7 @@ impl std::default::Default for CreateSetupIntentMandateDataCustomerAcceptanceTyp
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodDataEps`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodDataEpsBank {
     ArzteUndApothekerBank,
@@ -2080,7 +2080,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodDataEpsBank {
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodDataFpx`'s `account_holder_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodDataFpxAccountHolderType {
     Company,
@@ -2114,7 +2114,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodDataFpxAccountHolde
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodDataFpx`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodDataFpxBank {
     AffinBank,
@@ -2188,7 +2188,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodDataFpxBank {
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodDataIdeal`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodDataIdealBank {
     AbnAmro,
@@ -2244,7 +2244,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodDataIdealBank {
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodDataP24`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodDataP24Bank {
     AliorBank,
@@ -2328,7 +2328,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodDataP24Bank {
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodDataSofort`'s `country` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodDataSofortCountry {
     #[serde(rename = "AT")]
@@ -2376,7 +2376,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodDataSofortCountry {
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodData`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodDataType {
     AcssDebit,
@@ -2460,7 +2460,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodDataType {
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodDataUsBankAccount`'s `account_holder_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodDataUsBankAccountAccountHolderType {
     Company,
@@ -2496,7 +2496,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodDataUsBankAccountAc
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodDataUsBankAccount`'s `account_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodDataUsBankAccountAccountType {
     Checking,
@@ -2530,7 +2530,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodDataUsBankAccountAc
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsAcssDebitMandateOptions`'s `default_for` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsAcssDebitMandateOptionsDefaultFor {
     Invoice,
@@ -2566,7 +2566,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsAcssDebitMandateOptions`'s `payment_schedule` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsAcssDebitMandateOptionsPaymentSchedule {
     Combined,
@@ -2606,7 +2606,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsAcssDebitMandateOptions`'s `transaction_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsAcssDebitMandateOptionsTransactionType {
     Business,
@@ -2644,7 +2644,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsAcssDebit`'s `verification_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsAcssDebitVerificationMethod {
     Automatic,
@@ -2684,7 +2684,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodOptionsAcssDebitVer
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsCardMandateOptions`'s `amount_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsCardMandateOptionsAmountType {
     Fixed,
@@ -2718,7 +2718,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodOptionsCardMandateO
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsCardMandateOptions`'s `interval` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsCardMandateOptionsInterval {
     Day,
@@ -2758,7 +2758,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodOptionsCardMandateO
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsCardMandateOptions`'s `supported_types` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsCardMandateOptionsSupportedTypes {
     India,
@@ -2792,7 +2792,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsCard`'s `network` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsCardNetwork {
     Amex,
@@ -2842,7 +2842,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodOptionsCardNetwork 
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsCard`'s `request_three_d_secure` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsCardRequestThreeDSecure {
     Any,
@@ -2876,7 +2876,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodOptionsCardRequestT
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsUsBankAccountFinancialConnections`'s `permissions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsUsBankAccountFinancialConnectionsPermissions {
     Balances,
@@ -2920,7 +2920,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsUsBankAccountNetworks`'s `requested` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsUsBankAccountNetworksRequested {
     Ach,
@@ -2956,7 +2956,7 @@ impl std::default::Default for CreateSetupIntentPaymentMethodOptionsUsBankAccoun
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsUsBankAccount`'s `verification_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsUsBankAccountVerificationMethod {
     Automatic,
@@ -3000,7 +3000,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `SetupIntent`'s `cancellation_reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentCancellationReason {
     Abandoned,
@@ -3036,7 +3036,7 @@ impl std::default::Default for SetupIntentCancellationReason {
 }
 
 /// An enum representing the possible values of an `SetupIntent`'s `flow_directions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentFlowDirections {
     Inbound,
@@ -3070,7 +3070,7 @@ impl std::default::Default for SetupIntentFlowDirections {
 }
 
 /// An enum representing the possible values of an `SetupIntentNextActionVerifyWithMicrodeposits`'s `microdeposit_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentNextActionVerifyWithMicrodepositsMicrodepositType {
     Amounts,
@@ -3106,7 +3106,7 @@ impl std::default::Default for SetupIntentNextActionVerifyWithMicrodepositsMicro
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsAcssDebit`'s `verification_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsAcssDebitVerificationMethod {
     Automatic,
@@ -3144,7 +3144,7 @@ impl std::default::Default for SetupIntentPaymentMethodOptionsAcssDebitVerificat
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsCardMandateOptions`'s `amount_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsCardMandateOptionsAmountType {
     Fixed,
@@ -3178,7 +3178,7 @@ impl std::default::Default for SetupIntentPaymentMethodOptionsCardMandateOptions
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsCardMandateOptions`'s `interval` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsCardMandateOptionsInterval {
     Day,
@@ -3218,7 +3218,7 @@ impl std::default::Default for SetupIntentPaymentMethodOptionsCardMandateOptions
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsCardMandateOptions`'s `supported_types` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsCardMandateOptionsSupportedTypes {
     India,
@@ -3250,7 +3250,7 @@ impl std::default::Default for SetupIntentPaymentMethodOptionsCardMandateOptions
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsCard`'s `network` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsCardNetwork {
     Amex,
@@ -3300,7 +3300,7 @@ impl std::default::Default for SetupIntentPaymentMethodOptionsCardNetwork {
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsCard`'s `request_three_d_secure` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsCardRequestThreeDSecure {
     Any,
@@ -3338,7 +3338,7 @@ impl std::default::Default for SetupIntentPaymentMethodOptionsCardRequestThreeDS
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsMandateOptionsAcssDebit`'s `default_for` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsMandateOptionsAcssDebitDefaultFor {
     Invoice,
@@ -3374,7 +3374,7 @@ impl std::default::Default for SetupIntentPaymentMethodOptionsMandateOptionsAcss
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsMandateOptionsAcssDebit`'s `payment_schedule` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsMandateOptionsAcssDebitPaymentSchedule {
     Combined,
@@ -3418,7 +3418,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsMandateOptionsAcssDebit`'s `transaction_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsMandateOptionsAcssDebitTransactionType {
     Business,
@@ -3458,7 +3458,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsMandateOptionsBlik`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsMandateOptionsBlikType {
     OffSession,
@@ -3492,7 +3492,7 @@ impl std::default::Default for SetupIntentPaymentMethodOptionsMandateOptionsBlik
 }
 
 /// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsUsBankAccount`'s `verification_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentPaymentMethodOptionsUsBankAccountVerificationMethod {
     Automatic,
@@ -3532,7 +3532,7 @@ impl std::default::Default for SetupIntentPaymentMethodOptionsUsBankAccountVerif
 }
 
 /// An enum representing the possible values of an `SetupIntent`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum SetupIntentStatus {
     Canceled,
@@ -3574,7 +3574,7 @@ impl std::default::Default for SetupIntentStatus {
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntent`'s `flow_directions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentFlowDirections {
     Inbound,
@@ -3608,7 +3608,7 @@ impl std::default::Default for UpdateSetupIntentFlowDirections {
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodDataEps`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodDataEpsBank {
     ArzteUndApothekerBank,
@@ -3720,7 +3720,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodDataEpsBank {
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodDataFpx`'s `account_holder_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodDataFpxAccountHolderType {
     Company,
@@ -3754,7 +3754,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodDataFpxAccountHolde
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodDataFpx`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodDataFpxBank {
     AffinBank,
@@ -3828,7 +3828,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodDataFpxBank {
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodDataIdeal`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodDataIdealBank {
     AbnAmro,
@@ -3884,7 +3884,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodDataIdealBank {
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodDataP24`'s `bank` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodDataP24Bank {
     AliorBank,
@@ -3968,7 +3968,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodDataP24Bank {
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodDataSofort`'s `country` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodDataSofortCountry {
     #[serde(rename = "AT")]
@@ -4016,7 +4016,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodDataSofortCountry {
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodData`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodDataType {
     AcssDebit,
@@ -4100,7 +4100,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodDataType {
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodDataUsBankAccount`'s `account_holder_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodDataUsBankAccountAccountHolderType {
     Company,
@@ -4136,7 +4136,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodDataUsBankAccountAc
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodDataUsBankAccount`'s `account_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodDataUsBankAccountAccountType {
     Checking,
@@ -4170,7 +4170,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodDataUsBankAccountAc
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsAcssDebitMandateOptions`'s `default_for` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsAcssDebitMandateOptionsDefaultFor {
     Invoice,
@@ -4206,7 +4206,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsAcssDebitMandateOptions`'s `payment_schedule` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsAcssDebitMandateOptionsPaymentSchedule {
     Combined,
@@ -4246,7 +4246,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsAcssDebitMandateOptions`'s `transaction_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsAcssDebitMandateOptionsTransactionType {
     Business,
@@ -4284,7 +4284,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsAcssDebit`'s `verification_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsAcssDebitVerificationMethod {
     Automatic,
@@ -4324,7 +4324,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodOptionsAcssDebitVer
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsCardMandateOptions`'s `amount_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsCardMandateOptionsAmountType {
     Fixed,
@@ -4358,7 +4358,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodOptionsCardMandateO
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsCardMandateOptions`'s `interval` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsCardMandateOptionsInterval {
     Day,
@@ -4398,7 +4398,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodOptionsCardMandateO
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsCardMandateOptions`'s `supported_types` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsCardMandateOptionsSupportedTypes {
     India,
@@ -4432,7 +4432,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsCard`'s `network` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsCardNetwork {
     Amex,
@@ -4482,7 +4482,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodOptionsCardNetwork 
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsCard`'s `request_three_d_secure` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsCardRequestThreeDSecure {
     Any,
@@ -4516,7 +4516,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodOptionsCardRequestT
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsUsBankAccountFinancialConnections`'s `permissions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsUsBankAccountFinancialConnectionsPermissions {
     Balances,
@@ -4560,7 +4560,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsUsBankAccountNetworks`'s `requested` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsUsBankAccountNetworksRequested {
     Ach,
@@ -4596,7 +4596,7 @@ impl std::default::Default for UpdateSetupIntentPaymentMethodOptionsUsBankAccoun
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsUsBankAccount`'s `verification_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsUsBankAccountVerificationMethod {
     Automatic,

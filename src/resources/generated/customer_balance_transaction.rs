@@ -76,7 +76,7 @@ impl Object for CustomerBalanceTransaction {
 }
 
 /// An enum representing the possible values of an `CustomerBalanceTransaction`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CustomerBalanceTransactionType {
     Adjustment,

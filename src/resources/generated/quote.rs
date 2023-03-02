@@ -354,7 +354,7 @@ impl Paginable for ListQuotes<'_> {
     }
 }
 /// An enum representing the possible values of an `Quote`'s `collection_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum QuoteCollectionMethod {
     ChargeAutomatically,
@@ -388,7 +388,7 @@ impl std::default::Default for QuoteCollectionMethod {
 }
 
 /// An enum representing the possible values of an `Quote`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum QuoteStatus {
     Accepted,
@@ -426,7 +426,7 @@ impl std::default::Default for QuoteStatus {
 }
 
 /// An enum representing the possible values of an `QuotesResourceAutomaticTax`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum QuotesResourceAutomaticTaxStatus {
     Complete,
@@ -462,7 +462,7 @@ impl std::default::Default for QuotesResourceAutomaticTaxStatus {
 }
 
 /// An enum representing the possible values of an `QuotesResourceRecurring`'s `interval` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum QuotesResourceRecurringInterval {
     Day,

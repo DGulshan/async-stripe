@@ -140,7 +140,7 @@ pub struct FundingInstructionsBankTransferZenginRecord {
 }
 
 /// An enum representing the possible values of an `FundingInstructionsBankTransferFinancialAddress`'s `supported_networks` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum FundingInstructionsBankTransferFinancialAddressSupportedNetworks {
     Bacs,
@@ -180,7 +180,7 @@ impl std::default::Default for FundingInstructionsBankTransferFinancialAddressSu
 }
 
 /// An enum representing the possible values of an `FundingInstructionsBankTransferFinancialAddress`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum FundingInstructionsBankTransferFinancialAddressType {
     Iban,
@@ -218,7 +218,7 @@ impl std::default::Default for FundingInstructionsBankTransferFinancialAddressTy
 }
 
 /// An enum representing the possible values of an `FundingInstructionsBankTransfer`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum FundingInstructionsBankTransferType {
     EuBankTransfer,
@@ -252,7 +252,7 @@ impl std::default::Default for FundingInstructionsBankTransferType {
 }
 
 /// An enum representing the possible values of an `FundingInstructions`'s `funding_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum FundingInstructionsFundingType {
     BankTransfer,

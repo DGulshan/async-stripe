@@ -110,7 +110,7 @@ impl Object for BankAccount {
 }
 
 /// An enum representing the possible values of an `BankAccount`'s `available_payout_methods` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum BankAccountAvailablePayoutMethods {
     Instant,

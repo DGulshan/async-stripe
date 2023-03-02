@@ -795,7 +795,7 @@ pub struct UpdateCustomerShippingAddress {
 }
 
 /// An enum representing the possible values of an `CreateCustomerCashBalanceSettings`'s `reconciliation_mode` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCustomerCashBalanceSettingsReconciliationMode {
     Automatic,
@@ -833,7 +833,7 @@ impl std::default::Default for CreateCustomerCashBalanceSettingsReconciliationMo
 }
 
 /// An enum representing the possible values of an `CustomerInvoiceSettingsRenderingOptions`'s `amount_tax_display` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CustomerInvoiceSettingsRenderingOptionsAmountTaxDisplay {
     ExcludeTax,
@@ -869,7 +869,7 @@ impl std::default::Default for CustomerInvoiceSettingsRenderingOptionsAmountTaxD
 }
 
 /// An enum representing the possible values of an `CustomerTax`'s `automatic_tax` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CustomerTaxAutomaticTax {
     Failed,
@@ -907,7 +907,7 @@ impl std::default::Default for CustomerTaxAutomaticTax {
 }
 
 /// An enum representing the possible values of an `Customer`'s `tax_exempt` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CustomerTaxExempt {
     Exempt,
@@ -943,7 +943,7 @@ impl std::default::Default for CustomerTaxExempt {
 }
 
 /// An enum representing the possible values of an `CreateCustomer`'s `tax_exempt` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CustomerTaxExemptFilter {
     Exempt,
@@ -979,7 +979,7 @@ impl std::default::Default for CustomerTaxExemptFilter {
 }
 
 /// An enum representing the possible values of an `CustomerTaxLocation`'s `source` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CustomerTaxLocationSource {
     BillingAddress,
@@ -1017,7 +1017,7 @@ impl std::default::Default for CustomerTaxLocationSource {
 }
 
 /// An enum representing the possible values of an `TaxIdData`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum TaxIdType {
     AeTrn,
@@ -1149,7 +1149,7 @@ impl std::default::Default for TaxIdType {
 }
 
 /// An enum representing the possible values of an `UpdateCustomerCashBalanceSettings`'s `reconciliation_mode` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateCustomerCashBalanceSettingsReconciliationMode {
     Automatic,

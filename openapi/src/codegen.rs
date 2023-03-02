@@ -718,7 +718,7 @@ pub fn gen_enums(out: &mut String, enums: &BTreeMap<String, InferredEnum>, meta:
             "/// An enum representing the possible values of an `{}`'s `{}` field.\n",
             enum_.parent, enum_.field
         ));
-        out.push_str("#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]\n");
+        out.push_str("#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]\n");
         out.push_str("#[serde(rename_all = \"snake_case\")]\n");
         out.push_str("pub enum ");
         out.push_str(enum_name);
@@ -770,7 +770,7 @@ pub fn gen_enums(out: &mut String, enums: &BTreeMap<String, InferredEnum>, meta:
                 self.as_str()
             }}
         }}
-        
+
         impl std::fmt::Display for {enum_name} {{
             fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {{
                 self.as_str().fmt(f)

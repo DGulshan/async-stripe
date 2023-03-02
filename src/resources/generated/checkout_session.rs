@@ -2504,7 +2504,7 @@ pub struct CreateCheckoutSessionShippingOptionsShippingRateDataFixedAmountCurren
 }
 
 /// An enum representing the possible values of an `CheckoutAcssDebitMandateOptions`'s `default_for` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutAcssDebitMandateOptionsDefaultFor {
     Invoice,
@@ -2538,7 +2538,7 @@ impl std::default::Default for CheckoutAcssDebitMandateOptionsDefaultFor {
 }
 
 /// An enum representing the possible values of an `CheckoutAcssDebitMandateOptions`'s `payment_schedule` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutAcssDebitMandateOptionsPaymentSchedule {
     Combined,
@@ -2574,7 +2574,7 @@ impl std::default::Default for CheckoutAcssDebitMandateOptionsPaymentSchedule {
 }
 
 /// An enum representing the possible values of an `CheckoutAcssDebitMandateOptions`'s `transaction_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutAcssDebitMandateOptionsTransactionType {
     Business,
@@ -2608,7 +2608,7 @@ impl std::default::Default for CheckoutAcssDebitMandateOptionsTransactionType {
 }
 
 /// An enum representing the possible values of an `CheckoutAcssDebitPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutAcssDebitPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -2644,7 +2644,7 @@ impl std::default::Default for CheckoutAcssDebitPaymentMethodOptionsSetupFutureU
 }
 
 /// An enum representing the possible values of an `CheckoutAcssDebitPaymentMethodOptions`'s `verification_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutAcssDebitPaymentMethodOptionsVerificationMethod {
     Automatic,
@@ -2682,7 +2682,7 @@ impl std::default::Default for CheckoutAcssDebitPaymentMethodOptionsVerification
 }
 
 /// An enum representing the possible values of an `CheckoutAffirmPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutAffirmPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -2714,7 +2714,7 @@ impl std::default::Default for CheckoutAffirmPaymentMethodOptionsSetupFutureUsag
 }
 
 /// An enum representing the possible values of an `CheckoutAfterpayClearpayPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutAfterpayClearpayPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -2746,7 +2746,7 @@ impl std::default::Default for CheckoutAfterpayClearpayPaymentMethodOptionsSetup
 }
 
 /// An enum representing the possible values of an `CheckoutAlipayPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutAlipayPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -2778,7 +2778,7 @@ impl std::default::Default for CheckoutAlipayPaymentMethodOptionsSetupFutureUsag
 }
 
 /// An enum representing the possible values of an `CheckoutAuBecsDebitPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutAuBecsDebitPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -2810,7 +2810,7 @@ impl std::default::Default for CheckoutAuBecsDebitPaymentMethodOptionsSetupFutur
 }
 
 /// An enum representing the possible values of an `CheckoutBacsDebitPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutBacsDebitPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -2846,7 +2846,7 @@ impl std::default::Default for CheckoutBacsDebitPaymentMethodOptionsSetupFutureU
 }
 
 /// An enum representing the possible values of an `CheckoutBancontactPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutBancontactPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -2878,7 +2878,7 @@ impl std::default::Default for CheckoutBancontactPaymentMethodOptionsSetupFuture
 }
 
 /// An enum representing the possible values of an `CheckoutBoletoPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutBoletoPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -2914,7 +2914,7 @@ impl std::default::Default for CheckoutBoletoPaymentMethodOptionsSetupFutureUsag
 }
 
 /// An enum representing the possible values of an `CheckoutCardPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutCardPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -2950,7 +2950,7 @@ impl std::default::Default for CheckoutCardPaymentMethodOptionsSetupFutureUsage 
 }
 
 /// An enum representing the possible values of an `CheckoutCustomerBalanceBankTransferPaymentMethodOptions`'s `requested_address_types` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutCustomerBalanceBankTransferPaymentMethodOptionsRequestedAddressTypes {
     Iban,
@@ -2994,7 +2994,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CheckoutCustomerBalanceBankTransferPaymentMethodOptions`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutCustomerBalanceBankTransferPaymentMethodOptionsType {
     EuBankTransfer,
@@ -3040,7 +3040,7 @@ impl std::default::Default for CheckoutCustomerBalanceBankTransferPaymentMethodO
 }
 
 /// An enum representing the possible values of an `CheckoutCustomerBalancePaymentMethodOptions`'s `funding_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutCustomerBalancePaymentMethodOptionsFundingType {
     BankTransfer,
@@ -3072,7 +3072,7 @@ impl std::default::Default for CheckoutCustomerBalancePaymentMethodOptionsFundin
 }
 
 /// An enum representing the possible values of an `CheckoutCustomerBalancePaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutCustomerBalancePaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3104,7 +3104,7 @@ impl std::default::Default for CheckoutCustomerBalancePaymentMethodOptionsSetupF
 }
 
 /// An enum representing the possible values of an `CheckoutEpsPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutEpsPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3136,7 +3136,7 @@ impl std::default::Default for CheckoutEpsPaymentMethodOptionsSetupFutureUsage {
 }
 
 /// An enum representing the possible values of an `CheckoutFpxPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutFpxPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3168,7 +3168,7 @@ impl std::default::Default for CheckoutFpxPaymentMethodOptionsSetupFutureUsage {
 }
 
 /// An enum representing the possible values of an `CheckoutGiropayPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutGiropayPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3200,7 +3200,7 @@ impl std::default::Default for CheckoutGiropayPaymentMethodOptionsSetupFutureUsa
 }
 
 /// An enum representing the possible values of an `CheckoutGrabPayPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutGrabPayPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3232,7 +3232,7 @@ impl std::default::Default for CheckoutGrabPayPaymentMethodOptionsSetupFutureUsa
 }
 
 /// An enum representing the possible values of an `CheckoutIdealPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutIdealPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3264,7 +3264,7 @@ impl std::default::Default for CheckoutIdealPaymentMethodOptionsSetupFutureUsage
 }
 
 /// An enum representing the possible values of an `CheckoutKlarnaPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutKlarnaPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3300,7 +3300,7 @@ impl std::default::Default for CheckoutKlarnaPaymentMethodOptionsSetupFutureUsag
 }
 
 /// An enum representing the possible values of an `CheckoutKonbiniPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutKonbiniPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3332,7 +3332,7 @@ impl std::default::Default for CheckoutKonbiniPaymentMethodOptionsSetupFutureUsa
 }
 
 /// An enum representing the possible values of an `CheckoutOxxoPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutOxxoPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3364,7 +3364,7 @@ impl std::default::Default for CheckoutOxxoPaymentMethodOptionsSetupFutureUsage 
 }
 
 /// An enum representing the possible values of an `CheckoutP24PaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutP24PaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3396,7 +3396,7 @@ impl std::default::Default for CheckoutP24PaymentMethodOptionsSetupFutureUsage {
 }
 
 /// An enum representing the possible values of an `CheckoutPaynowPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutPaynowPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3428,7 +3428,7 @@ impl std::default::Default for CheckoutPaynowPaymentMethodOptionsSetupFutureUsag
 }
 
 /// An enum representing the possible values of an `CheckoutSepaDebitPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutSepaDebitPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3464,7 +3464,7 @@ impl std::default::Default for CheckoutSepaDebitPaymentMethodOptionsSetupFutureU
 }
 
 /// An enum representing the possible values of an `CheckoutSession`'s `billing_address_collection` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutSessionBillingAddressCollection {
     Auto,
@@ -3498,7 +3498,7 @@ impl std::default::Default for CheckoutSessionBillingAddressCollection {
 }
 
 /// An enum representing the possible values of an `CheckoutSession`'s `customer_creation` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutSessionCustomerCreation {
     Always,
@@ -3532,7 +3532,7 @@ impl std::default::Default for CheckoutSessionCustomerCreation {
 }
 
 /// An enum representing the possible values of an `CheckoutSession`'s `locale` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutSessionLocale {
     Auto,
@@ -3650,7 +3650,7 @@ impl std::default::Default for CheckoutSessionLocale {
 }
 
 /// An enum representing the possible values of an `CheckoutSession`'s `mode` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutSessionMode {
     Payment,
@@ -3686,7 +3686,7 @@ impl std::default::Default for CheckoutSessionMode {
 }
 
 /// An enum representing the possible values of an `CheckoutSession`'s `payment_method_collection` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutSessionPaymentMethodCollection {
     Always,
@@ -3720,7 +3720,7 @@ impl std::default::Default for CheckoutSessionPaymentMethodCollection {
 }
 
 /// An enum representing the possible values of an `CheckoutSession`'s `payment_status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutSessionPaymentStatus {
     NoPaymentRequired,
@@ -3756,7 +3756,7 @@ impl std::default::Default for CheckoutSessionPaymentStatus {
 }
 
 /// An enum representing the possible values of an `CheckoutSession`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutSessionStatus {
     Complete,
@@ -3792,7 +3792,7 @@ impl std::default::Default for CheckoutSessionStatus {
 }
 
 /// An enum representing the possible values of an `CheckoutSession`'s `submit_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutSessionSubmitType {
     Auto,
@@ -3830,7 +3830,7 @@ impl std::default::Default for CheckoutSessionSubmitType {
 }
 
 /// An enum representing the possible values of an `CheckoutSofortPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutSofortPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3862,7 +3862,7 @@ impl std::default::Default for CheckoutSofortPaymentMethodOptionsSetupFutureUsag
 }
 
 /// An enum representing the possible values of an `CheckoutUsBankAccountPaymentMethodOptions`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutUsBankAccountPaymentMethodOptionsSetupFutureUsage {
     None,
@@ -3898,7 +3898,7 @@ impl std::default::Default for CheckoutUsBankAccountPaymentMethodOptionsSetupFut
 }
 
 /// An enum representing the possible values of an `CheckoutUsBankAccountPaymentMethodOptions`'s `verification_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutUsBankAccountPaymentMethodOptionsVerificationMethod {
     Automatic,
@@ -3932,7 +3932,7 @@ impl std::default::Default for CheckoutUsBankAccountPaymentMethodOptionsVerifica
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionConsentCollection`'s `promotions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionConsentCollectionPromotions {
     Auto,
@@ -3966,7 +3966,7 @@ impl std::default::Default for CreateCheckoutSessionConsentCollectionPromotions 
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionConsentCollection`'s `terms_of_service` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionConsentCollectionTermsOfService {
     None,
@@ -4000,7 +4000,7 @@ impl std::default::Default for CreateCheckoutSessionConsentCollectionTermsOfServ
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionCustomerUpdate`'s `address` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionCustomerUpdateAddress {
     Auto,
@@ -4034,7 +4034,7 @@ impl std::default::Default for CreateCheckoutSessionCustomerUpdateAddress {
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionCustomerUpdate`'s `name` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionCustomerUpdateName {
     Auto,
@@ -4068,7 +4068,7 @@ impl std::default::Default for CreateCheckoutSessionCustomerUpdateName {
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionCustomerUpdate`'s `shipping` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionCustomerUpdateShipping {
     Auto,
@@ -4102,7 +4102,7 @@ impl std::default::Default for CreateCheckoutSessionCustomerUpdateShipping {
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionInvoiceCreationInvoiceDataRenderingOptions`'s `amount_tax_display` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionInvoiceCreationInvoiceDataRenderingOptionsAmountTaxDisplay {
     ExcludeTax,
@@ -4142,7 +4142,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionLineItemsPriceDataRecurring`'s `interval` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionLineItemsPriceDataRecurringInterval {
     Day,
@@ -4180,7 +4180,7 @@ impl std::default::Default for CreateCheckoutSessionLineItemsPriceDataRecurringI
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionLineItemsPriceData`'s `tax_behavior` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionLineItemsPriceDataTaxBehavior {
     Exclusive,
@@ -4216,7 +4216,7 @@ impl std::default::Default for CreateCheckoutSessionLineItemsPriceDataTaxBehavio
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentIntentData`'s `capture_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentIntentDataCaptureMethod {
     Automatic,
@@ -4250,7 +4250,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentIntentDataCaptureMeth
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentIntentData`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentIntentDataSetupFutureUsage {
     OffSession,
@@ -4284,7 +4284,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentIntentDataSetupFuture
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsAcssDebitMandateOptions`'s `default_for` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsAcssDebitMandateOptionsDefaultFor {
     Invoice,
@@ -4322,7 +4322,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsAcssDebitMandateOptions`'s `payment_schedule` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsAcssDebitMandateOptionsPaymentSchedule {
     Combined,
@@ -4364,7 +4364,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsAcssDebitMandateOptions`'s `transaction_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsAcssDebitMandateOptionsTransactionType {
     Business,
@@ -4404,7 +4404,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsAcssDebit`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsAcssDebitSetupFutureUsage {
     None,
@@ -4444,7 +4444,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsAcssDebi
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsAcssDebit`'s `verification_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsAcssDebitVerificationMethod {
     Automatic,
@@ -4488,7 +4488,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsAffirm`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsAffirmSetupFutureUsage {
     None,
@@ -4520,7 +4520,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsAffirmSe
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsAfterpayClearpay`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsAfterpayClearpaySetupFutureUsage {
     None,
@@ -4558,7 +4558,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsAlipay`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsAlipaySetupFutureUsage {
     None,
@@ -4590,7 +4590,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsAlipaySe
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsAuBecsDebit`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsAuBecsDebitSetupFutureUsage {
     None,
@@ -4624,7 +4624,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsBacsDebit`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsBacsDebitSetupFutureUsage {
     None,
@@ -4664,7 +4664,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsBacsDebi
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsBancontact`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsBancontactSetupFutureUsage {
     None,
@@ -4696,7 +4696,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsBanconta
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsBoleto`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsBoletoSetupFutureUsage {
     None,
@@ -4736,7 +4736,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsBoletoSe
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsCard`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsCardSetupFutureUsage {
     OffSession,
@@ -4774,7 +4774,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsCardSetu
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsCustomerBalanceBankTransfer`'s `requested_address_types` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsCustomerBalanceBankTransferRequestedAddressTypes {
     Iban,
@@ -4820,7 +4820,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsCustomerBalanceBankTransfer`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsCustomerBalanceBankTransferType {
     EuBankTransfer,
@@ -4862,7 +4862,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsCustomerBalance`'s `funding_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsCustomerBalanceFundingType {
     BankTransfer,
@@ -4896,7 +4896,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsCustomer
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsCustomerBalance`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsCustomerBalanceSetupFutureUsage {
     None,
@@ -4934,7 +4934,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsEps`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsEpsSetupFutureUsage {
     None,
@@ -4966,7 +4966,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsEpsSetup
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsFpx`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsFpxSetupFutureUsage {
     None,
@@ -4998,7 +4998,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsFpxSetup
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsGiropay`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsGiropaySetupFutureUsage {
     None,
@@ -5030,7 +5030,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsGiropayS
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsGrabpay`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsGrabpaySetupFutureUsage {
     None,
@@ -5062,7 +5062,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsGrabpayS
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsIdeal`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsIdealSetupFutureUsage {
     None,
@@ -5094,7 +5094,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsIdealSet
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsKlarna`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsKlarnaSetupFutureUsage {
     None,
@@ -5126,7 +5126,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsKlarnaSe
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsKonbini`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsKonbiniSetupFutureUsage {
     None,
@@ -5158,7 +5158,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsKonbiniS
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsOxxo`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsOxxoSetupFutureUsage {
     None,
@@ -5190,7 +5190,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsOxxoSetu
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsP24`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsP24SetupFutureUsage {
     None,
@@ -5222,7 +5222,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsP24Setup
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsPaynow`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsPaynowSetupFutureUsage {
     None,
@@ -5254,7 +5254,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsPaynowSe
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsSepaDebit`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsSepaDebitSetupFutureUsage {
     None,
@@ -5294,7 +5294,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsSepaDebi
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsSofort`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsSofortSetupFutureUsage {
     None,
@@ -5326,7 +5326,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsSofortSe
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsUsBankAccountFinancialConnections`'s `permissions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsUsBankAccountFinancialConnectionsPermissions {
     Balances,
@@ -5370,7 +5370,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsUsBankAccount`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsUsBankAccountSetupFutureUsage {
     None,
@@ -5412,7 +5412,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsUsBankAccount`'s `verification_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsUsBankAccountVerificationMethod {
     Automatic,
@@ -5454,7 +5454,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsWechatPay`'s `client` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsWechatPayClient {
     Android,
@@ -5490,7 +5490,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsWechatPa
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionPaymentMethodOptionsWechatPay`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodOptionsWechatPaySetupFutureUsage {
     None,
@@ -5522,7 +5522,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodOptionsWechatPa
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSession`'s `payment_method_types` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionPaymentMethodTypes {
     AcssDebit,
@@ -5606,7 +5606,7 @@ impl std::default::Default for CreateCheckoutSessionPaymentMethodTypes {
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionShippingAddressCollection`'s `allowed_countries` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionShippingAddressCollectionAllowedCountries {
     #[serde(rename = "AC")]
@@ -6347,7 +6347,7 @@ impl std::default::Default for CreateCheckoutSessionShippingAddressCollectionAll
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionShippingOptionsShippingRateDataDeliveryEstimateMaximum`'s `unit` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionShippingOptionsShippingRateDataDeliveryEstimateMaximumUnit {
     BusinessDay,
@@ -6393,7 +6393,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionShippingOptionsShippingRateDataDeliveryEstimateMinimum`'s `unit` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionShippingOptionsShippingRateDataDeliveryEstimateMinimumUnit {
     BusinessDay,
@@ -6439,7 +6439,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionShippingOptionsShippingRateDataFixedAmountCurrencyOptions`'s `tax_behavior` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionShippingOptionsShippingRateDataFixedAmountCurrencyOptionsTaxBehavior {
     Exclusive,
@@ -6481,7 +6481,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionShippingOptionsShippingRateData`'s `tax_behavior` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionShippingOptionsShippingRateDataTaxBehavior {
     Exclusive,
@@ -6523,7 +6523,7 @@ impl std::default::Default for CreateCheckoutSessionShippingOptionsShippingRateD
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionShippingOptionsShippingRateData`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionShippingOptionsShippingRateDataType {
     FixedAmount,
@@ -6555,7 +6555,7 @@ impl std::default::Default for CreateCheckoutSessionShippingOptionsShippingRateD
 }
 
 /// An enum representing the possible values of an `CreateCheckoutSessionSubscriptionDataTrialSettingsEndBehavior`'s `missing_payment_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateCheckoutSessionSubscriptionDataTrialSettingsEndBehaviorMissingPaymentMethod {
     Cancel,
@@ -6597,7 +6597,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `PaymentPagesCheckoutSessionAutomaticTax`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentPagesCheckoutSessionAutomaticTaxStatus {
     Complete,
@@ -6635,7 +6635,7 @@ impl std::default::Default for PaymentPagesCheckoutSessionAutomaticTaxStatus {
 }
 
 /// An enum representing the possible values of an `PaymentPagesCheckoutSessionConsentCollection`'s `promotions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentPagesCheckoutSessionConsentCollectionPromotions {
     Auto,
@@ -6669,7 +6669,7 @@ impl std::default::Default for PaymentPagesCheckoutSessionConsentCollectionPromo
 }
 
 /// An enum representing the possible values of an `PaymentPagesCheckoutSessionConsentCollection`'s `terms_of_service` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentPagesCheckoutSessionConsentCollectionTermsOfService {
     None,
@@ -6703,7 +6703,7 @@ impl std::default::Default for PaymentPagesCheckoutSessionConsentCollectionTerms
 }
 
 /// An enum representing the possible values of an `PaymentPagesCheckoutSessionConsent`'s `promotions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentPagesCheckoutSessionConsentPromotions {
     OptIn,
@@ -6737,7 +6737,7 @@ impl std::default::Default for PaymentPagesCheckoutSessionConsentPromotions {
 }
 
 /// An enum representing the possible values of an `PaymentPagesCheckoutSessionConsent`'s `terms_of_service` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentPagesCheckoutSessionConsentTermsOfService {
     Accepted,
@@ -6769,7 +6769,7 @@ impl std::default::Default for PaymentPagesCheckoutSessionConsentTermsOfService 
 }
 
 /// An enum representing the possible values of an `PaymentPagesCheckoutSessionCustomerDetails`'s `tax_exempt` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentPagesCheckoutSessionCustomerDetailsTaxExempt {
     Exempt,
@@ -6805,7 +6805,7 @@ impl std::default::Default for PaymentPagesCheckoutSessionCustomerDetailsTaxExem
 }
 
 /// An enum representing the possible values of an `PaymentPagesCheckoutSessionShippingAddressCollection`'s `allowed_countries` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentPagesCheckoutSessionShippingAddressCollectionAllowedCountries {
     #[serde(rename = "AC")]
@@ -7548,7 +7548,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `PaymentPagesCheckoutSessionTaxId`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentPagesCheckoutSessionTaxIdType {
     AeTrn,

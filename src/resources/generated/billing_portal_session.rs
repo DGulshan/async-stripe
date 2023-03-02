@@ -218,7 +218,7 @@ pub struct CreateBillingPortalSessionFlowDataAfterCompletionRedirect {
 }
 
 /// An enum representing the possible values of an `BillingPortalSession`'s `locale` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum BillingPortalSessionLocale {
     Auto,
@@ -354,7 +354,7 @@ impl std::default::Default for BillingPortalSessionLocale {
 }
 
 /// An enum representing the possible values of an `CreateBillingPortalSessionFlowDataAfterCompletion`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateBillingPortalSessionFlowDataAfterCompletionType {
     HostedConfirmation,
@@ -394,7 +394,7 @@ impl std::default::Default for CreateBillingPortalSessionFlowDataAfterCompletion
 }
 
 /// An enum representing the possible values of an `CreateBillingPortalSessionFlowData`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateBillingPortalSessionFlowDataType {
     PaymentMethodUpdate,
@@ -428,7 +428,7 @@ impl std::default::Default for CreateBillingPortalSessionFlowDataType {
 }
 
 /// An enum representing the possible values of an `PortalFlowsFlowAfterCompletion`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PortalFlowsFlowAfterCompletionType {
     HostedConfirmation,
@@ -464,7 +464,7 @@ impl std::default::Default for PortalFlowsFlowAfterCompletionType {
 }
 
 /// An enum representing the possible values of an `PortalFlowsFlow`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PortalFlowsFlowType {
     PaymentMethodUpdate,

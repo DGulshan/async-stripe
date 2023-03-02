@@ -228,7 +228,7 @@ pub struct IssuingCardGooglePay {
 }
 
 /// An enum representing the possible values of an `IssuingCardApplePay`'s `ineligible_reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardApplePayIneligibleReason {
     MissingAgreement,
@@ -266,7 +266,7 @@ impl std::default::Default for IssuingCardApplePayIneligibleReason {
 }
 
 /// An enum representing the possible values of an `IssuingCard`'s `cancellation_reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardCancellationReason {
     DesignRejected,
@@ -302,7 +302,7 @@ impl std::default::Default for IssuingCardCancellationReason {
 }
 
 /// An enum representing the possible values of an `IssuingCardGooglePay`'s `ineligible_reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardGooglePayIneligibleReason {
     MissingAgreement,
@@ -340,7 +340,7 @@ impl std::default::Default for IssuingCardGooglePayIneligibleReason {
 }
 
 /// An enum representing the possible values of an `IssuingCard`'s `replacement_reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardReplacementReason {
     Damaged,
@@ -378,7 +378,7 @@ impl std::default::Default for IssuingCardReplacementReason {
 }
 
 /// An enum representing the possible values of an `IssuingCardShipping`'s `carrier` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardShippingCarrier {
     Dhl,
@@ -416,7 +416,7 @@ impl std::default::Default for IssuingCardShippingCarrier {
 }
 
 /// An enum representing the possible values of an `IssuingCardShipping`'s `service` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardShippingService {
     Express,
@@ -452,7 +452,7 @@ impl std::default::Default for IssuingCardShippingService {
 }
 
 /// An enum representing the possible values of an `IssuingCardSpendingLimit`'s `categories` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardSpendingLimitCategories {
     AcRefrigerationRepair,
@@ -1060,7 +1060,7 @@ impl std::default::Default for IssuingCardSpendingLimitCategories {
 }
 
 /// An enum representing the possible values of an `IssuingCardSpendingLimit`'s `interval` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardSpendingLimitInterval {
     AllTime,
@@ -1102,7 +1102,7 @@ impl std::default::Default for IssuingCardSpendingLimitInterval {
 }
 
 /// An enum representing the possible values of an `IssuingCard`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardStatus {
     Active,

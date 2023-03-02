@@ -414,7 +414,7 @@ pub struct UpdateShippingRateFixedAmountCurrencyOptions {
 }
 
 /// An enum representing the possible values of an `CreateShippingRateDeliveryEstimateMaximum`'s `unit` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateShippingRateDeliveryEstimateMaximumUnit {
     BusinessDay,
@@ -454,7 +454,7 @@ impl std::default::Default for CreateShippingRateDeliveryEstimateMaximumUnit {
 }
 
 /// An enum representing the possible values of an `CreateShippingRateDeliveryEstimateMinimum`'s `unit` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateShippingRateDeliveryEstimateMinimumUnit {
     BusinessDay,
@@ -494,7 +494,7 @@ impl std::default::Default for CreateShippingRateDeliveryEstimateMinimumUnit {
 }
 
 /// An enum representing the possible values of an `CreateShippingRateFixedAmountCurrencyOptions`'s `tax_behavior` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateShippingRateFixedAmountCurrencyOptionsTaxBehavior {
     Exclusive,
@@ -530,7 +530,7 @@ impl std::default::Default for CreateShippingRateFixedAmountCurrencyOptionsTaxBe
 }
 
 /// An enum representing the possible values of an `ShippingRateCurrencyOption`'s `tax_behavior` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ShippingRateCurrencyOptionTaxBehavior {
     Exclusive,
@@ -566,7 +566,7 @@ impl std::default::Default for ShippingRateCurrencyOptionTaxBehavior {
 }
 
 /// An enum representing the possible values of an `ShippingRateDeliveryEstimateBound`'s `unit` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ShippingRateDeliveryEstimateBoundUnit {
     BusinessDay,
@@ -606,7 +606,7 @@ impl std::default::Default for ShippingRateDeliveryEstimateBoundUnit {
 }
 
 /// An enum representing the possible values of an `ShippingRate`'s `tax_behavior` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ShippingRateTaxBehavior {
     Exclusive,
@@ -642,7 +642,7 @@ impl std::default::Default for ShippingRateTaxBehavior {
 }
 
 /// An enum representing the possible values of an `ShippingRate`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ShippingRateType {
     FixedAmount,
@@ -674,7 +674,7 @@ impl std::default::Default for ShippingRateType {
 }
 
 /// An enum representing the possible values of an `UpdateShippingRateFixedAmountCurrencyOptions`'s `tax_behavior` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateShippingRateFixedAmountCurrencyOptionsTaxBehavior {
     Exclusive,

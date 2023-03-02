@@ -267,7 +267,7 @@ pub struct GelatoReportIdNumberOptions {
 }
 
 /// An enum representing the possible values of an `GelatoDocumentReportError`'s `code` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoDocumentReportErrorCode {
     DocumentExpired,
@@ -303,7 +303,7 @@ impl std::default::Default for GelatoDocumentReportErrorCode {
 }
 
 /// An enum representing the possible values of an `GelatoDocumentReport`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoDocumentReportStatus {
     Unverified,
@@ -337,7 +337,7 @@ impl std::default::Default for GelatoDocumentReportStatus {
 }
 
 /// An enum representing the possible values of an `GelatoDocumentReport`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoDocumentReportType {
     DrivingLicense,
@@ -373,7 +373,7 @@ impl std::default::Default for GelatoDocumentReportType {
 }
 
 /// An enum representing the possible values of an `GelatoIdNumberReportError`'s `code` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoIdNumberReportErrorCode {
     IdNumberInsufficientDocumentData,
@@ -409,7 +409,7 @@ impl std::default::Default for GelatoIdNumberReportErrorCode {
 }
 
 /// An enum representing the possible values of an `GelatoIdNumberReport`'s `id_number_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoIdNumberReportIdNumberType {
     BrCpf,
@@ -445,7 +445,7 @@ impl std::default::Default for GelatoIdNumberReportIdNumberType {
 }
 
 /// An enum representing the possible values of an `GelatoIdNumberReport`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoIdNumberReportStatus {
     Unverified,
@@ -479,7 +479,7 @@ impl std::default::Default for GelatoIdNumberReportStatus {
 }
 
 /// An enum representing the possible values of an `GelatoReportDocumentOptions`'s `allowed_types` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoReportDocumentOptionsAllowedTypes {
     DrivingLicense,
@@ -515,7 +515,7 @@ impl std::default::Default for GelatoReportDocumentOptionsAllowedTypes {
 }
 
 /// An enum representing the possible values of an `GelatoSelfieReportError`'s `code` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoSelfieReportErrorCode {
     SelfieDocumentMissingPhoto,
@@ -553,7 +553,7 @@ impl std::default::Default for GelatoSelfieReportErrorCode {
 }
 
 /// An enum representing the possible values of an `GelatoSelfieReport`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoSelfieReportStatus {
     Unverified,
@@ -587,7 +587,7 @@ impl std::default::Default for GelatoSelfieReportStatus {
 }
 
 /// An enum representing the possible values of an `IdentityVerificationReport`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IdentityVerificationReportType {
     Document,

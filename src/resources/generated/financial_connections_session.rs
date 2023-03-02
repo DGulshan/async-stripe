@@ -135,7 +135,7 @@ pub struct CreateFinancialConnectionsSessionFilters {
 }
 
 /// An enum representing the possible values of an `CreateFinancialConnectionsSessionAccountHolder`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateFinancialConnectionsSessionAccountHolderType {
     Account,
@@ -169,7 +169,7 @@ impl std::default::Default for CreateFinancialConnectionsSessionAccountHolderTyp
 }
 
 /// An enum representing the possible values of an `CreateFinancialConnectionsSession`'s `permissions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateFinancialConnectionsSessionPermissions {
     Balances,
@@ -207,7 +207,7 @@ impl std::default::Default for CreateFinancialConnectionsSessionPermissions {
 }
 
 /// An enum representing the possible values of an `FinancialConnectionsSession`'s `permissions` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum FinancialConnectionsSessionPermissions {
     Balances,

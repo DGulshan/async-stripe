@@ -129,7 +129,7 @@ pub struct CustomerBalanceResourceCashBalanceTransactionResourceUnappliedFromPay
 }
 
 /// An enum representing the possible values of an `CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransfer`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferType {
     EuBankTransfer,
@@ -167,7 +167,7 @@ impl std::default::Default for CustomerBalanceResourceCashBalanceTransactionReso
 }
 
 /// An enum representing the possible values of an `CustomerCashBalanceTransaction`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CustomerCashBalanceTransactionType {
     AppliedToPayment,

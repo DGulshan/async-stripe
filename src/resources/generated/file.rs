@@ -132,7 +132,7 @@ impl Paginable for ListFiles<'_> {
     }
 }
 /// An enum representing the possible values of an `ListFiles`'s `purpose` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum FilePurpose {
     AccountRequirement,

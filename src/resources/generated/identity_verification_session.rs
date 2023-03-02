@@ -172,7 +172,7 @@ pub struct VerificationSessionRedaction {
 }
 
 /// An enum representing the possible values of an `GelatoSessionDocumentOptions`'s `allowed_types` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoSessionDocumentOptionsAllowedTypes {
     DrivingLicense,
@@ -208,7 +208,7 @@ impl std::default::Default for GelatoSessionDocumentOptionsAllowedTypes {
 }
 
 /// An enum representing the possible values of an `GelatoSessionLastError`'s `code` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoSessionLastErrorCode {
     Abandoned,
@@ -268,7 +268,7 @@ impl std::default::Default for GelatoSessionLastErrorCode {
 }
 
 /// An enum representing the possible values of an `GelatoVerifiedOutputs`'s `id_number_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum GelatoVerifiedOutputsIdNumberType {
     BrCpf,
@@ -304,7 +304,7 @@ impl std::default::Default for GelatoVerifiedOutputsIdNumberType {
 }
 
 /// An enum representing the possible values of an `IdentityVerificationSession`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IdentityVerificationSessionStatus {
     Canceled,
@@ -342,7 +342,7 @@ impl std::default::Default for IdentityVerificationSessionStatus {
 }
 
 /// An enum representing the possible values of an `IdentityVerificationSession`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IdentityVerificationSessionType {
     Document,
@@ -376,7 +376,7 @@ impl std::default::Default for IdentityVerificationSessionType {
 }
 
 /// An enum representing the possible values of an `VerificationSessionRedaction`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum VerificationSessionRedactionStatus {
     Processing,

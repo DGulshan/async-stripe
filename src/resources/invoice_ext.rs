@@ -8,8 +8,6 @@ use crate::resources::{CollectionMethod, Invoice};
 #[deprecated(since = "0.12.0")]
 pub type InvoiceCollectionMethod = CollectionMethod;
 
-
-
 impl Invoice {
     /// Retrieves the details of an upcoming invoice_id
     ///
@@ -28,7 +26,11 @@ impl Invoice {
     /// Finalize an invoice.
     ///
     /// For more details see https://stripe.com/docs/api/invoices/finalize
-    pub fn finalize(client: &Client, invoice_id: &InvoiceId, params: FinalizeInvoice) -> Response<Invoice> {
+    pub fn finalize(
+        client: &Client,
+        invoice_id: &InvoiceId,
+        params: FinalizeInvoice,
+    ) -> Response<Invoice> {
         client.post_form(&format!("/invoices/{}/finalize", &invoice_id), &params)
     }
 }

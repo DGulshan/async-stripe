@@ -200,7 +200,7 @@ pub struct IssuingCardholderIdDocument {
 }
 
 /// An enum representing the possible values of an `IssuingCardholderRequirements`'s `disabled_reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardholderRequirementsDisabledReason {
     Listed,
@@ -237,7 +237,7 @@ impl std::default::Default for IssuingCardholderRequirementsDisabledReason {
 }
 
 /// An enum representing the possible values of an `IssuingCardholderRequirements`'s `past_due` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardholderRequirementsPastDue {
     #[serde(rename = "company.tax_id")]
@@ -290,7 +290,7 @@ impl std::default::Default for IssuingCardholderRequirementsPastDue {
 }
 
 /// An enum representing the possible values of an `IssuingCardholderSpendingLimit`'s `categories` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardholderSpendingLimitCategories {
     AcRefrigerationRepair,
@@ -898,7 +898,7 @@ impl std::default::Default for IssuingCardholderSpendingLimitCategories {
 }
 
 /// An enum representing the possible values of an `IssuingCardholderSpendingLimit`'s `interval` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardholderSpendingLimitInterval {
     AllTime,
@@ -940,7 +940,7 @@ impl std::default::Default for IssuingCardholderSpendingLimitInterval {
 }
 
 /// An enum representing the possible values of an `IssuingCardholder`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardholderStatus {
     Active,
@@ -976,7 +976,7 @@ impl std::default::Default for IssuingCardholderStatus {
 }
 
 /// An enum representing the possible values of an `IssuingCardholder`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum IssuingCardholderType {
     Company,

@@ -208,7 +208,7 @@ pub struct OnlineAcceptance {
 }
 
 /// An enum representing the possible values of an `CustomerAcceptance`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CustomerAcceptanceType {
     Offline,
@@ -242,7 +242,7 @@ impl std::default::Default for CustomerAcceptanceType {
 }
 
 /// An enum representing the possible values of an `MandateAcssDebit`'s `default_for` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum MandateAcssDebitDefaultFor {
     Invoice,
@@ -276,7 +276,7 @@ impl std::default::Default for MandateAcssDebitDefaultFor {
 }
 
 /// An enum representing the possible values of an `MandateAcssDebit`'s `payment_schedule` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum MandateAcssDebitPaymentSchedule {
     Combined,
@@ -312,7 +312,7 @@ impl std::default::Default for MandateAcssDebitPaymentSchedule {
 }
 
 /// An enum representing the possible values of an `MandateAcssDebit`'s `transaction_type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum MandateAcssDebitTransactionType {
     Business,
@@ -346,7 +346,7 @@ impl std::default::Default for MandateAcssDebitTransactionType {
 }
 
 /// An enum representing the possible values of an `MandateBacsDebit`'s `network_status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum MandateBacsDebitNetworkStatus {
     Accepted,
@@ -384,7 +384,7 @@ impl std::default::Default for MandateBacsDebitNetworkStatus {
 }
 
 /// An enum representing the possible values of an `MandateBlik`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum MandateBlikType {
     OffSession,
@@ -418,7 +418,7 @@ impl std::default::Default for MandateBlikType {
 }
 
 /// An enum representing the possible values of an `Mandate`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum MandateStatus {
     Active,
@@ -454,7 +454,7 @@ impl std::default::Default for MandateStatus {
 }
 
 /// An enum representing the possible values of an `Mandate`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum MandateType {
     MultiUse,

@@ -77,7 +77,7 @@ pub struct TaxIdVerification {
 }
 
 /// An enum representing the possible values of an `TaxId`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum TaxIdType {
     AeTrn,
@@ -211,7 +211,7 @@ impl std::default::Default for TaxIdType {
 }
 
 /// An enum representing the possible values of an `TaxIdVerification`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum TaxIdVerificationStatus {
     Pending,

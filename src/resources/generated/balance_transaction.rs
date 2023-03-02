@@ -213,7 +213,7 @@ impl Paginable for ListBalanceTransactions<'_> {
     }
 }
 /// An enum representing the possible values of an `BalanceTransaction`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum BalanceTransactionType {
     Adjustment,

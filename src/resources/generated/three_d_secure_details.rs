@@ -24,7 +24,7 @@ pub struct ThreeDSecureDetails {
 }
 
 /// An enum representing the possible values of an `ThreeDSecureDetails`'s `authentication_flow` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ThreeDSecureDetailsAuthenticationFlow {
     Challenge,
@@ -58,7 +58,7 @@ impl std::default::Default for ThreeDSecureDetailsAuthenticationFlow {
 }
 
 /// An enum representing the possible values of an `ThreeDSecureDetails`'s `result` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ThreeDSecureDetailsResult {
     AttemptAcknowledged,
@@ -100,7 +100,7 @@ impl std::default::Default for ThreeDSecureDetailsResult {
 }
 
 /// An enum representing the possible values of an `ThreeDSecureDetails`'s `result_reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ThreeDSecureDetailsResultReason {
     Abandoned,
@@ -144,7 +144,7 @@ impl std::default::Default for ThreeDSecureDetailsResultReason {
 }
 
 /// An enum representing the possible values of an `ThreeDSecureDetails`'s `version` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ThreeDSecureDetailsVersion {
     #[serde(rename = "1.0.2")]
