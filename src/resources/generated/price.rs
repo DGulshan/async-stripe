@@ -7,7 +7,8 @@ use serde::{Deserialize, Serialize};
 use crate::client::{Client, Response};
 use crate::ids::PriceId;
 use crate::params::{
-    Expand, Expandable, IdOrCreate, List, Metadata, Object, Paginable, RangeQuery, Timestamp,
+    CurrencyMap, Expand, Expandable, IdOrCreate, List, Metadata, Object, Paginable, RangeQuery,
+    Timestamp,
 };
 use crate::resources::{CreateProduct, Currency, CustomUnitAmount, Product, UpTo};
 
@@ -47,7 +48,7 @@ pub struct Price {
     ///
     /// Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub currency_options: Option<CurrencyOption>,
+    pub currency_options: Option<CurrencyMap<CurrencyOption>>,
 
     /// When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -70,8 +71,8 @@ pub struct Price {
     /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
     ///
     /// This can be useful for storing additional information about the object in a structured format.
-    #[serde(default)]
-    pub metadata: Metadata,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
 
     /// A brief description of the price, hidden from customers.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -85,8 +86,9 @@ pub struct Price {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub recurring: Option<Recurring>,
 
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -117,13 +119,13 @@ pub struct Price {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<PriceType>,
 
-    /// The unit amount in %s to be charged, represented as a whole integer if possible.
+    /// The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible.
     ///
     /// Only set if `billing_scheme=per_unit`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unit_amount: Option<i64>,
 
-    /// The unit amount in %s to be charged, represented as a decimal string with at most 12 decimal places.
+    /// The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places.
     ///
     /// Only set if `billing_scheme=per_unit`.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -171,8 +173,9 @@ pub struct CurrencyOption {
     /// When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     pub custom_unit_amount: Option<CustomUnitAmount>,
 
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     pub tax_behavior: Option<CurrencyOptionTaxBehavior>,
@@ -184,12 +187,12 @@ pub struct CurrencyOption {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tiers: Option<Vec<PriceTier>>,
 
-    /// The unit amount in %s to be charged, represented as a whole integer if possible.
+    /// The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible.
     ///
     /// Only set if `billing_scheme=per_unit`.
     pub unit_amount: Option<i64>,
 
-    /// The unit amount in %s to be charged, represented as a decimal string with at most 12 decimal places.
+    /// The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places.
     ///
     /// Only set if `billing_scheme=per_unit`.
     pub unit_amount_decimal: Option<String>,
@@ -278,7 +281,7 @@ pub struct CreatePrice<'a> {
     ///
     /// Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub currency_options: Option<CreatePriceCurrencyOptions>,
+    pub currency_options: Option<CurrencyMap<CreatePriceCurrencyOptions>>,
 
     /// When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -318,8 +321,9 @@ pub struct CreatePrice<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub recurring: Option<CreatePriceRecurring>,
 
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -482,7 +486,7 @@ pub struct UpdatePrice<'a> {
     ///
     /// Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub currency_options: Option<UpdatePriceCurrencyOptions>,
+    pub currency_options: Option<CurrencyMap<Option<CurrencyMap<UpdatePriceCurrencyOptions>>>>,
 
     /// Specifies which fields in the response should be expanded.
     #[serde(skip_serializing_if = "Expand::is_empty")]
@@ -506,12 +510,9 @@ pub struct UpdatePrice<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub nickname: Option<&'a str>,
 
-    /// The recurring components of a price such as `interval` and `usage_type`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub recurring: Option<UpdatePriceRecurring>,
-
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -531,7 +532,6 @@ impl<'a> UpdatePrice<'a> {
             lookup_key: Default::default(),
             metadata: Default::default(),
             nickname: Default::default(),
-            recurring: Default::default(),
             tax_behavior: Default::default(),
             transfer_lookup_key: Default::default(),
         }
@@ -544,8 +544,9 @@ pub struct CreatePriceCurrencyOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_unit_amount: Option<CreatePriceCurrencyOptionsCustomUnitAmount>,
 
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -609,8 +610,8 @@ pub struct CreatePriceProductData {
     /// This can be useful for storing additional information about the object in a structured format.
     /// Individual keys can be unset by posting an empty value to them.
     /// All keys can be unset by posting an empty value to `metadata`.
-    #[serde(default)]
-    pub metadata: Metadata,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
 
     /// The product's name, meant to be displayable to the customer.
     pub name: String,
@@ -728,8 +729,9 @@ pub struct UpdatePriceCurrencyOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_unit_amount: Option<UpdatePriceCurrencyOptionsCustomUnitAmount>,
 
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -751,13 +753,6 @@ pub struct UpdatePriceCurrencyOptions {
     /// Only one of `unit_amount` and `unit_amount_decimal` can be set.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unit_amount_decimal: Option<String>,
-}
-
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
-pub struct UpdatePriceRecurring {
-    /// Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub trial_period_days: Option<u32>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]

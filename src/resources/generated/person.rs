@@ -64,7 +64,7 @@ pub struct Person {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub full_name_aliases: Option<Vec<String>>,
 
-    /// Information about the upcoming new requirements for this person, including what information needs to be collected, and by when.
+    /// Information about the [upcoming new requirements for this person](https://stripe.com/docs/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub future_requirements: Option<PersonFutureRequirements>,
 
@@ -73,6 +73,9 @@ pub struct Person {
     pub gender: Option<String>,
 
     /// Whether the person's `id_number` was provided.
+    ///
+    /// True if either the full ID number was provided or if only the required part of the ID number was provided (ex.
+    /// last four of an individual's SSN for the US indicated by `ssn_last_4_provided`).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub id_number_provided: Option<bool>,
 
@@ -99,8 +102,8 @@ pub struct Person {
     /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
     ///
     /// This can be useful for storing additional information about the object in a structured format.
-    #[serde(default)]
-    pub metadata: Metadata,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
 
     /// The country where the person is a national.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -322,10 +325,12 @@ pub enum AccountRequirementsErrorCode {
     InvalidStreetAddress,
     InvalidTosAcceptance,
     InvalidValueOther,
+    VerificationDirectorsMismatch,
     VerificationDocumentAddressMismatch,
     VerificationDocumentAddressMissing,
     VerificationDocumentCorrupt,
     VerificationDocumentCountryNotSupported,
+    VerificationDocumentDirectorsMismatch,
     VerificationDocumentDobMismatch,
     VerificationDocumentDuplicateType,
     VerificationDocumentExpired,
@@ -351,6 +356,7 @@ pub enum AccountRequirementsErrorCode {
     VerificationDocumentPhotoMismatch,
     VerificationDocumentTooLarge,
     VerificationDocumentTypeNotSupported,
+    VerificationExtraneousDirectors,
     VerificationFailedAddressMatch,
     VerificationFailedBusinessIecNumber,
     VerificationFailedDocumentMatch,
@@ -362,6 +368,7 @@ pub enum AccountRequirementsErrorCode {
     VerificationFailedResidentialAddress,
     VerificationFailedTaxIdMatch,
     VerificationFailedTaxIdNotIssued,
+    VerificationMissingDirectors,
     VerificationMissingExecutives,
     VerificationMissingOwners,
     VerificationRequiresAdditionalMemorandumOfAssociations,
@@ -376,10 +383,12 @@ impl AccountRequirementsErrorCode {
             AccountRequirementsErrorCode::InvalidStreetAddress => "invalid_street_address",
             AccountRequirementsErrorCode::InvalidTosAcceptance => "invalid_tos_acceptance",
             AccountRequirementsErrorCode::InvalidValueOther => "invalid_value_other",
+            AccountRequirementsErrorCode::VerificationDirectorsMismatch => "verification_directors_mismatch",
             AccountRequirementsErrorCode::VerificationDocumentAddressMismatch => "verification_document_address_mismatch",
             AccountRequirementsErrorCode::VerificationDocumentAddressMissing => "verification_document_address_missing",
             AccountRequirementsErrorCode::VerificationDocumentCorrupt => "verification_document_corrupt",
             AccountRequirementsErrorCode::VerificationDocumentCountryNotSupported => "verification_document_country_not_supported",
+            AccountRequirementsErrorCode::VerificationDocumentDirectorsMismatch => "verification_document_directors_mismatch",
             AccountRequirementsErrorCode::VerificationDocumentDobMismatch => "verification_document_dob_mismatch",
             AccountRequirementsErrorCode::VerificationDocumentDuplicateType => "verification_document_duplicate_type",
             AccountRequirementsErrorCode::VerificationDocumentExpired => "verification_document_expired",
@@ -405,6 +414,7 @@ impl AccountRequirementsErrorCode {
             AccountRequirementsErrorCode::VerificationDocumentPhotoMismatch => "verification_document_photo_mismatch",
             AccountRequirementsErrorCode::VerificationDocumentTooLarge => "verification_document_too_large",
             AccountRequirementsErrorCode::VerificationDocumentTypeNotSupported => "verification_document_type_not_supported",
+            AccountRequirementsErrorCode::VerificationExtraneousDirectors => "verification_extraneous_directors",
             AccountRequirementsErrorCode::VerificationFailedAddressMatch => "verification_failed_address_match",
             AccountRequirementsErrorCode::VerificationFailedBusinessIecNumber => "verification_failed_business_iec_number",
             AccountRequirementsErrorCode::VerificationFailedDocumentMatch => "verification_failed_document_match",
@@ -416,6 +426,7 @@ impl AccountRequirementsErrorCode {
             AccountRequirementsErrorCode::VerificationFailedResidentialAddress => "verification_failed_residential_address",
             AccountRequirementsErrorCode::VerificationFailedTaxIdMatch => "verification_failed_tax_id_match",
             AccountRequirementsErrorCode::VerificationFailedTaxIdNotIssued => "verification_failed_tax_id_not_issued",
+            AccountRequirementsErrorCode::VerificationMissingDirectors => "verification_missing_directors",
             AccountRequirementsErrorCode::VerificationMissingExecutives => "verification_missing_executives",
             AccountRequirementsErrorCode::VerificationMissingOwners => "verification_missing_owners",
             AccountRequirementsErrorCode::VerificationRequiresAdditionalMemorandumOfAssociations => "verification_requires_additional_memorandum_of_associations",

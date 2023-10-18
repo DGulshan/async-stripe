@@ -6,7 +6,9 @@ use serde::{Deserialize, Serialize};
 
 use crate::client::{Client, Response};
 use crate::ids::CouponId;
-use crate::params::{Deleted, Expand, List, Metadata, Object, Paginable, RangeQuery, Timestamp};
+use crate::params::{
+    CurrencyMap, Deleted, Expand, List, Metadata, Object, Paginable, RangeQuery, Timestamp,
+};
 use crate::resources::Currency;
 
 /// The resource representing a Stripe "Coupon".
@@ -38,7 +40,7 @@ pub struct Coupon {
     ///
     /// Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub currency_options: Option<CouponCurrencyOption>,
+    pub currency_options: Option<CurrencyMap<CouponCurrencyOption>>,
 
     // Always true for a deleted object
     #[serde(default)]
@@ -67,8 +69,8 @@ pub struct Coupon {
     /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
     ///
     /// This can be useful for storing additional information about the object in a structured format.
-    #[serde(default)]
-    pub metadata: Metadata,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
 
     /// Name of the coupon displayed to customers on for instance invoices or receipts.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -76,7 +78,7 @@ pub struct Coupon {
 
     /// Percent that will be taken off the subtotal of any invoices for this customer for the duration of the coupon.
     ///
-    /// For example, a coupon with percent_off of 50 will make a %s100 invoice %s50 instead.
+    /// For example, a coupon with percent_off of 50 will make a $ (or local equivalent)100 invoice $ (or local equivalent)50 instead.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub percent_off: Option<f64>,
 
@@ -170,7 +172,7 @@ pub struct CreateCoupon<'a> {
     ///
     /// Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub currency_options: Option<CreateCouponCurrencyOptions>,
+    pub currency_options: Option<CurrencyMap<CreateCouponCurrencyOptions>>,
 
     /// Specifies how long the discount will be in effect if used on a subscription.
     ///
@@ -301,7 +303,7 @@ pub struct UpdateCoupon<'a> {
     ///
     /// Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub currency_options: Option<UpdateCouponCurrencyOptions>,
+    pub currency_options: Option<CurrencyMap<UpdateCouponCurrencyOptions>>,
 
     /// Specifies which fields in the response should be expanded.
     #[serde(skip_serializing_if = "Expand::is_empty")]

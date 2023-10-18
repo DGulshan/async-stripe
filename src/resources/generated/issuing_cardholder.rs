@@ -51,6 +51,11 @@ pub struct IssuingCardholder {
     /// See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure#when-is-3d-secure-applied) for more details.
     pub phone_number: Option<String>,
 
+    /// The cardholder’s preferred locales (languages), ordered by preference.
+    ///
+    /// Locales can be `de`, `en`, `es`, `fr`, or `it`.  This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
+    pub preferred_locales: Option<Vec<IssuingCardholderPreferredLocales>>,
+
     pub requirements: IssuingCardholderRequirements,
 
     /// Rules that control spending across this cardholder's cards.
@@ -62,6 +67,8 @@ pub struct IssuingCardholder {
     pub status: IssuingCardholderStatus,
 
     /// One of `individual` or `company`.
+    ///
+    /// See [Choose a cardholder type](https://stripe.com/docs/issuing/other/choose-cardholder) for more details.
     #[serde(rename = "type")]
     pub type_: IssuingCardholderType,
 }
@@ -110,6 +117,7 @@ pub struct IssuingCardholderCompany {
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct IssuingCardholderIndividual {
+    /// Information related to the card_issuing program for this cardholder.
     pub card_issuing: Option<IssuingCardholderCardIssuing>,
 
     /// The date of birth of this cardholder.
@@ -117,11 +125,13 @@ pub struct IssuingCardholderIndividual {
 
     /// The first name of this cardholder.
     ///
+    /// Required before activating Cards.
     /// This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
     pub first_name: Option<String>,
 
     /// The last name of this cardholder.
     ///
+    /// Required before activating Cards.
     /// This field cannot contain any numbers, special characters (except periods, commas, hyphens, spaces and apostrophes) or non-latin letters.
     pub last_name: Option<String>,
 
@@ -175,9 +185,13 @@ pub struct IssuingCardholderSpendingLimit {
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct IssuingCardholderUserTermsAcceptance {
     /// The Unix timestamp marking when the cardholder accepted the Authorized User Terms.
+    ///
+    /// Required for Celtic Spend Card users.
     pub date: Option<Timestamp>,
 
     /// The IP address from which the cardholder accepted the Authorized User Terms.
+    ///
+    /// Required for Celtic Spend Card users.
     pub ip: Option<String>,
 
     /// The user agent of the browser from which the cardholder accepted the Authorized User Terms.
@@ -199,6 +213,46 @@ pub struct IssuingCardholderIdDocument {
     pub front: Option<Expandable<File>>,
 }
 
+/// An enum representing the possible values of an `IssuingCardholder`'s `preferred_locales` field.
+#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum IssuingCardholderPreferredLocales {
+    De,
+    En,
+    Es,
+    Fr,
+    It,
+}
+
+impl IssuingCardholderPreferredLocales {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            IssuingCardholderPreferredLocales::De => "de",
+            IssuingCardholderPreferredLocales::En => "en",
+            IssuingCardholderPreferredLocales::Es => "es",
+            IssuingCardholderPreferredLocales::Fr => "fr",
+            IssuingCardholderPreferredLocales::It => "it",
+        }
+    }
+}
+
+impl AsRef<str> for IssuingCardholderPreferredLocales {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+
+impl std::fmt::Display for IssuingCardholderPreferredLocales {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.as_str().fmt(f)
+    }
+}
+impl std::default::Default for IssuingCardholderPreferredLocales {
+    fn default() -> Self {
+        Self::De
+    }
+}
+
 /// An enum representing the possible values of an `IssuingCardholderRequirements`'s `disabled_reason` field.
 #[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
@@ -206,6 +260,8 @@ pub enum IssuingCardholderRequirementsDisabledReason {
     Listed,
     #[serde(rename = "rejected.listed")]
     RejectedListed,
+    #[serde(rename = "requirements.past_due")]
+    RequirementsPastDue,
     UnderReview,
 }
 
@@ -214,6 +270,9 @@ impl IssuingCardholderRequirementsDisabledReason {
         match self {
             IssuingCardholderRequirementsDisabledReason::Listed => "listed",
             IssuingCardholderRequirementsDisabledReason::RejectedListed => "rejected.listed",
+            IssuingCardholderRequirementsDisabledReason::RequirementsPastDue => {
+                "requirements.past_due"
+            }
             IssuingCardholderRequirementsDisabledReason::UnderReview => "under_review",
         }
     }
@@ -242,6 +301,10 @@ impl std::default::Default for IssuingCardholderRequirementsDisabledReason {
 pub enum IssuingCardholderRequirementsPastDue {
     #[serde(rename = "company.tax_id")]
     CompanyTaxId,
+    #[serde(rename = "individual.card_issuing.user_terms_acceptance.date")]
+    IndividualCardIssuingUserTermsAcceptanceDate,
+    #[serde(rename = "individual.card_issuing.user_terms_acceptance.ip")]
+    IndividualCardIssuingUserTermsAcceptanceIp,
     #[serde(rename = "individual.dob.day")]
     IndividualDobDay,
     #[serde(rename = "individual.dob.month")]
@@ -260,6 +323,12 @@ impl IssuingCardholderRequirementsPastDue {
     pub fn as_str(self) -> &'static str {
         match self {
             IssuingCardholderRequirementsPastDue::CompanyTaxId => "company.tax_id",
+            IssuingCardholderRequirementsPastDue::IndividualCardIssuingUserTermsAcceptanceDate => {
+                "individual.card_issuing.user_terms_acceptance.date"
+            }
+            IssuingCardholderRequirementsPastDue::IndividualCardIssuingUserTermsAcceptanceIp => {
+                "individual.card_issuing.user_terms_acceptance.ip"
+            }
             IssuingCardholderRequirementsPastDue::IndividualDobDay => "individual.dob.day",
             IssuingCardholderRequirementsPastDue::IndividualDobMonth => "individual.dob.month",
             IssuingCardholderRequirementsPastDue::IndividualDobYear => "individual.dob.year",
@@ -403,11 +472,13 @@ pub enum IssuingCardholderSpendingLimitCategories {
     EatingPlacesRestaurants,
     EducationalServices,
     ElectricRazorStores,
+    ElectricVehicleCharging,
     ElectricalPartsAndEquipment,
     ElectricalServices,
     ElectronicsRepairShops,
     ElectronicsStores,
     ElementarySecondarySchools,
+    EmergencyServicesGcasVisaUseOnly,
     EmploymentTempAgencies,
     EquipmentRental,
     ExterminatingServices,
@@ -430,6 +501,10 @@ pub enum IssuingCardholderSpendingLimitCategories {
     GlassPaintAndWallpaperStores,
     GlasswareCrystalStores,
     GolfCoursesPublic,
+    GovernmentLicensedHorseDogRacingUsRegionOnly,
+    GovernmentLicensedOnlineCasionsOnlineGamblingUsRegionOnly,
+    GovernmentOwnedLotteriesNonUsRegion,
+    GovernmentOwnedLotteriesUsRegionOnly,
     GovernmentServices,
     GroceryStoresSupermarkets,
     HardwareEquipmentAndSupplies,
@@ -457,6 +532,7 @@ pub enum IssuingCardholderSpendingLimitCategories {
     LumberBuildingMaterialsStores,
     ManualCashDisburse,
     MarinasServiceAndSupplies,
+    Marketplaces,
     MasonryStoneworkAndPlaster,
     MassageParlors,
     MedicalAndDentalLabs,
@@ -698,11 +774,13 @@ impl IssuingCardholderSpendingLimitCategories {
             IssuingCardholderSpendingLimitCategories::EatingPlacesRestaurants => "eating_places_restaurants",
             IssuingCardholderSpendingLimitCategories::EducationalServices => "educational_services",
             IssuingCardholderSpendingLimitCategories::ElectricRazorStores => "electric_razor_stores",
+            IssuingCardholderSpendingLimitCategories::ElectricVehicleCharging => "electric_vehicle_charging",
             IssuingCardholderSpendingLimitCategories::ElectricalPartsAndEquipment => "electrical_parts_and_equipment",
             IssuingCardholderSpendingLimitCategories::ElectricalServices => "electrical_services",
             IssuingCardholderSpendingLimitCategories::ElectronicsRepairShops => "electronics_repair_shops",
             IssuingCardholderSpendingLimitCategories::ElectronicsStores => "electronics_stores",
             IssuingCardholderSpendingLimitCategories::ElementarySecondarySchools => "elementary_secondary_schools",
+            IssuingCardholderSpendingLimitCategories::EmergencyServicesGcasVisaUseOnly => "emergency_services_gcas_visa_use_only",
             IssuingCardholderSpendingLimitCategories::EmploymentTempAgencies => "employment_temp_agencies",
             IssuingCardholderSpendingLimitCategories::EquipmentRental => "equipment_rental",
             IssuingCardholderSpendingLimitCategories::ExterminatingServices => "exterminating_services",
@@ -725,6 +803,10 @@ impl IssuingCardholderSpendingLimitCategories {
             IssuingCardholderSpendingLimitCategories::GlassPaintAndWallpaperStores => "glass_paint_and_wallpaper_stores",
             IssuingCardholderSpendingLimitCategories::GlasswareCrystalStores => "glassware_crystal_stores",
             IssuingCardholderSpendingLimitCategories::GolfCoursesPublic => "golf_courses_public",
+            IssuingCardholderSpendingLimitCategories::GovernmentLicensedHorseDogRacingUsRegionOnly => "government_licensed_horse_dog_racing_us_region_only",
+            IssuingCardholderSpendingLimitCategories::GovernmentLicensedOnlineCasionsOnlineGamblingUsRegionOnly => "government_licensed_online_casions_online_gambling_us_region_only",
+            IssuingCardholderSpendingLimitCategories::GovernmentOwnedLotteriesNonUsRegion => "government_owned_lotteries_non_us_region",
+            IssuingCardholderSpendingLimitCategories::GovernmentOwnedLotteriesUsRegionOnly => "government_owned_lotteries_us_region_only",
             IssuingCardholderSpendingLimitCategories::GovernmentServices => "government_services",
             IssuingCardholderSpendingLimitCategories::GroceryStoresSupermarkets => "grocery_stores_supermarkets",
             IssuingCardholderSpendingLimitCategories::HardwareEquipmentAndSupplies => "hardware_equipment_and_supplies",
@@ -751,6 +833,7 @@ impl IssuingCardholderSpendingLimitCategories {
             IssuingCardholderSpendingLimitCategories::LumberBuildingMaterialsStores => "lumber_building_materials_stores",
             IssuingCardholderSpendingLimitCategories::ManualCashDisburse => "manual_cash_disburse",
             IssuingCardholderSpendingLimitCategories::MarinasServiceAndSupplies => "marinas_service_and_supplies",
+            IssuingCardholderSpendingLimitCategories::Marketplaces => "marketplaces",
             IssuingCardholderSpendingLimitCategories::MasonryStoneworkAndPlaster => "masonry_stonework_and_plaster",
             IssuingCardholderSpendingLimitCategories::MassageParlors => "massage_parlors",
             IssuingCardholderSpendingLimitCategories::MedicalAndDentalLabs => "medical_and_dental_labs",

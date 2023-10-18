@@ -1,3 +1,115 @@
+## [0.25.2](https://github.com/arlyon/async-stripe/compare/v0.25.1...v0.25.2) (2023-10-05)
+
+
+### Bug Fixes
+
+* prevent panic on StatusCode conversion ([9b94228](https://github.com/arlyon/async-stripe/commit/9b942282e556b269c806caba56c8c7026badc33c))
+
+## [0.25.1](https://github.com/arlyon/async-stripe/compare/v0.25.0...v0.25.1) (2023-09-27)
+
+
+### Bug Fixes
+
+* respect the required and optional fields for EventType and Metadata ([cdabd2e](https://github.com/arlyon/async-stripe/commit/cdabd2eac56cf3b9613f3b4617492684e27446a6))
+
+# [0.25.0](https://github.com/arlyon/async-stripe/compare/v0.24.0...v0.25.0) (2023-09-25)
+
+
+### Features
+
+* generate latest changes from OpenApi spec ([652a360](https://github.com/arlyon/async-stripe/commit/652a3606f69e84734be7a4f83b1c7826af824437))
+
+# [0.24.0](https://github.com/arlyon/async-stripe/compare/v0.23.0...v0.24.0) (2023-09-21)
+
+
+### Features
+
+* Generate latest changes from OpenApi spec ([7421960](https://github.com/arlyon/async-stripe/commit/742196050dda3593d272321ad7565451b0012031))
+* Generate latest changes from OpenApi spec ([2fedb71](https://github.com/arlyon/async-stripe/commit/2fedb717db50b9438d026d2b4116c3fcdbd5bdc1))
+
+# [0.23.0](https://github.com/arlyon/async-stripe/compare/v0.22.2...v0.23.0) (2023-09-06)
+
+
+### Bug Fixes
+
+* don't pin time-core for msrv ([00a9a1d](https://github.com/arlyon/async-stripe/commit/00a9a1d0067461f94ce978fd3b1885b3d2b8b6b6))
+* Update hyper-rustls to fix RUSTSEC-2023-0052 ([7c31f76](https://github.com/arlyon/async-stripe/commit/7c31f76b0272031efabc7bda29ee12967d67ed10))
+
+
+### Features
+
+* add support for connect tokens ([b7c5489](https://github.com/arlyon/async-stripe/commit/b7c5489240eed0bd28e720eeda08afaf71bfa0eb))
+* add tax calculation api behind a feature ([2266ed1](https://github.com/arlyon/async-stripe/commit/2266ed1196f6c9662d38815583ea266d170ff67f))
+* handle currency_options ([1bb8165](https://github.com/arlyon/async-stripe/commit/1bb8165673eabdf157856de170ad47a1066ae362))
+
+## [0.22.2](https://github.com/arlyon/async-stripe/compare/v0.22.1...v0.22.2) (2023-05-11)
+
+
+### Bug Fixes
+
+* Add sis_ id prefix for usage record summaries ([1042493](https://github.com/arlyon/async-stripe/commit/10424938736b0ce87d3be99fccb053855f3ddd3c))
+
+## [0.22.1](https://github.com/arlyon/async-stripe/compare/v0.22.0...v0.22.1) (2023-05-09)
+
+
+### Bug Fixes
+
+* Move feature check to `build.rs` ([8d06be0](https://github.com/arlyon/async-stripe/commit/8d06be0f45aa645ce0e491a21cae33d4acc08b43))
+
+# [0.22.0](https://github.com/arlyon/async-stripe/compare/v0.21.0...v0.22.0) (2023-04-18)
+
+
+### Features
+
+* generate latest changes from OpenApi spec ([a76703c](https://github.com/arlyon/async-stripe/commit/a76703cbb0a81ccba0a419c16518eff7216d1e26))
+
+# [0.21.0](https://github.com/arlyon/async-stripe/compare/v0.20.2...v0.21.0) (2023-04-06)
+
+
+### Bug Fixes
+
+* **#342:** add documentation regarding idempotency to the main readme ([d28f7df](https://github.com/arlyon/async-stripe/commit/d28f7df6754738884049335e5b40684ff3093236)), closes [#342](https://github.com/arlyon/async-stripe/issues/342)
+
+
+### Features
+
+* use codegen version of WebhookEvent rather than overriding manually ([8347a6d](https://github.com/arlyon/async-stripe/commit/8347a6d600b11fe8d9e5d82217b9df56f9c800c8))
+
+## [0.20.2](https://github.com/arlyon/async-stripe/compare/v0.20.1...v0.20.2) (2023-04-05)
+
+
+### Bug Fixes
+
+* generate api version from the codegen ([3006688](https://github.com/arlyon/async-stripe/commit/3006688bfadd5af84691c82f39abeb54dfdb859a))
+
+## [0.20.1](https://github.com/arlyon/async-stripe/compare/v0.20.0...v0.20.1) (2023-03-23)
+
+
+### Bug Fixes
+
+* Use `HashMap::from` ([0c8dc9d](https://github.com/arlyon/async-stripe/commit/0c8dc9d89267a034c0901e7da15adc79c30050c3))
+
+# [0.20.0](https://github.com/arlyon/async-stripe/compare/v0.19.0...v0.20.0) (2023-03-09)
+
+
+### Features
+
+* Implement Balance retrieve ([7509c98](https://github.com/arlyon/async-stripe/commit/7509c9878f9c85b91949e7dfeb1e1890a63f9fc2))
+
+# [0.19.0](https://github.com/arlyon/async-stripe/compare/v0.18.4...v0.19.0) (2023-03-05)
+
+
+### Features
+
+* add CreditNote and CustomerBalanceTransaction ([dc82e59](https://github.com/arlyon/async-stripe/commit/dc82e59cd6e4e2f84b311d8e38c1299e96f5726d))
+
+## [0.18.4](https://github.com/arlyon/async-stripe/compare/v0.18.3...v0.18.4) (2023-03-05)
+
+
+### Bug Fixes
+
+* add missing prefix for CheckoutSessionItemId ([c6bdb57](https://github.com/arlyon/async-stripe/commit/c6bdb572920d466d6db73d4445e2b1921c01acff))
+
 ## [0.18.3](https://github.com/arlyon/async-stripe/compare/v0.18.2...v0.18.3) (2023-02-20)
 
 

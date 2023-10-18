@@ -17,7 +17,7 @@ pub struct Refund {
     /// Unique identifier for the object.
     pub id: RefundId,
 
-    /// Amount, in %s.
+    /// Amount, in cents (or local equivalent).
     pub amount: i64,
 
     /// Balance transaction that describes the impact on your account balance.
@@ -49,18 +49,18 @@ pub struct Refund {
 
     /// If the refund failed, the reason for refund failure if known.
     ///
-    /// Possible values are `lost_or_stolen_card`, `expired_or_canceled_card`, or `unknown`.
+    /// Possible values are `lost_or_stolen_card`, `expired_or_canceled_card`, `charge_for_pending_refund_disputed`, `insufficient_funds`, `declined`, `merchant_request` or `unknown`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub failure_reason: Option<String>,
 
-    /// Email to which refund instructions, if required, are sent to.
+    /// For payment methods without native refund support (e.g., Konbini, PromptPay), email for the customer to receive refund instructions.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub instructions_email: Option<String>,
 
     /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
     ///
     /// This can be useful for storing additional information about the object in a structured format.
-    pub metadata: Metadata,
+    pub metadata: Option<Metadata>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub next_action: Option<RefundNextAction>,
@@ -181,7 +181,7 @@ pub struct CreateRefund<'a> {
     #[serde(skip_serializing_if = "Expand::is_empty")]
     pub expand: &'a [&'a str],
 
-    /// Address to send refund email, use customer email if not specified.
+    /// For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub instructions_email: Option<&'a str>,
 

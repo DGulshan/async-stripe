@@ -31,7 +31,7 @@ pub struct Subscription {
 
     /// A non-negative decimal between 0 and 100, with at most two decimal places.
     ///
-    /// This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account.
+    /// This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     pub application_fee_percent: Option<f64>,
 
     pub automatic_tax: SubscriptionAutomaticTax,
@@ -56,6 +56,9 @@ pub struct Subscription {
     ///
     /// If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will reflect the time of the most recent update request, not the end of the subscription period when the subscription is automatically moved to a canceled state.
     pub canceled_at: Option<Timestamp>,
+
+    /// Details about why this subscription was cancelled.
+    pub cancellation_details: Option<CancellationDetails>,
 
     /// Either `charge_automatically`, or `send_invoice`.
     ///
@@ -179,7 +182,8 @@ pub struct Subscription {
     /// If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`.
     /// This is a terminal state, the open invoice will be voided and no further invoices will be generated.
     /// A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
-    /// If subscription `collection_method=charge_automatically` it becomes `past_due` when payment to renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings) when Stripe has exhausted all payment retry attempts.
+    /// If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions).
+    /// Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
     /// If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that.
     /// Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed).
     /// After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
@@ -195,7 +199,6 @@ pub struct Subscription {
     pub trial_end: Option<Timestamp>,
 
     /// Settings related to subscription trials.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub trial_settings: Option<SubscriptionsTrialsResourceTrialSettings>,
 
     /// If the subscription has a trial, the beginning of that trial.
@@ -259,6 +262,18 @@ impl Object for Subscription {
     fn object(&self) -> &'static str {
         "subscription"
     }
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct CancellationDetails {
+    /// Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+    pub comment: Option<String>,
+
+    /// The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+    pub feedback: Option<CancellationDetailsFeedback>,
+
+    /// Why this subscription was canceled.
+    pub reason: Option<CancellationDetailsReason>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -389,8 +404,7 @@ pub struct SubscriptionsResourcePendingUpdate {
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct SubscriptionsTrialsResourceTrialSettings {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub end_behavior: Option<SubscriptionsTrialsResourceEndBehavior>,
+    pub end_behavior: SubscriptionsTrialsResourceEndBehavior,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -410,7 +424,7 @@ pub struct CreateSubscription<'a> {
 
     /// A non-negative decimal between 0 and 100, with at most two decimal places.
     ///
-    /// This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account.
+    /// This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     /// The request must be made by a platform account on a connected account in order to set an application fee percentage.
     /// For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -649,6 +663,10 @@ impl<'a> CreateSubscription<'a> {
 /// The parameters for `Subscription::list`.
 #[derive(Clone, Debug, Serialize, Default)]
 pub struct ListSubscriptions<'a> {
+    /// Filter subscriptions by their automatic tax settings.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub automatic_tax: Option<ListSubscriptionsAutomaticTax>,
+
     /// The collection method of the subscriptions to retrieve.
     ///
     /// Either `charge_automatically` or `send_invoice`.
@@ -719,6 +737,7 @@ pub struct ListSubscriptions<'a> {
 impl<'a> ListSubscriptions<'a> {
     pub fn new() -> Self {
         ListSubscriptions {
+            automatic_tax: Default::default(),
             collection_method: Default::default(),
             created: Default::default(),
             current_period_end: Default::default(),
@@ -752,7 +771,7 @@ pub struct UpdateSubscription<'a> {
 
     /// A non-negative decimal between 0 and 100, with at most two decimal places.
     ///
-    /// This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account.
+    /// This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     /// The request must be made by a platform account on a connected account in order to set an application fee percentage.
     /// For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -788,6 +807,10 @@ pub struct UpdateSubscription<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cancel_at_period_end: Option<bool>,
 
+    /// Details about why this subscription was cancelled.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cancellation_details: Option<UpdateSubscriptionCancellationDetails>,
+
     /// Either `charge_automatically`, or `send_invoice`.
     ///
     /// When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer.
@@ -822,7 +845,7 @@ pub struct UpdateSubscription<'a> {
     /// If `default_payment_method` is also set, `default_payment_method` will take precedence.
     /// If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub default_source: Option<&'a str>,
+    pub default_source: Option<String>,
 
     /// The tax rates that will apply to any subscription item that does not have `tax_rates` set.
     ///
@@ -835,7 +858,7 @@ pub struct UpdateSubscription<'a> {
     ///
     /// Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<&'a str>,
+    pub description: Option<String>,
 
     /// Specifies which fields in the response should be expanded.
     #[serde(skip_serializing_if = "Expand::is_empty")]
@@ -904,7 +927,7 @@ pub struct UpdateSubscription<'a> {
 
     /// If set, the proration will be calculated as though the subscription was updated at the given time.
     ///
-    /// This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
+    /// This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#upcoming_invoice) endpoint.
     /// It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub proration_date: Option<Timestamp>,
@@ -947,6 +970,7 @@ impl<'a> UpdateSubscription<'a> {
             billing_thresholds: Default::default(),
             cancel_at: Default::default(),
             cancel_at_period_end: Default::default(),
+            cancellation_details: Default::default(),
             collection_method: Default::default(),
             coupon: Default::default(),
             days_until_due: Default::default(),
@@ -1016,8 +1040,8 @@ pub struct CreateSubscriptionItems {
     /// This can be useful for storing additional information about the object in a structured format.
     /// Individual keys can be unset by posting an empty value to them.
     /// All keys can be unset by posting an empty value to `metadata`.
-    #[serde(default)]
-    pub metadata: Metadata,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
 
     /// Plan ID for this item, as a string.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1083,7 +1107,7 @@ pub struct CreateSubscriptionPendingInvoiceItemInterval {
 pub struct CreateSubscriptionTransferData {
     /// A non-negative decimal between 0 and 100, with at most two decimal places.
     ///
-    /// This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account.
+    /// This represents the percentage of the subscription invoice total that will be transferred to the destination account.
     /// By default, the entire amount is transferred to the destination.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub amount_percent: Option<f64>,
@@ -1099,9 +1123,26 @@ pub struct CreateSubscriptionTrialSettings {
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct ListSubscriptionsAutomaticTax {
+    /// Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
+    pub enabled: bool,
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct UpdateSubscriptionAutomaticTax {
     /// Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
     pub enabled: bool,
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct UpdateSubscriptionCancellationDetails {
+    /// Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>,
+
+    /// The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub feedback: Option<UpdateSubscriptionCancellationDetailsFeedback>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -1131,8 +1172,8 @@ pub struct UpdateSubscriptionItems {
     /// This can be useful for storing additional information about the object in a structured format.
     /// Individual keys can be unset by posting an empty value to them.
     /// All keys can be unset by posting an empty value to `metadata`.
-    #[serde(default)]
-    pub metadata: Metadata,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
 
     /// Plan ID for this item, as a string.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1212,7 +1253,7 @@ pub struct UpdateSubscriptionPendingInvoiceItemInterval {
 pub struct UpdateSubscriptionTransferData {
     /// A non-negative decimal between 0 and 100, with at most two decimal places.
     ///
-    /// This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account.
+    /// This represents the percentage of the subscription invoice total that will be transferred to the destination account.
     /// By default, the entire amount is transferred to the destination.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub amount_percent: Option<f64>,
@@ -1229,7 +1270,7 @@ pub struct UpdateSubscriptionTrialSettings {
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct CreateSubscriptionItemsBillingThresholds {
-    /// Usage threshold that triggers the subscription to advance to a new billing period.
+    /// Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte)).
     pub usage_gte: i64,
 }
 
@@ -1277,8 +1318,9 @@ pub struct InvoiceItemPriceData {
     /// The ID of the product that this price will belong to.
     pub product: String,
 
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1308,8 +1350,9 @@ pub struct SubscriptionItemPriceData {
     /// The recurring components of a price such as `interval` and `interval_count`.
     pub recurring: SubscriptionItemPriceDataRecurring,
 
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1564,7 +1607,7 @@ pub struct CreateSubscriptionPaymentSettingsPaymentMethodOptionsCustomerBalanceB
 
     /// The bank transfer type that can be used for funding.
     ///
-    /// Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, or `mx_bank_transfer`.
+    /// Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
@@ -1579,6 +1622,10 @@ pub struct CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFin
     /// Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub permissions: Option<Vec<CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPermissions>>,
+
+    /// List of data features that you would like to retrieve upon account creation.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub prefetch: Option<Vec<CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch>>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -1618,7 +1665,7 @@ pub struct UpdateSubscriptionPaymentSettingsPaymentMethodOptionsCustomerBalanceB
 
     /// The bank transfer type that can be used for funding.
     ///
-    /// Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, or `mx_bank_transfer`.
+    /// Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
@@ -1633,6 +1680,10 @@ pub struct UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFin
     /// Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub permissions: Option<Vec<UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPermissions>>,
+
+    /// List of data features that you would like to retrieve upon account creation.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub prefetch: Option<Vec<UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch>>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -1651,6 +1702,88 @@ pub struct UpdateSubscriptionPaymentSettingsPaymentMethodOptionsCustomerBalanceB
     ///
     /// Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
     pub country: String,
+}
+
+/// An enum representing the possible values of an `CancellationDetails`'s `feedback` field.
+#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum CancellationDetailsFeedback {
+    CustomerService,
+    LowQuality,
+    MissingFeatures,
+    Other,
+    SwitchedService,
+    TooComplex,
+    TooExpensive,
+    Unused,
+}
+
+impl CancellationDetailsFeedback {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            CancellationDetailsFeedback::CustomerService => "customer_service",
+            CancellationDetailsFeedback::LowQuality => "low_quality",
+            CancellationDetailsFeedback::MissingFeatures => "missing_features",
+            CancellationDetailsFeedback::Other => "other",
+            CancellationDetailsFeedback::SwitchedService => "switched_service",
+            CancellationDetailsFeedback::TooComplex => "too_complex",
+            CancellationDetailsFeedback::TooExpensive => "too_expensive",
+            CancellationDetailsFeedback::Unused => "unused",
+        }
+    }
+}
+
+impl AsRef<str> for CancellationDetailsFeedback {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+
+impl std::fmt::Display for CancellationDetailsFeedback {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.as_str().fmt(f)
+    }
+}
+impl std::default::Default for CancellationDetailsFeedback {
+    fn default() -> Self {
+        Self::CustomerService
+    }
+}
+
+/// An enum representing the possible values of an `CancellationDetails`'s `reason` field.
+#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum CancellationDetailsReason {
+    CancellationRequested,
+    PaymentDisputed,
+    PaymentFailed,
+}
+
+impl CancellationDetailsReason {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            CancellationDetailsReason::CancellationRequested => "cancellation_requested",
+            CancellationDetailsReason::PaymentDisputed => "payment_disputed",
+            CancellationDetailsReason::PaymentFailed => "payment_failed",
+        }
+    }
+}
+
+impl AsRef<str> for CancellationDetailsReason {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+
+impl std::fmt::Display for CancellationDetailsReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.as_str().fmt(f)
+    }
+}
+impl std::default::Default for CancellationDetailsReason {
+    fn default() -> Self {
+        Self::CancellationRequested
+    }
 }
 
 /// An enum representing the possible values of an `CreateSubscriptionPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions`'s `transaction_type` field.
@@ -1828,6 +1961,7 @@ pub enum CreateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork {
     CartesBancaires,
     Diners,
     Discover,
+    EftposAu,
     Interac,
     Jcb,
     Mastercard,
@@ -1846,6 +1980,9 @@ impl CreateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork {
             CreateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork::Diners => "diners",
             CreateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork::Discover => {
                 "discover"
+            }
+            CreateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork::EftposAu => {
+                "eftpos_au"
             }
             CreateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork::Interac => "interac",
             CreateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork::Jcb => "jcb",
@@ -1955,6 +2092,41 @@ impl std::default::Default for CreateSubscriptionPaymentSettingsPaymentMethodOpt
     }
 }
 
+/// An enum representing the possible values of an `CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections`'s `prefetch` field.
+#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch
+{
+    Balances,
+}
+
+impl
+    CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch
+{
+    pub fn as_str(self) -> &'static str {
+        match self {
+            CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch::Balances => "balances",
+        }
+    }
+}
+
+impl AsRef<str> for CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+
+impl std::fmt::Display for CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.as_str().fmt(f)
+    }
+}
+impl std::default::Default for CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
+    fn default() -> Self {
+        Self::Balances
+    }
+}
+
 /// An enum representing the possible values of an `CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccount`'s `verification_method` field.
 #[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
@@ -2009,6 +2181,7 @@ pub enum CreateSubscriptionPaymentSettingsPaymentMethodTypes {
     Bancontact,
     Boleto,
     Card,
+    Cashapp,
     CustomerBalance,
     Fpx,
     Giropay,
@@ -2017,6 +2190,7 @@ pub enum CreateSubscriptionPaymentSettingsPaymentMethodTypes {
     Konbini,
     Link,
     Paynow,
+    Paypal,
     Promptpay,
     SepaCreditTransfer,
     SepaDebit,
@@ -2038,6 +2212,7 @@ impl CreateSubscriptionPaymentSettingsPaymentMethodTypes {
             CreateSubscriptionPaymentSettingsPaymentMethodTypes::Bancontact => "bancontact",
             CreateSubscriptionPaymentSettingsPaymentMethodTypes::Boleto => "boleto",
             CreateSubscriptionPaymentSettingsPaymentMethodTypes::Card => "card",
+            CreateSubscriptionPaymentSettingsPaymentMethodTypes::Cashapp => "cashapp",
             CreateSubscriptionPaymentSettingsPaymentMethodTypes::CustomerBalance => {
                 "customer_balance"
             }
@@ -2048,6 +2223,7 @@ impl CreateSubscriptionPaymentSettingsPaymentMethodTypes {
             CreateSubscriptionPaymentSettingsPaymentMethodTypes::Konbini => "konbini",
             CreateSubscriptionPaymentSettingsPaymentMethodTypes::Link => "link",
             CreateSubscriptionPaymentSettingsPaymentMethodTypes::Paynow => "paynow",
+            CreateSubscriptionPaymentSettingsPaymentMethodTypes::Paypal => "paypal",
             CreateSubscriptionPaymentSettingsPaymentMethodTypes::Promptpay => "promptpay",
             CreateSubscriptionPaymentSettingsPaymentMethodTypes::SepaCreditTransfer => {
                 "sepa_credit_transfer"
@@ -2375,6 +2551,7 @@ pub enum SubscriptionPaymentMethodOptionsCardNetwork {
     CartesBancaires,
     Diners,
     Discover,
+    EftposAu,
     Interac,
     Jcb,
     Mastercard,
@@ -2390,6 +2567,7 @@ impl SubscriptionPaymentMethodOptionsCardNetwork {
             SubscriptionPaymentMethodOptionsCardNetwork::CartesBancaires => "cartes_bancaires",
             SubscriptionPaymentMethodOptionsCardNetwork::Diners => "diners",
             SubscriptionPaymentMethodOptionsCardNetwork::Discover => "discover",
+            SubscriptionPaymentMethodOptionsCardNetwork::EftposAu => "eftpos_au",
             SubscriptionPaymentMethodOptionsCardNetwork::Interac => "interac",
             SubscriptionPaymentMethodOptionsCardNetwork::Jcb => "jcb",
             SubscriptionPaymentMethodOptionsCardNetwork::Mastercard => "mastercard",
@@ -2631,6 +2809,7 @@ pub enum SubscriptionsResourcePaymentSettingsPaymentMethodTypes {
     Bancontact,
     Boleto,
     Card,
+    Cashapp,
     CustomerBalance,
     Fpx,
     Giropay,
@@ -2639,6 +2818,7 @@ pub enum SubscriptionsResourcePaymentSettingsPaymentMethodTypes {
     Konbini,
     Link,
     Paynow,
+    Paypal,
     Promptpay,
     SepaCreditTransfer,
     SepaDebit,
@@ -2660,6 +2840,7 @@ impl SubscriptionsResourcePaymentSettingsPaymentMethodTypes {
             SubscriptionsResourcePaymentSettingsPaymentMethodTypes::Bancontact => "bancontact",
             SubscriptionsResourcePaymentSettingsPaymentMethodTypes::Boleto => "boleto",
             SubscriptionsResourcePaymentSettingsPaymentMethodTypes::Card => "card",
+            SubscriptionsResourcePaymentSettingsPaymentMethodTypes::Cashapp => "cashapp",
             SubscriptionsResourcePaymentSettingsPaymentMethodTypes::CustomerBalance => {
                 "customer_balance"
             }
@@ -2670,6 +2851,7 @@ impl SubscriptionsResourcePaymentSettingsPaymentMethodTypes {
             SubscriptionsResourcePaymentSettingsPaymentMethodTypes::Konbini => "konbini",
             SubscriptionsResourcePaymentSettingsPaymentMethodTypes::Link => "link",
             SubscriptionsResourcePaymentSettingsPaymentMethodTypes::Paynow => "paynow",
+            SubscriptionsResourcePaymentSettingsPaymentMethodTypes::Paypal => "paypal",
             SubscriptionsResourcePaymentSettingsPaymentMethodTypes::Promptpay => "promptpay",
             SubscriptionsResourcePaymentSettingsPaymentMethodTypes::SepaCreditTransfer => {
                 "sepa_credit_transfer"
@@ -2772,6 +2954,52 @@ impl std::fmt::Display for SubscriptionsTrialsResourceEndBehaviorMissingPaymentM
 impl std::default::Default for SubscriptionsTrialsResourceEndBehaviorMissingPaymentMethod {
     fn default() -> Self {
         Self::Cancel
+    }
+}
+
+/// An enum representing the possible values of an `UpdateSubscriptionCancellationDetails`'s `feedback` field.
+#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum UpdateSubscriptionCancellationDetailsFeedback {
+    CustomerService,
+    LowQuality,
+    MissingFeatures,
+    Other,
+    SwitchedService,
+    TooComplex,
+    TooExpensive,
+    Unused,
+}
+
+impl UpdateSubscriptionCancellationDetailsFeedback {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            UpdateSubscriptionCancellationDetailsFeedback::CustomerService => "customer_service",
+            UpdateSubscriptionCancellationDetailsFeedback::LowQuality => "low_quality",
+            UpdateSubscriptionCancellationDetailsFeedback::MissingFeatures => "missing_features",
+            UpdateSubscriptionCancellationDetailsFeedback::Other => "other",
+            UpdateSubscriptionCancellationDetailsFeedback::SwitchedService => "switched_service",
+            UpdateSubscriptionCancellationDetailsFeedback::TooComplex => "too_complex",
+            UpdateSubscriptionCancellationDetailsFeedback::TooExpensive => "too_expensive",
+            UpdateSubscriptionCancellationDetailsFeedback::Unused => "unused",
+        }
+    }
+}
+
+impl AsRef<str> for UpdateSubscriptionCancellationDetailsFeedback {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+
+impl std::fmt::Display for UpdateSubscriptionCancellationDetailsFeedback {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.as_str().fmt(f)
+    }
+}
+impl std::default::Default for UpdateSubscriptionCancellationDetailsFeedback {
+    fn default() -> Self {
+        Self::CustomerService
     }
 }
 
@@ -2986,6 +3214,7 @@ pub enum UpdateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork {
     CartesBancaires,
     Diners,
     Discover,
+    EftposAu,
     Interac,
     Jcb,
     Mastercard,
@@ -3004,6 +3233,9 @@ impl UpdateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork {
             UpdateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork::Diners => "diners",
             UpdateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork::Discover => {
                 "discover"
+            }
+            UpdateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork::EftposAu => {
+                "eftpos_au"
             }
             UpdateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork::Interac => "interac",
             UpdateSubscriptionPaymentSettingsPaymentMethodOptionsCardNetwork::Jcb => "jcb",
@@ -3113,6 +3345,41 @@ impl std::default::Default for UpdateSubscriptionPaymentSettingsPaymentMethodOpt
     }
 }
 
+/// An enum representing the possible values of an `UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections`'s `prefetch` field.
+#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch
+{
+    Balances,
+}
+
+impl
+    UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch
+{
+    pub fn as_str(self) -> &'static str {
+        match self {
+            UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch::Balances => "balances",
+        }
+    }
+}
+
+impl AsRef<str> for UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+
+impl std::fmt::Display for UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.as_str().fmt(f)
+    }
+}
+impl std::default::Default for UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
+    fn default() -> Self {
+        Self::Balances
+    }
+}
+
 /// An enum representing the possible values of an `UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccount`'s `verification_method` field.
 #[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
@@ -3167,6 +3434,7 @@ pub enum UpdateSubscriptionPaymentSettingsPaymentMethodTypes {
     Bancontact,
     Boleto,
     Card,
+    Cashapp,
     CustomerBalance,
     Fpx,
     Giropay,
@@ -3175,6 +3443,7 @@ pub enum UpdateSubscriptionPaymentSettingsPaymentMethodTypes {
     Konbini,
     Link,
     Paynow,
+    Paypal,
     Promptpay,
     SepaCreditTransfer,
     SepaDebit,
@@ -3196,6 +3465,7 @@ impl UpdateSubscriptionPaymentSettingsPaymentMethodTypes {
             UpdateSubscriptionPaymentSettingsPaymentMethodTypes::Bancontact => "bancontact",
             UpdateSubscriptionPaymentSettingsPaymentMethodTypes::Boleto => "boleto",
             UpdateSubscriptionPaymentSettingsPaymentMethodTypes::Card => "card",
+            UpdateSubscriptionPaymentSettingsPaymentMethodTypes::Cashapp => "cashapp",
             UpdateSubscriptionPaymentSettingsPaymentMethodTypes::CustomerBalance => {
                 "customer_balance"
             }
@@ -3206,6 +3476,7 @@ impl UpdateSubscriptionPaymentSettingsPaymentMethodTypes {
             UpdateSubscriptionPaymentSettingsPaymentMethodTypes::Konbini => "konbini",
             UpdateSubscriptionPaymentSettingsPaymentMethodTypes::Link => "link",
             UpdateSubscriptionPaymentSettingsPaymentMethodTypes::Paynow => "paynow",
+            UpdateSubscriptionPaymentSettingsPaymentMethodTypes::Paypal => "paypal",
             UpdateSubscriptionPaymentSettingsPaymentMethodTypes::Promptpay => "promptpay",
             UpdateSubscriptionPaymentSettingsPaymentMethodTypes::SepaCreditTransfer => {
                 "sepa_credit_transfer"

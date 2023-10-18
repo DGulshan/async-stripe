@@ -107,7 +107,7 @@ pub struct AccountCapabilityRequirements {
     /// If the capability is disabled, this string describes why.
     ///
     /// Can be `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.listed`, `rejected.terms_of_service`, `rejected.other`, `under_review`, or `other`.  `rejected.unsupported_business` means that the account's business is not supported by the capability.
-    /// For example, payment methods may restrict the businesses they support in their terms of service:  - [Afterpay Clearpay's terms of service](/afterpay-clearpay/legal#restricted-businesses)  If you believe that the rejection is in error, please contact support at https://support.stripe.com/contact/ for assistance.
+    /// For example, payment methods may restrict the businesses they support in their terms of service:  - [Afterpay Clearpay's terms of service](/afterpay-clearpay/legal#restricted-businesses)  If you believe that the rejection is in error, please contact support at <https://support.stripe.com/contact/> for assistance.
     pub disabled_reason: Option<String>,
 
     /// Fields that are `currently_due` and need to be collected again because validation or verification failed.
@@ -164,10 +164,12 @@ pub enum AccountRequirementsErrorCode {
     InvalidStreetAddress,
     InvalidTosAcceptance,
     InvalidValueOther,
+    VerificationDirectorsMismatch,
     VerificationDocumentAddressMismatch,
     VerificationDocumentAddressMissing,
     VerificationDocumentCorrupt,
     VerificationDocumentCountryNotSupported,
+    VerificationDocumentDirectorsMismatch,
     VerificationDocumentDobMismatch,
     VerificationDocumentDuplicateType,
     VerificationDocumentExpired,
@@ -193,6 +195,7 @@ pub enum AccountRequirementsErrorCode {
     VerificationDocumentPhotoMismatch,
     VerificationDocumentTooLarge,
     VerificationDocumentTypeNotSupported,
+    VerificationExtraneousDirectors,
     VerificationFailedAddressMatch,
     VerificationFailedBusinessIecNumber,
     VerificationFailedDocumentMatch,
@@ -204,6 +207,7 @@ pub enum AccountRequirementsErrorCode {
     VerificationFailedResidentialAddress,
     VerificationFailedTaxIdMatch,
     VerificationFailedTaxIdNotIssued,
+    VerificationMissingDirectors,
     VerificationMissingExecutives,
     VerificationMissingOwners,
     VerificationRequiresAdditionalMemorandumOfAssociations,
@@ -218,10 +222,12 @@ impl AccountRequirementsErrorCode {
             AccountRequirementsErrorCode::InvalidStreetAddress => "invalid_street_address",
             AccountRequirementsErrorCode::InvalidTosAcceptance => "invalid_tos_acceptance",
             AccountRequirementsErrorCode::InvalidValueOther => "invalid_value_other",
+            AccountRequirementsErrorCode::VerificationDirectorsMismatch => "verification_directors_mismatch",
             AccountRequirementsErrorCode::VerificationDocumentAddressMismatch => "verification_document_address_mismatch",
             AccountRequirementsErrorCode::VerificationDocumentAddressMissing => "verification_document_address_missing",
             AccountRequirementsErrorCode::VerificationDocumentCorrupt => "verification_document_corrupt",
             AccountRequirementsErrorCode::VerificationDocumentCountryNotSupported => "verification_document_country_not_supported",
+            AccountRequirementsErrorCode::VerificationDocumentDirectorsMismatch => "verification_document_directors_mismatch",
             AccountRequirementsErrorCode::VerificationDocumentDobMismatch => "verification_document_dob_mismatch",
             AccountRequirementsErrorCode::VerificationDocumentDuplicateType => "verification_document_duplicate_type",
             AccountRequirementsErrorCode::VerificationDocumentExpired => "verification_document_expired",
@@ -247,6 +253,7 @@ impl AccountRequirementsErrorCode {
             AccountRequirementsErrorCode::VerificationDocumentPhotoMismatch => "verification_document_photo_mismatch",
             AccountRequirementsErrorCode::VerificationDocumentTooLarge => "verification_document_too_large",
             AccountRequirementsErrorCode::VerificationDocumentTypeNotSupported => "verification_document_type_not_supported",
+            AccountRequirementsErrorCode::VerificationExtraneousDirectors => "verification_extraneous_directors",
             AccountRequirementsErrorCode::VerificationFailedAddressMatch => "verification_failed_address_match",
             AccountRequirementsErrorCode::VerificationFailedBusinessIecNumber => "verification_failed_business_iec_number",
             AccountRequirementsErrorCode::VerificationFailedDocumentMatch => "verification_failed_document_match",
@@ -258,6 +265,7 @@ impl AccountRequirementsErrorCode {
             AccountRequirementsErrorCode::VerificationFailedResidentialAddress => "verification_failed_residential_address",
             AccountRequirementsErrorCode::VerificationFailedTaxIdMatch => "verification_failed_tax_id_match",
             AccountRequirementsErrorCode::VerificationFailedTaxIdNotIssued => "verification_failed_tax_id_not_issued",
+            AccountRequirementsErrorCode::VerificationMissingDirectors => "verification_missing_directors",
             AccountRequirementsErrorCode::VerificationMissingExecutives => "verification_missing_executives",
             AccountRequirementsErrorCode::VerificationMissingOwners => "verification_missing_owners",
             AccountRequirementsErrorCode::VerificationRequiresAdditionalMemorandumOfAssociations => "verification_requires_additional_memorandum_of_associations",

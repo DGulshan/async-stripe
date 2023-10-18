@@ -27,8 +27,12 @@ pub mod core {
     pub mod invoice_setting_rendering_options;
     pub mod linked_account_options_us_bank_account;
     pub mod mandate;
-    pub mod mandate_options_off_session_details_blik;
     pub mod payment_intent;
+    pub mod payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code;
+    pub mod payment_method_config_biz_payment_method_configuration_details;
+    pub mod payment_method_details_card_checks;
+    pub mod payment_method_details_card_wallet_apple_pay;
+    pub mod payment_method_details_card_wallet_google_pay;
     pub mod payment_method_options_customer_balance_eu_bank_account;
     pub mod payout;
     pub mod platform_tax_fee;
@@ -45,6 +49,7 @@ pub mod core {
     pub mod tax_deducted_at_source;
     pub mod test_helpers_test_clock;
     pub mod token;
+    pub mod version;
 }
 
 #[path = "generated"]
@@ -52,6 +57,7 @@ pub mod payment {
     pub mod bank_account;
     pub mod card;
     pub mod payment_method;
+    pub mod payment_method_card_present_networks;
     pub mod source;
 }
 
@@ -64,11 +70,22 @@ pub mod checkout {
 }
 
 #[path = "generated"]
+#[cfg(feature = "tax-calculation")]
+pub mod tax_calculation {
+    pub mod tax_calculation;
+    pub mod tax_calculation_line_item;
+    pub mod tax_product_resource_customer_details;
+}
+
+#[path = "generated"]
 #[cfg(feature = "billing")]
 pub mod billing {
     pub mod billing_portal_configuration;
     pub mod billing_portal_session;
     pub mod coupon;
+    pub mod credit_note;
+    pub mod credit_note_line_item;
+    pub mod customer_balance_transaction;
     pub mod discount;
     pub mod invoice;
     pub mod invoice_payment_method_options_acss_debit;

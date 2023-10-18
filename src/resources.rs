@@ -14,6 +14,7 @@ mod types;
 #[path = "resources"]
 mod core {
     pub mod account_ext;
+    pub mod balance_ext;
     pub mod balance_transaction_ext;
     pub mod charge_ext;
     pub mod customer_ext;
@@ -23,6 +24,7 @@ mod core {
     pub mod placeholders;
     pub mod setup_intent_ext;
     pub mod token_ext;
+    pub mod transfer_reversal_ext;
 }
 
 #[path = "resources"]
@@ -39,6 +41,8 @@ mod webhook_events;
 #[path = "resources"]
 #[cfg(feature = "billing")]
 mod billing {
+    pub mod credit_note_ext;
+    pub mod customer_balance_transaction_ext;
     pub mod invoice_ext;
     pub mod line_item_ext;
     pub mod subscription_ext;
@@ -95,6 +99,7 @@ pub use {
         account_ext::*,
         balance_transaction_ext::*,
         charge_ext::*,
+        transfer_reversal_ext::*,
         customer_ext::*,
         payment_intent_ext::*,
         payment_source::*,
@@ -118,10 +123,14 @@ pub use {
         file_link::*,
         invoice_setting_rendering_options::*,
         mandate::*,
-        mandate_options_off_session_details_blik::*,
         payment_intent::*,
+        payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code::*,
         linked_account_options_us_bank_account::*,
+        payment_method_details_card_checks::*,
+        payment_method_details_card_wallet_apple_pay::*,
+        payment_method_details_card_wallet_google_pay::*,
         payment_method_options_customer_balance_eu_bank_account::*,
+        payment_method_config_biz_payment_method_configuration_details::*,
         payout::*,
         platform_tax_fee::*,
         price::*,
@@ -150,6 +159,7 @@ pub use {
         card::*,
         bank_account::*,
         payment_method::*,
+        payment_method_card_present_networks::*,
         source::*,
     },
 };
@@ -158,6 +168,7 @@ pub use {
 #[cfg(feature = "events")]
 pub use {
     webhook_events::*,
+    webhook_events::NotificationEventData,
     generated::event::*,
 };
 
@@ -176,6 +187,7 @@ pub use {
 #[cfg(feature = "billing")]
 pub use {
     billing::{
+        customer_balance_transaction_ext::*,
         invoice_ext::*,
         line_item_ext::*,
         subscription_ext::*,
@@ -186,6 +198,9 @@ pub use {
         billing_portal_session::*,
         billing_portal_configuration::*,
         coupon::*,
+        credit_note::*,
+        credit_note_line_item::*,
+        customer_balance_transaction::*,
         discount::*,
         invoice::*,
         invoice_payment_method_options_acss_debit::*,
@@ -221,6 +236,16 @@ pub use {
         usage_record::*,
         usage_record_summary::*,
     },
+};
+
+#[rustfmt::skip]
+#[cfg(feature = "tax-calculation")]
+pub use {
+    generated::tax_calculation::{
+        tax_calculation::*,
+        tax_calculation_line_item::*,
+        tax_product_resource_customer_details::*,
+    }
 };
 
 #[rustfmt::skip]

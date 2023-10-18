@@ -4,6 +4,7 @@ use std::path::Path;
 
 use heck::{CamelCase, SnakeCase};
 use openapiv3::{ReferenceOr, SchemaKind};
+use tracing::trace;
 
 use crate::spec::{as_object_properties, Spec};
 use crate::{
@@ -140,6 +141,20 @@ impl<'a> Metadata<'a> {
         write(&out_path.as_ref().join("placeholders.rs"), out.as_bytes()).unwrap();
     }
 
+    pub fn write_version<T>(&self, out_path: T)
+    where
+        T: AsRef<Path>,
+    {
+        let mut out = String::new();
+        out.push_str("use crate::ApiVersion;\n\n");
+        out.push_str(&format!(
+            "pub const VERSION: ApiVersion = ApiVersion::V{};",
+            self.spec.version().replace('-', "_")
+        ));
+
+        write(&out_path.as_ref().join("version.rs"), out.as_bytes()).unwrap();
+    }
+
     #[tracing::instrument(skip_all)]
     pub fn get_files(&self) -> Vec<FileGenerator> {
         self.objects
@@ -154,6 +169,7 @@ impl<'a> Metadata<'a> {
         self.id_mappings.get(schema.as_str()).map(ToOwned::to_owned)
     }
 
+    #[tracing::instrument(skip(self))]
     pub fn schema_to_rust_type(&self, schema: &str) -> String {
         let schema = schema.replace('.', "_");
         if let Some(rename) = self.object_mappings.get(schema.as_str()) {
@@ -197,7 +213,7 @@ pub fn metadata_requests<'a>(
             (Some(x), _, _) => x.to_string(),
             _ => {
                 // this should never happen
-                log::error!("path ignored: {path}");
+                tracing::error!("path ignored: {path}");
                 continue;
             }
         };

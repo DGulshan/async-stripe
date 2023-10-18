@@ -78,8 +78,8 @@ pub struct InvoiceItem {
     /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
     ///
     /// This can be useful for storing additional information about the object in a structured format.
-    #[serde(default)]
-    pub metadata: Metadata,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub period: Option<Period>,
@@ -262,8 +262,9 @@ pub struct CreateInvoiceItem<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub subscription: Option<SubscriptionId>,
 
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -453,8 +454,9 @@ pub struct UpdateInvoiceItem<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub quantity: Option<u64>,
 
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -528,8 +530,9 @@ pub struct InvoiceItemPriceData {
     /// The ID of the product that this price will belong to.
     pub product: String,
 
-    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
+    /// Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings.
     ///
+    /// Specifies whether the price is considered inclusive of taxes or exclusive of taxes.
     /// One of `inclusive`, `exclusive`, or `unspecified`.
     /// Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     #[serde(skip_serializing_if = "Option::is_none")]

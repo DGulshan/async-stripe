@@ -18,7 +18,6 @@ impl UrlFinder {
         if resp.status().is_success() {
             let text = resp.text()?;
             if let Some(line) = text.lines().find(|l| l.contains("flattenedAPISections: {")) {
-                println!("{}", line);
                 Ok(Self {
                     flattened_api_sections: serde_json::from_str(
                         line.trim()
@@ -31,7 +30,7 @@ impl UrlFinder {
                 Err(anyhow!("stripe api returned unexpected document"))
             }
         } else {
-            log::error!("{}", resp.text()?);
+            tracing::error!("{}", resp.text()?);
             Err(anyhow!("request to stripe api returned non-200 status code"))
         }
     }
@@ -50,7 +49,7 @@ impl UrlFinder {
             }
         }
 
-        log::warn!("{} not in html", object);
+        tracing::warn!("{} not in html", object);
         None
     }
 }

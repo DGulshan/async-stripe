@@ -2,11 +2,15 @@
 // This file was automatically generated.
 // ======================================
 
+use serde::{Deserialize, Serialize};
+
 use crate::client::{Client, Response};
 use crate::ids::{CreditNoteId, CustomerId, InvoiceId, RefundId};
 use crate::params::{Expand, Expandable, List, Metadata, Object, Paginable, Timestamp};
-use crate::resources::{CreditNoteLineItem, Currency, Customer, CustomerBalanceTransaction, Discount, Invoice, InvoicesShippingCost, Refund, TaxRate};
-use serde::{Deserialize, Serialize};
+use crate::resources::{
+    CreditNoteLineItem, Currency, Customer, CustomerBalanceTransaction, Discount, Invoice,
+    InvoicesShippingCost, Refund, TaxRate,
+};
 
 /// The resource representing a Stripe "CreditNote".
 ///
@@ -16,7 +20,7 @@ pub struct CreditNote {
     /// Unique identifier for the object.
     pub id: CreditNoteId,
 
-    /// The integer amount in %s representing the total amount of the credit note, including tax.
+    /// The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax.
     pub amount: i64,
 
     /// This is the sum of all the shipping amounts.
@@ -38,11 +42,17 @@ pub struct CreditNote {
     /// Customer balance transaction related to this credit note.
     pub customer_balance_transaction: Option<Expandable<CustomerBalanceTransaction>>,
 
-    /// The integer amount in %s representing the total amount of discount that was credited.
+    /// The integer amount in cents (or local equivalent) representing the total amount of discount that was credited.
     pub discount_amount: i64,
 
     /// The aggregate amounts calculated per discount for all line items.
     pub discount_amounts: Vec<DiscountsResourceDiscountAmount>,
+
+    /// The date when this credit note is in effect.
+    ///
+    /// Same as `created` unless overwritten.
+    /// When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
+    pub effective_at: Option<Timestamp>,
 
     /// ID of the invoice.
     pub invoice: Expandable<Invoice>,
@@ -59,7 +69,7 @@ pub struct CreditNote {
     /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
     ///
     /// This can be useful for storing additional information about the object in a structured format.
-    pub metadata: Metadata,
+    pub metadata: Option<Metadata>,
 
     /// A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice.
     pub number: String,
@@ -84,19 +94,19 @@ pub struct CreditNote {
     /// Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
     pub status: CreditNoteStatus,
 
-    /// The integer amount in %s representing the amount of the credit note, excluding exclusive tax and invoice level discounts.
+    /// The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding exclusive tax and invoice level discounts.
     pub subtotal: i64,
 
-    /// The integer amount in %s representing the amount of the credit note, excluding all tax and invoice level discounts.
+    /// The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding all tax and invoice level discounts.
     pub subtotal_excluding_tax: Option<i64>,
 
     /// The aggregate amounts calculated per tax rate for all line items.
     pub tax_amounts: Vec<CreditNoteTaxAmount>,
 
-    /// The integer amount in %s representing the total amount of the credit note, including tax and all discount.
+    /// The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax and all discount.
     pub total: i64,
 
-    /// The integer amount in %s representing the total amount of the credit note, excluding tax, but including discounts.
+    /// The integer amount in cents (or local equivalent) representing the total amount of the credit note, excluding tax, but including discounts.
     pub total_excluding_tax: Option<i64>,
 
     /// Type of this credit note, one of `pre_payment` or `post_payment`.
@@ -111,12 +121,10 @@ pub struct CreditNote {
 }
 
 impl CreditNote {
-
     /// Returns a list of credit notes.
-pub fn list(client: &Client, params: &ListCreditNotes<'_>) -> Response<List<CreditNote>> {
-   client.get_query("/credit_notes", &params)
-}
-
+    pub fn list(client: &Client, params: &ListCreditNotes<'_>) -> Response<List<CreditNote>> {
+        client.get_query("/credit_notes", &params)
+    }
 
     /// Issue a credit note to adjust the amount of a finalized invoice.
     ///
@@ -134,7 +142,11 @@ pub fn list(client: &Client, params: &ListCreditNotes<'_>) -> Response<List<Cred
     }
 
     /// Updates an existing credit note.
-    pub fn update(client: &Client, id: &CreditNoteId, params: UpdateCreditNote<'_>) -> Response<CreditNote> {
+    pub fn update(
+        client: &Client,
+        id: &CreditNoteId,
+        params: UpdateCreditNote<'_>,
+    ) -> Response<CreditNote> {
         client.post_form(&format!("/credit_notes/{}", id), &params)
     }
 }
@@ -151,8 +163,7 @@ impl Object for CreditNote {
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct CreditNoteTaxAmount {
-
-    /// The amount, in %s, of the tax.
+    /// The amount, in cents (or local equivalent), of the tax.
     pub amount: i64,
 
     /// Whether this tax amount is inclusive or exclusive.
@@ -160,12 +171,19 @@ pub struct CreditNoteTaxAmount {
 
     /// The tax rate that was applied to get this tax amount.
     pub tax_rate: Expandable<TaxRate>,
+
+    /// The reasoning behind this tax, for example, if the product is tax exempt.
+    ///
+    /// The possible values for this field may be extended as new tax rules are supported.
+    pub taxability_reason: Option<CreditNoteTaxAmountTaxabilityReason>,
+
+    /// The amount on which tax is calculated, in cents (or local equivalent).
+    pub taxable_amount: Option<i64>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct DiscountsResourceDiscountAmount {
-
-    /// The amount, in %s, of the discount.
+    /// The amount, in cents (or local equivalent), of the discount.
     pub amount: i64,
 
     /// The discount that was applied to get this discount amount.
@@ -175,7 +193,6 @@ pub struct DiscountsResourceDiscountAmount {
 /// The parameters for `CreditNote::create`.
 #[derive(Clone, Debug, Serialize)]
 pub struct CreateCreditNote<'a> {
-
     /// The integer amount in cents (or local equivalent) representing the total amount of the credit note.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub amount: Option<i64>,
@@ -183,6 +200,13 @@ pub struct CreateCreditNote<'a> {
     /// The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub credit_amount: Option<i64>,
+
+    /// The date when this credit note is in effect.
+    ///
+    /// Same as `created` unless overwritten.
+    /// When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub effective_at: Option<Timestamp>,
 
     /// Specifies which fields in the response should be expanded.
     #[serde(skip_serializing_if = "Expand::is_empty")]
@@ -235,6 +259,7 @@ impl<'a> CreateCreditNote<'a> {
         CreateCreditNote {
             amount: Default::default(),
             credit_amount: Default::default(),
+            effective_at: Default::default(),
             expand: Default::default(),
             invoice,
             lines: Default::default(),
@@ -252,7 +277,6 @@ impl<'a> CreateCreditNote<'a> {
 /// The parameters for `CreditNote::list`.
 #[derive(Clone, Debug, Serialize, Default)]
 pub struct ListCreditNotes<'a> {
-
     /// Only return credit notes for the customer specified by this customer ID.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer: Option<CustomerId>,
@@ -301,12 +325,12 @@ impl<'a> ListCreditNotes<'a> {
 impl Paginable for ListCreditNotes<'_> {
     type O = CreditNote;
     fn set_last(&mut self, item: Self::O) {
-                self.starting_after = Some(item.id());
-            }}
+        self.starting_after = Some(item.id());
+    }
+}
 /// The parameters for `CreditNote::update`.
 #[derive(Clone, Debug, Serialize, Default)]
 pub struct UpdateCreditNote<'a> {
-
     /// Specifies which fields in the response should be expanded.
     #[serde(skip_serializing_if = "Expand::is_empty")]
     pub expand: &'a [&'a str],
@@ -336,7 +360,6 @@ impl<'a> UpdateCreditNote<'a> {
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct CreateCreditNoteLines {
-
     /// The line item amount to credit.
     ///
     /// Only valid when `type` is `invoice_line_item`.
@@ -385,7 +408,6 @@ pub struct CreateCreditNoteLines {
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct CreateCreditNoteShippingCost {
-
     /// The ID of the shipping rate to use for this order.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub shipping_rate: Option<String>,
@@ -494,6 +516,66 @@ impl std::fmt::Display for CreditNoteStatus {
 impl std::default::Default for CreditNoteStatus {
     fn default() -> Self {
         Self::Issued
+    }
+}
+
+/// An enum representing the possible values of an `CreditNoteTaxAmount`'s `taxability_reason` field.
+#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum CreditNoteTaxAmountTaxabilityReason {
+    CustomerExempt,
+    NotCollecting,
+    NotSubjectToTax,
+    NotSupported,
+    PortionProductExempt,
+    PortionReducedRated,
+    PortionStandardRated,
+    ProductExempt,
+    ProductExemptHoliday,
+    ProportionallyRated,
+    ReducedRated,
+    ReverseCharge,
+    StandardRated,
+    TaxableBasisReduced,
+    ZeroRated,
+}
+
+impl CreditNoteTaxAmountTaxabilityReason {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            CreditNoteTaxAmountTaxabilityReason::CustomerExempt => "customer_exempt",
+            CreditNoteTaxAmountTaxabilityReason::NotCollecting => "not_collecting",
+            CreditNoteTaxAmountTaxabilityReason::NotSubjectToTax => "not_subject_to_tax",
+            CreditNoteTaxAmountTaxabilityReason::NotSupported => "not_supported",
+            CreditNoteTaxAmountTaxabilityReason::PortionProductExempt => "portion_product_exempt",
+            CreditNoteTaxAmountTaxabilityReason::PortionReducedRated => "portion_reduced_rated",
+            CreditNoteTaxAmountTaxabilityReason::PortionStandardRated => "portion_standard_rated",
+            CreditNoteTaxAmountTaxabilityReason::ProductExempt => "product_exempt",
+            CreditNoteTaxAmountTaxabilityReason::ProductExemptHoliday => "product_exempt_holiday",
+            CreditNoteTaxAmountTaxabilityReason::ProportionallyRated => "proportionally_rated",
+            CreditNoteTaxAmountTaxabilityReason::ReducedRated => "reduced_rated",
+            CreditNoteTaxAmountTaxabilityReason::ReverseCharge => "reverse_charge",
+            CreditNoteTaxAmountTaxabilityReason::StandardRated => "standard_rated",
+            CreditNoteTaxAmountTaxabilityReason::TaxableBasisReduced => "taxable_basis_reduced",
+            CreditNoteTaxAmountTaxabilityReason::ZeroRated => "zero_rated",
+        }
+    }
+}
+
+impl AsRef<str> for CreditNoteTaxAmountTaxabilityReason {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+
+impl std::fmt::Display for CreditNoteTaxAmountTaxabilityReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.as_str().fmt(f)
+    }
+}
+impl std::default::Default for CreditNoteTaxAmountTaxabilityReason {
+    fn default() -> Self {
+        Self::CustomerExempt
     }
 }
 

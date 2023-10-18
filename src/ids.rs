@@ -495,9 +495,13 @@ def_id!(CardId, "card_");
 def_id!(CardTokenId, "tok_");
 def_id!(ChargeId, "ch_" | "py_"); // TODO: Understand (and then document) why "py_" is a valid charge id
 def_id!(CheckoutSessionId, "cs_");
-def_id!(CheckoutSessionItemId: String); // TODO: Figure out what prefix this id has
+def_id!(CheckoutSessionItemId, "li_");
 def_id!(ConnectCollectionTransferId, "connct_");
+def_id!(ConnectTokenId, "ct_");
 def_id!(CouponId: String); // N.B. A coupon id can be user-provided so can be any arbitrary string
+def_id!(CreditNoteId, "cn_");
+def_id!(CreditNoteLineItemId, "cnli_");
+def_id!(CustomerBalanceTransactionId, "cbtxn_");
 def_id!(CustomerId, "cus_");
 def_id!(DiscountId, "di_");
 def_id!(DisputeId, "dp_" | "du_");
@@ -525,6 +529,7 @@ def_id!(IssuingTransactionId, "ipi_");
 def_id!(OrderId, "or_");
 def_id!(OrderReturnId, "orret_");
 def_id!(MandateId, "mandate_");
+def_id!(PaymentMethodConfigurationId: String);
 def_id!(PaymentIntentId, "pi_");
 def_id!(PaymentLinkId, "plink_");
 def_id!(PaymentMethodId, "pm_" | "card_" | "src_" | "ba_");
@@ -568,6 +573,8 @@ def_id!(SubscriptionItemId, "si_");
 def_id!(SubscriptionLineId, "sli_");
 def_id!(SubscriptionScheduleId, "sub_sched_");
 def_id!(TaxIdId, "txi_");
+def_id!(TaxCalculationId: String);
+def_id!(TaxCalculationLineItemId: String);
 def_id!(TaxCodeId, "txcd_");
 def_id!(TaxDeductedAtSourceId, "itds");
 def_id!(TaxRateId, "txr_");
@@ -580,13 +587,14 @@ def_id!(
         #[default]
         Card(CardTokenId),
         Bank(BankTokenId),
+        Connect(ConnectTokenId),
     }
 );
 def_id!(TopupId, "tu_");
 def_id!(TransferId, "tr_");
 def_id!(TransferReversalId, "trr_");
 def_id!(UsageRecordId, "mbur_");
-def_id!(UsageRecordSummaryId, "urs_");
+def_id!(UsageRecordSummaryId, "urs_" | "sis_");
 def_id!(WebhookEndpointId, "we_");
 
 impl InvoiceId {

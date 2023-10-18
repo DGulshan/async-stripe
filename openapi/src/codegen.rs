@@ -8,6 +8,7 @@ use openapiv3::{
     AdditionalProperties, Parameter, ParameterSchemaOrContent, PathStyle, ReferenceOr, Schema,
     SchemaKind, Type,
 };
+use tracing::trace;
 
 use crate::spec::{
     as_any_of_first_item_title, as_data_array_item, as_enum_strings, as_first_enum_value,
@@ -44,9 +45,12 @@ pub fn gen_struct(
     let schema = meta.spec.get_schema_unwrapped(object).as_item().expect("Expected item");
     let obj = as_object_type(schema).expect("Expected object type");
     let schema_title = schema.schema_data.title.as_ref().expect("No title found");
-    let deleted_schema = meta.spec.component_schemas().get(&format!("deleted_{}", object));
 
-    log::trace!("struct {} {{...}}", struct_name);
+    let deleted_schema = meta.spec.component_schemas().get(&format!("deleted_{}", object));
+    let deleted_properties =
+        deleted_schema.and_then(|schema| schema.as_item()).and_then(as_object_properties);
+
+    trace!("struct {} {{...}} ({})", struct_name, name);
 
     // Generate the struct type
     out.push_str("/// The resource representing a Stripe \"");
@@ -78,14 +82,15 @@ pub fn gen_struct(
         out.push_str(id_type);
         out.push_str(",\n");
     }
+
     let mut did_emit_deleted = false;
-    for (key, field) in &obj.properties {
-        if key == "id" {
-            continue;
-        }
-        if key == "object" {
-            continue;
-        }
+    for (key, field) in obj
+        .properties
+        .iter()
+        // we handle id and object separately
+        .filter(|(key, _)| !["id", "object"].contains(&key.as_str()))
+    {
+        // emit deleted in the appropirate place alphabetically
         if !did_emit_deleted
             && deleted_schema.is_some()
             && key.as_str().cmp("deleted") == std::cmp::Ordering::Greater
@@ -96,25 +101,13 @@ pub fn gen_struct(
             out.push_str("    pub deleted: bool,\n");
             did_emit_deleted = true;
         }
-        let required = obj.required.contains(key);
-        let force_optional = if let Some(properties) =
-            deleted_schema.and_then(|schema| schema.as_item()).and_then(as_object_properties)
-        {
-            !properties.contains_key(key)
-        } else {
-            false
-        };
+
+        // in the required list and not in the deleted list
+        let required = obj.required.contains(key)
+            && deleted_properties.map(|map| map.contains_key(key)).unwrap_or(true);
+
         out.push('\n');
-        out.push_str(&gen_field(
-            state,
-            meta,
-            object,
-            key,
-            field,
-            required && !force_optional,
-            false,
-            shared_objects,
-        ));
+        out.push_str(&gen_field(state, meta, object, key, field, required, false, shared_objects));
     }
     out.push_str("}\n");
 }
@@ -196,6 +189,7 @@ pub fn gen_generated_schemas(
         state.generated_schemas.iter().find_map(|(k, &v)| if !v { Some(k) } else { None }).cloned()
     {
         let struct_name = meta.schema_to_rust_type(&schema_name);
+        trace!("struct {} {{...}} ({})", struct_name, schema_name);
         out.push('\n');
         out.push_str("#[derive(Clone, Debug, Default, Deserialize, Serialize)]\n");
         out.push_str("pub struct ");
@@ -308,6 +302,8 @@ pub fn gen_inferred_params(
         } else {
             out.push_str("#[derive(Clone, Debug, Serialize)]\n");
         }
+
+        trace!("struct {} {{...}}", &params.rust_type);
 
         out.push_str("pub struct ");
         out.push_str(&params.rust_type);
@@ -521,7 +517,7 @@ pub fn gen_inferred_params(
                     } else if required {
                         panic!("error: skipped required parameter: {} => {:?}", param_name, schema);
                     } else {
-                        log::warn!("skipping optional parameter: {}", param_name);
+                        tracing::warn!("skipping optional parameter: {}", param_name);
                     }
                 }
             }
@@ -582,7 +578,7 @@ pub fn gen_inferred_params(
 }
 
 #[tracing::instrument(skip_all)]
-pub fn gen_emitted_structs(
+pub fn gen_inferred_structs(
     out: &mut String,
     state: &mut FileGenerator,
     meta: &Metadata,
@@ -602,17 +598,18 @@ pub fn gen_emitted_structs(
                 continue;
             } else {
                 emitted_structs.insert(struct_name.clone());
-                log::trace!("struct {} {{ ... }}", struct_name);
             }
 
             let obj = match struct_.schema.schema_kind {
                 SchemaKind::Type(Type::Object(o)) => o,
                 _ => {
                     // TODO: Handle these objects
-                    log::warn!("{} has no properties ({:#?})", struct_name, struct_.schema);
+                    tracing::warn!("{} has no properties ({:#?})", struct_name, struct_.schema);
                     continue;
                 }
             };
+
+            trace!("struct {} {{...}}", &struct_name.to_camel_case());
 
             out.push('\n');
             out.push_str("#[derive(Clone, Debug, Default, Deserialize, Serialize)]\n");
@@ -642,7 +639,7 @@ pub fn gen_emitted_structs(
 #[tracing::instrument(skip_all)]
 pub fn gen_unions(out: &mut String, unions: &BTreeMap<String, InferredUnion>, meta: &Metadata) {
     for (union_name, union_) in unions {
-        log::trace!("union {} {{ ... }}", union_name);
+        trace!("union {} {{ ... }}", union_name);
 
         out.push('\n');
         out.push_str("#[derive(Clone, Debug, Deserialize, Serialize)]\n");
@@ -711,7 +708,7 @@ pub fn gen_variant_name(wire_name: &str, meta: &Metadata) -> String {
 #[tracing::instrument(skip_all)]
 pub fn gen_enums(out: &mut String, enums: &BTreeMap<String, InferredEnum>, meta: &Metadata) {
     for (enum_name, enum_) in enums {
-        log::trace!("enum {} {{ ... }}", enum_name);
+        trace!("enum {} {{ ... }}", enum_name);
 
         out.push('\n');
         out.push_str(&format!(
@@ -827,7 +824,7 @@ pub fn gen_objects(out: &mut String, objects: &BTreeMap<String, InferredObject>)
         let value_obj: InferredObject;
         {
             let (key, value) = generated_objects.iter().next().unwrap();
-            log::trace!("object: {} -- {:#?}", key, value);
+            trace!("object: {} -- {:#?}", key, value);
             key_str = key.clone();
             value_obj = value.clone();
         }
@@ -846,6 +843,8 @@ pub fn gen_objects(out: &mut String, objects: &BTreeMap<String, InferredObject>)
 
         match schema.schema_kind {
             SchemaKind::Type(Type::Object(obj)) => {
+                trace!("struct {} {{...}}", key_str);
+
                 out.push_str("#[derive(Clone, Debug, Default, Deserialize, Serialize)]\n");
                 out.push_str(&format!("pub struct {} {{\n", key_str));
                 let props = obj.properties.iter().flat_map(|(name, schema_or)| match schema_or {
@@ -921,7 +920,7 @@ pub fn gen_objects(out: &mut String, objects: &BTreeMap<String, InferredObject>)
     }
 }
 
-#[tracing::instrument(skip_all)]
+#[tracing::instrument(skip_all, fields(object = object, field_name = field_name))]
 pub fn gen_field<T: Borrow<Schema>>(
     state: &mut FileGenerator,
     meta: &Metadata,
@@ -932,6 +931,8 @@ pub fn gen_field<T: Borrow<Schema>>(
     default: bool,
     shared_objects: &mut BTreeSet<FileGenerator>,
 ) -> String {
+    trace!("gen_field: {}::{} (required: {}, default: {})", object, field_name, required, default);
+
     let mut out = String::new();
     if let Some(doc) = field.as_item().and_then(|s| s.borrow().schema_data.description.as_deref()) {
         print_doc_comment(&mut out, doc, 1);
@@ -968,6 +969,7 @@ pub fn gen_field<T: Borrow<Schema>>(
     out
 }
 
+#[tracing::instrument(skip_all, fields(object = object, path = path))]
 fn gen_schema_ref(
     state: &mut FileGenerator,
     meta: &Metadata,
@@ -984,7 +986,11 @@ fn gen_schema_ref(
             state.use_resources.insert(type_name.clone());
             shared_objects.insert(FileGenerator::new(schema_name.to_string()));
         } else if !state.generated_schemas.contains_key(schema_name) {
-            state.generated_schemas.insert(schema_name.into(), false);
+            // for some reason, this field causes clashes, so just skip it
+            // until the new codegen is ready
+            if schema_name != "invoice_setting_subscription_schedule_setting" {
+                state.generated_schemas.insert(schema_name.into(), false);
+            }
         }
     }
     type_name
@@ -1165,11 +1171,11 @@ fn gen_field_type(
                 state.use_params.insert("Timestamp");
                 "RangeQuery<Timestamp>".into()
             } else {
-                log::trace!("object: {}, field_name: {}", object, field_name);
+                trace!("object: {}, field_name: {}", object, field_name);
                 let union_addition = format!("{field_name}_union");
                 let union_schema = meta.schema_field(object, &union_addition);
                 let union_name = meta.schema_to_rust_type(&union_schema);
-                log::trace!("union_schema: {}, union_name: {}", union_schema, union_name);
+                trace!("union_schema: {}, union_name: {}", union_schema, union_name);
                 let union_ = InferredUnion {
                     field: field_name.into(),
                     schema_variants: any_of
@@ -1228,7 +1234,11 @@ pub fn gen_field_rust_type<T: Borrow<Schema>>(
     }
     if field_name == "metadata" {
         state.use_params.insert("Metadata");
-        return "Metadata".into();
+        return if !required || is_nullable {
+            "Option<Metadata>".into()
+        } else {
+            "Metadata".into()
+        };
     } else if (field_name == "currency" || field_name.ends_with("_currency"))
         && matches!(maybe_schema.map(|s| &s.schema_kind), Some(SchemaKind::Type(Type::String(_))))
     {
@@ -1244,6 +1254,13 @@ pub fn gen_field_rust_type<T: Borrow<Schema>>(
             "Option<Timestamp>".into()
         } else {
             "Timestamp".into()
+        };
+    } else if field_name == "type" && object == "event" {
+        state.use_resources.insert("EventType".into());
+        return if !required || is_nullable {
+            "Option<EventType>".into()
+        } else {
+            "EventType".into()
         };
     }
 
@@ -1267,6 +1284,12 @@ pub fn gen_field_rust_type<T: Borrow<Schema>>(
         return ty;
     }
 
+    // currency_options field is represented by an optional HashMap<String, T>, where the String is the currency code in ISO 4217 format.
+    if field_name == "currency_options" {
+        state.use_params.insert("CurrencyMap");
+        return format!("Option<CurrencyMap<{}>>", ty);
+    }
+
     let optional = !required || is_nullable;
     let should_box = ty.as_str() == "ApiErrors";
 
@@ -1288,7 +1311,7 @@ pub fn gen_impl_requests(
     let object = &name;
     let requests = meta.requests.get(object)?;
     let rust_struct = meta.schema_to_rust_type(object);
-    log::trace!("impl {} {{ ... }}", rust_struct);
+    trace!("impl {} {{ ... }}", rust_struct);
 
     let mut methods = BTreeMap::new();
 
@@ -1476,7 +1499,7 @@ pub fn gen_impl_requests(
                     methods.insert(MethodTypes::Update, out);
                 }
             } else {
-                log::warn!(
+                tracing::warn!(
                     "unhandled {} for {rust_struct}: POST {path} (already have {:?})",
                     match (create, update) {
                         (true, _) => "CREATE",
@@ -1524,7 +1547,7 @@ pub fn gen_impl_requests(
                     methods.insert(MethodTypes::Delete, out);
                 }
             } else {
-                log::warn!("unhandled DELETE for {rust_struct}: {path}");
+                tracing::warn!("unhandled DELETE for {rust_struct}: {path}");
             }
         }
     }

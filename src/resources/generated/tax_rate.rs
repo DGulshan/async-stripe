@@ -37,6 +37,11 @@ pub struct TaxRate {
     /// The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page.
     pub display_name: String,
 
+    /// Actual/effective tax rate percentage out of 100.
+    ///
+    /// For tax calculations with automatic_tax[enabled]=true, this percentage reflects the rate actually used to calculate tax based on the product's taxability and whether the user is registered to collect taxes in the corresponding jurisdiction.
+    pub effective_percentage: Option<f64>,
+
     /// This specifies if the tax rate is inclusive or exclusive.
     pub inclusive: bool,
 
@@ -52,9 +57,11 @@ pub struct TaxRate {
     /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
     ///
     /// This can be useful for storing additional information about the object in a structured format.
-    pub metadata: Metadata,
+    pub metadata: Option<Metadata>,
 
-    /// This represents the tax rate percent out of 100.
+    /// Tax rate percentage out of 100.
+    ///
+    /// For tax calculations with automatic_tax[enabled]=true, this percentage includes the statutory tax rate of non-taxable jurisdictions.
     pub percentage: f64,
 
     /// [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix.
@@ -308,26 +315,36 @@ impl<'a> UpdateTaxRate<'a> {
 #[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum TaxRateTaxType {
+    AmusementTax,
+    CommunicationsTax,
     Gst,
     Hst,
+    Igst,
     Jct,
+    LeaseTax,
     Pst,
     Qst,
     Rst,
     SalesTax,
+    ServiceTax,
     Vat,
 }
 
 impl TaxRateTaxType {
     pub fn as_str(self) -> &'static str {
         match self {
+            TaxRateTaxType::AmusementTax => "amusement_tax",
+            TaxRateTaxType::CommunicationsTax => "communications_tax",
             TaxRateTaxType::Gst => "gst",
             TaxRateTaxType::Hst => "hst",
+            TaxRateTaxType::Igst => "igst",
             TaxRateTaxType::Jct => "jct",
+            TaxRateTaxType::LeaseTax => "lease_tax",
             TaxRateTaxType::Pst => "pst",
             TaxRateTaxType::Qst => "qst",
             TaxRateTaxType::Rst => "rst",
             TaxRateTaxType::SalesTax => "sales_tax",
+            TaxRateTaxType::ServiceTax => "service_tax",
             TaxRateTaxType::Vat => "vat",
         }
     }
@@ -346,6 +363,6 @@ impl std::fmt::Display for TaxRateTaxType {
 }
 impl std::default::Default for TaxRateTaxType {
     fn default() -> Self {
-        Self::Gst
+        Self::AmusementTax
     }
 }

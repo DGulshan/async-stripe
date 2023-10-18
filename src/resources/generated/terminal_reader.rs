@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::ids::TerminalReaderId;
 use crate::params::{Expandable, Metadata, Object};
-use crate::resources::{Currency, PaymentIntent, SetupIntent, TerminalLocation};
+use crate::resources::{Charge, Currency, PaymentIntent, Refund, SetupIntent, TerminalLocation};
 
 /// The resource representing a Stripe "TerminalReaderReader".
 ///
@@ -51,8 +51,8 @@ pub struct TerminalReader {
     /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
     ///
     /// This can be useful for storing additional information about the object in a structured format.
-    #[serde(default)]
-    pub metadata: Metadata,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
 
     /// Serial number of the reader.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -86,6 +86,9 @@ pub struct TerminalReaderReaderResourceReaderAction {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub process_setup_intent: Option<TerminalReaderReaderResourceProcessSetupIntentAction>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub refund_payment: Option<TerminalReaderReaderResourceRefundPaymentAction>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub set_reader_display: Option<TerminalReaderReaderResourceSetReaderDisplayAction>,
@@ -125,8 +128,58 @@ pub struct TerminalReaderReaderResourceProcessSetupIntentAction {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub generated_card: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub process_config: Option<TerminalReaderReaderResourceProcessSetupConfig>,
+
     /// Most recent SetupIntent processed by the reader.
     pub setup_intent: Expandable<SetupIntent>,
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct TerminalReaderReaderResourceProcessSetupConfig {}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct TerminalReaderReaderResourceRefundPaymentAction {
+    /// The amount being refunded.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub amount: Option<i64>,
+
+    /// Charge that is being refunded.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub charge: Option<Expandable<Charge>>,
+
+    /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
+    ///
+    /// This can be useful for storing additional information about the object in a structured format.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
+
+    /// Payment intent that is being refunded.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub payment_intent: Option<Expandable<PaymentIntent>>,
+
+    /// The reason for the refund.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reason: Option<TerminalReaderReaderResourceRefundPaymentActionReason>,
+
+    /// Unique identifier for the refund object.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub refund: Option<Expandable<Refund>>,
+
+    /// Boolean indicating whether the application fee should be refunded when refunding this charge.
+    ///
+    /// If a full charge refund is given, the full application fee will be refunded.
+    /// Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded.
+    /// An application fee can be refunded only by the application that created the charge.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub refund_application_fee: Option<bool>,
+
+    /// Boolean indicating whether the transfer should be reversed when refunding this charge.
+    ///
+    /// The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount).
+    /// A transfer can be reversed only by the application that created the charge.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reverse_transfer: Option<bool>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -268,6 +321,7 @@ impl std::default::Default for TerminalReaderReaderResourceReaderActionStatus {
 pub enum TerminalReaderReaderResourceReaderActionType {
     ProcessPaymentIntent,
     ProcessSetupIntent,
+    RefundPayment,
     SetReaderDisplay,
 }
 
@@ -280,6 +334,7 @@ impl TerminalReaderReaderResourceReaderActionType {
             TerminalReaderReaderResourceReaderActionType::ProcessSetupIntent => {
                 "process_setup_intent"
             }
+            TerminalReaderReaderResourceReaderActionType::RefundPayment => "refund_payment",
             TerminalReaderReaderResourceReaderActionType::SetReaderDisplay => "set_reader_display",
         }
     }
@@ -299,6 +354,44 @@ impl std::fmt::Display for TerminalReaderReaderResourceReaderActionType {
 impl std::default::Default for TerminalReaderReaderResourceReaderActionType {
     fn default() -> Self {
         Self::ProcessPaymentIntent
+    }
+}
+
+/// An enum representing the possible values of an `TerminalReaderReaderResourceRefundPaymentAction`'s `reason` field.
+#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum TerminalReaderReaderResourceRefundPaymentActionReason {
+    Duplicate,
+    Fraudulent,
+    RequestedByCustomer,
+}
+
+impl TerminalReaderReaderResourceRefundPaymentActionReason {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            TerminalReaderReaderResourceRefundPaymentActionReason::Duplicate => "duplicate",
+            TerminalReaderReaderResourceRefundPaymentActionReason::Fraudulent => "fraudulent",
+            TerminalReaderReaderResourceRefundPaymentActionReason::RequestedByCustomer => {
+                "requested_by_customer"
+            }
+        }
+    }
+}
+
+impl AsRef<str> for TerminalReaderReaderResourceRefundPaymentActionReason {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+
+impl std::fmt::Display for TerminalReaderReaderResourceRefundPaymentActionReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.as_str().fmt(f)
+    }
+}
+impl std::default::Default for TerminalReaderReaderResourceRefundPaymentActionReason {
+    fn default() -> Self {
+        Self::Duplicate
     }
 }
 

@@ -26,19 +26,20 @@ pub struct Customer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub address: Option<Address>,
 
-    /// Current balance, if any, being stored on the customer.
+    /// The current balance, if any, that's stored on the customer.
     ///
     /// If negative, the customer has credit to apply to their next invoice.
-    /// If positive, the customer has an amount owed that will be added to their next invoice.
-    /// The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice.
-    /// This balance is only taken into account as invoices are finalized.
+    /// If positive, the customer has an amount owed that's added to their next invoice.
+    /// The balance only considers amounts that Stripe hasn't successfully applied to any invoice.
+    /// It doesn't reflect unpaid invoices.
+    /// This balance is only taken into account after invoices finalize.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub balance: Option<i64>,
 
     /// The current funds being held by Stripe on behalf of the customer.
     ///
-    /// These funds can be applied towards payment intents with source "cash_balance".
-    /// The settings[reconciliation_mode] field describes whether these funds are applied to such payment intents manually or automatically.
+    /// You can apply these funds towards payment intents when the source is "cash_balance".
+    /// The `settings[reconciliation_mode]` field describes if these funds apply to these payment intents manually or automatically.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cash_balance: Option<CashBalance>,
 
@@ -54,7 +55,7 @@ pub struct Customer {
 
     /// ID of the default payment source for the customer.
     ///
-    /// If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
+    /// If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub default_source: Option<Expandable<PaymentSource>>,
 
@@ -62,9 +63,9 @@ pub struct Customer {
     #[serde(default)]
     pub deleted: bool,
 
-    /// When the customer's latest invoice is billed by charging automatically, `delinquent` is `true` if the invoice's latest charge failed.
+    /// If Stripe bills the customer's latest invoice by automatically charging and the latest charge fails, it sets `delinquent`` to `true``.
     ///
-    /// When the customer's latest invoice is billed by sending an invoice, `delinquent` is `true` if the invoice isn't paid by its due date.  If an invoice is marked uncollectible by [dunning](https://stripe.com/docs/billing/automatic-collection), `delinquent` doesn't get reset to `false`.
+    /// If Stripe bills the invoice by sending it, and the invoice isn't paid by the due date, it also sets `delinquent`` to `true`.  If an invoice becomes uncollectible by [dunning](https://stripe.com/docs/billing/automatic-collection), `delinquent` doesn't reset to `false`.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub delinquent: Option<bool>,
 
@@ -82,13 +83,13 @@ pub struct Customer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
 
-    /// The current multi-currency balances, if any, being stored on the customer.
+    /// The current multi-currency balances, if any, that's stored on the customer.
     ///
     /// If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency.
-    /// If negative, the customer has an amount owed that will be added to their next invoice denominated in that currency.
-    /// These balances do not refer to any unpaid invoices.
-    /// They solely track amounts that have yet to be successfully applied to any invoice.
-    /// A balance in a particular currency is only applied to any invoice as an invoice in that currency is finalized.
+    /// If negative, the customer has an amount owed that's added to their next invoice denominated in that currency.
+    /// These balances don't apply to unpaid invoices.
+    /// They solely track amounts that Stripe hasn't successfully applied to any invoice.
+    /// Stripe only applies a balance in a specific currency to an invoice after that invoice (which is in the same currency) finalizes.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub invoice_credit_balance: Option<i64>,
 
@@ -106,14 +107,14 @@ pub struct Customer {
     /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
     ///
     /// This can be useful for storing additional information about the object in a structured format.
-    #[serde(default)]
-    pub metadata: Metadata,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
 
     /// The customer's full name or business name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 
-    /// The suffix of the customer's next invoice number, e.g., 0001.
+    /// The suffix of the customer's next invoice number (for example, 0001).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub next_invoice_sequence: Option<i64>,
 
@@ -142,10 +143,9 @@ pub struct Customer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tax: Option<CustomerTax>,
 
-    /// Describes the customer's tax exemption status.
+    /// Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`.
     ///
-    /// One of `none`, `exempt`, or `reverse`.
-    /// When set to `reverse`, invoice and receipt PDFs include the text **"Reverse charge"**.
+    /// When set to `reverse`, invoice and receipt PDFs include the following text: **"Reverse charge"**.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tax_exempt: Option<CustomerTaxExempt>,
 
@@ -153,7 +153,7 @@ pub struct Customer {
     #[serde(default)]
     pub tax_ids: List<TaxId>,
 
-    /// ID of the test clock this customer belongs to.
+    /// ID of the test clock that this customer belongs to.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub test_clock: Option<Expandable<TestHelpersTestClock>>,
 }
@@ -657,7 +657,7 @@ pub struct CustomerInvoiceSettings {
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct TaxIdData {
-    /// Type of the tax ID, one of `ae_trn`, `au_abn`, `au_arn`, `bg_uic`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ph_tin`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, or `za_vat`.
+    /// Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`.
     #[serde(rename = "type")]
     pub type_: TaxIdType,
 
@@ -1020,10 +1020,13 @@ impl std::default::Default for CustomerTaxLocationSource {
 #[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum TaxIdType {
+    AdNrt,
     AeTrn,
+    ArCuit,
     AuAbn,
     AuArn,
     BgUic,
+    BoTin,
     BrCnpj,
     BrCpf,
     CaBn,
@@ -1034,6 +1037,11 @@ pub enum TaxIdType {
     CaQst,
     ChVat,
     ClTin,
+    CnTin,
+    CoNit,
+    CrTin,
+    DoRcn,
+    EcRuc,
     EgTin,
     EsCif,
     EuOssVat,
@@ -1058,28 +1066,38 @@ pub enum TaxIdType {
     MySst,
     NoVat,
     NzGst,
+    PeRuc,
     PhTin,
+    RoTin,
+    RsPib,
     RuInn,
     RuKpp,
     SaVat,
     SgGst,
     SgUen,
     SiTin,
+    SvNit,
     ThVat,
     TrTin,
     TwVat,
     UaVat,
     UsEin,
+    UyRuc,
+    VeRif,
+    VnTin,
     ZaVat,
 }
 
 impl TaxIdType {
     pub fn as_str(self) -> &'static str {
         match self {
+            TaxIdType::AdNrt => "ad_nrt",
             TaxIdType::AeTrn => "ae_trn",
+            TaxIdType::ArCuit => "ar_cuit",
             TaxIdType::AuAbn => "au_abn",
             TaxIdType::AuArn => "au_arn",
             TaxIdType::BgUic => "bg_uic",
+            TaxIdType::BoTin => "bo_tin",
             TaxIdType::BrCnpj => "br_cnpj",
             TaxIdType::BrCpf => "br_cpf",
             TaxIdType::CaBn => "ca_bn",
@@ -1090,6 +1108,11 @@ impl TaxIdType {
             TaxIdType::CaQst => "ca_qst",
             TaxIdType::ChVat => "ch_vat",
             TaxIdType::ClTin => "cl_tin",
+            TaxIdType::CnTin => "cn_tin",
+            TaxIdType::CoNit => "co_nit",
+            TaxIdType::CrTin => "cr_tin",
+            TaxIdType::DoRcn => "do_rcn",
+            TaxIdType::EcRuc => "ec_ruc",
             TaxIdType::EgTin => "eg_tin",
             TaxIdType::EsCif => "es_cif",
             TaxIdType::EuOssVat => "eu_oss_vat",
@@ -1114,18 +1137,25 @@ impl TaxIdType {
             TaxIdType::MySst => "my_sst",
             TaxIdType::NoVat => "no_vat",
             TaxIdType::NzGst => "nz_gst",
+            TaxIdType::PeRuc => "pe_ruc",
             TaxIdType::PhTin => "ph_tin",
+            TaxIdType::RoTin => "ro_tin",
+            TaxIdType::RsPib => "rs_pib",
             TaxIdType::RuInn => "ru_inn",
             TaxIdType::RuKpp => "ru_kpp",
             TaxIdType::SaVat => "sa_vat",
             TaxIdType::SgGst => "sg_gst",
             TaxIdType::SgUen => "sg_uen",
             TaxIdType::SiTin => "si_tin",
+            TaxIdType::SvNit => "sv_nit",
             TaxIdType::ThVat => "th_vat",
             TaxIdType::TrTin => "tr_tin",
             TaxIdType::TwVat => "tw_vat",
             TaxIdType::UaVat => "ua_vat",
             TaxIdType::UsEin => "us_ein",
+            TaxIdType::UyRuc => "uy_ruc",
+            TaxIdType::VeRif => "ve_rif",
+            TaxIdType::VnTin => "vn_tin",
             TaxIdType::ZaVat => "za_vat",
         }
     }
@@ -1144,7 +1174,7 @@ impl std::fmt::Display for TaxIdType {
 }
 impl std::default::Default for TaxIdType {
     fn default() -> Self {
-        Self::AeTrn
+        Self::AdNrt
     }
 }
 

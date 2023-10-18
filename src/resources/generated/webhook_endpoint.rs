@@ -52,8 +52,8 @@ pub struct WebhookEndpoint {
     /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object.
     ///
     /// This can be useful for storing additional information about the object in a structured format.
-    #[serde(default)]
-    pub metadata: Metadata,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<Metadata>,
 
     /// The endpoint's secret, used to generate [webhook signatures](https://stripe.com/docs/webhooks/signatures).
     ///
@@ -141,7 +141,7 @@ pub struct CreateWebhookEndpoint<'a> {
 
     /// An optional description of what the webhook is used for.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<&'a str>,
+    pub description: Option<String>,
 
     /// The list of events to enable for this endpoint.
     ///
@@ -227,7 +227,7 @@ impl Paginable for ListWebhookEndpoints<'_> {
 pub struct UpdateWebhookEndpoint<'a> {
     /// An optional description of what the webhook is used for.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<&'a str>,
+    pub description: Option<String>,
 
     /// Disable the webhook endpoint if set to true.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -449,8 +449,6 @@ pub enum EventFilter {
     InvoiceitemCreated,
     #[serde(rename = "invoiceitem.deleted")]
     InvoiceitemDeleted,
-    #[serde(rename = "invoiceitem.updated")]
-    InvoiceitemUpdated,
     #[serde(rename = "issuing_authorization.created")]
     IssuingAuthorizationCreated,
     #[serde(rename = "issuing_authorization.request")]
@@ -519,6 +517,8 @@ pub enum EventFilter {
     PayoutFailed,
     #[serde(rename = "payout.paid")]
     PayoutPaid,
+    #[serde(rename = "payout.reconciliation_completed")]
+    PayoutReconciliationCompleted,
     #[serde(rename = "payout.updated")]
     PayoutUpdated,
     #[serde(rename = "person.created")]
@@ -627,6 +627,8 @@ pub enum EventFilter {
     SubscriptionScheduleReleased,
     #[serde(rename = "subscription_schedule.updated")]
     SubscriptionScheduleUpdated,
+    #[serde(rename = "tax.settings.updated")]
+    TaxSettingsUpdated,
     #[serde(rename = "tax_rate.created")]
     TaxRateCreated,
     #[serde(rename = "tax_rate.updated")]
@@ -846,7 +848,6 @@ impl EventFilter {
             EventFilter::InvoiceVoided => "invoice.voided",
             EventFilter::InvoiceitemCreated => "invoiceitem.created",
             EventFilter::InvoiceitemDeleted => "invoiceitem.deleted",
-            EventFilter::InvoiceitemUpdated => "invoiceitem.updated",
             EventFilter::IssuingAuthorizationCreated => "issuing_authorization.created",
             EventFilter::IssuingAuthorizationRequest => "issuing_authorization.request",
             EventFilter::IssuingAuthorizationUpdated => "issuing_authorization.updated",
@@ -885,6 +886,7 @@ impl EventFilter {
             EventFilter::PayoutCreated => "payout.created",
             EventFilter::PayoutFailed => "payout.failed",
             EventFilter::PayoutPaid => "payout.paid",
+            EventFilter::PayoutReconciliationCompleted => "payout.reconciliation_completed",
             EventFilter::PayoutUpdated => "payout.updated",
             EventFilter::PersonCreated => "person.created",
             EventFilter::PersonDeleted => "person.deleted",
@@ -939,6 +941,7 @@ impl EventFilter {
             EventFilter::SubscriptionScheduleExpiring => "subscription_schedule.expiring",
             EventFilter::SubscriptionScheduleReleased => "subscription_schedule.released",
             EventFilter::SubscriptionScheduleUpdated => "subscription_schedule.updated",
+            EventFilter::TaxSettingsUpdated => "tax.settings.updated",
             EventFilter::TaxRateCreated => "tax_rate.created",
             EventFilter::TaxRateUpdated => "tax_rate.updated",
             EventFilter::TerminalReaderActionFailed => "terminal.reader.action_failed",

@@ -87,6 +87,9 @@ pub struct IssuingCard {
     pub spending_controls: IssuingCardAuthorizationControls,
 
     /// Whether authorizations can be approved on this card.
+    ///
+    /// May be blocked from activating cards depending on past-due Cardholder requirements.
+    /// Defaults to `inactive`.
     pub status: IssuingCardStatus,
 
     /// The type of the card.
@@ -146,9 +149,10 @@ pub struct IssuingCardShipping {
     /// Recipient name.
     pub name: String,
 
-    /// The phone number of the receiver of the bulk shipment.
+    /// The phone number of the receiver of the shipment.
     ///
-    /// This phone number will be provided to the shipping company, who might use it to contact the receiver in case of delivery issues.
+    /// Our courier partners will use this number to contact you in the event of card delivery issues.
+    /// For individual shipments to the EU/UK, if this field is empty, we will provide them with the phone number provided when the cardholder was initially created.
     pub phone_number: Option<String>,
 
     /// Whether a signature is required for card delivery.
@@ -179,7 +183,7 @@ pub struct IssuingCardShipping {
 pub struct IssuingCardShippingCustoms {
     /// A registration number used for customs in Europe.
     ///
-    /// See https://www.gov.uk/eori and https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en.
+    /// See [<https://www.gov.uk/eori>](https://www.gov.uk/eori) for the UK and [<https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en>](https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en) for the EU.
     pub eori_number: Option<String>,
 }
 
@@ -565,11 +569,13 @@ pub enum IssuingCardSpendingLimitCategories {
     EatingPlacesRestaurants,
     EducationalServices,
     ElectricRazorStores,
+    ElectricVehicleCharging,
     ElectricalPartsAndEquipment,
     ElectricalServices,
     ElectronicsRepairShops,
     ElectronicsStores,
     ElementarySecondarySchools,
+    EmergencyServicesGcasVisaUseOnly,
     EmploymentTempAgencies,
     EquipmentRental,
     ExterminatingServices,
@@ -592,6 +598,10 @@ pub enum IssuingCardSpendingLimitCategories {
     GlassPaintAndWallpaperStores,
     GlasswareCrystalStores,
     GolfCoursesPublic,
+    GovernmentLicensedHorseDogRacingUsRegionOnly,
+    GovernmentLicensedOnlineCasionsOnlineGamblingUsRegionOnly,
+    GovernmentOwnedLotteriesNonUsRegion,
+    GovernmentOwnedLotteriesUsRegionOnly,
     GovernmentServices,
     GroceryStoresSupermarkets,
     HardwareEquipmentAndSupplies,
@@ -619,6 +629,7 @@ pub enum IssuingCardSpendingLimitCategories {
     LumberBuildingMaterialsStores,
     ManualCashDisburse,
     MarinasServiceAndSupplies,
+    Marketplaces,
     MasonryStoneworkAndPlaster,
     MassageParlors,
     MedicalAndDentalLabs,
@@ -860,11 +871,13 @@ impl IssuingCardSpendingLimitCategories {
             IssuingCardSpendingLimitCategories::EatingPlacesRestaurants => "eating_places_restaurants",
             IssuingCardSpendingLimitCategories::EducationalServices => "educational_services",
             IssuingCardSpendingLimitCategories::ElectricRazorStores => "electric_razor_stores",
+            IssuingCardSpendingLimitCategories::ElectricVehicleCharging => "electric_vehicle_charging",
             IssuingCardSpendingLimitCategories::ElectricalPartsAndEquipment => "electrical_parts_and_equipment",
             IssuingCardSpendingLimitCategories::ElectricalServices => "electrical_services",
             IssuingCardSpendingLimitCategories::ElectronicsRepairShops => "electronics_repair_shops",
             IssuingCardSpendingLimitCategories::ElectronicsStores => "electronics_stores",
             IssuingCardSpendingLimitCategories::ElementarySecondarySchools => "elementary_secondary_schools",
+            IssuingCardSpendingLimitCategories::EmergencyServicesGcasVisaUseOnly => "emergency_services_gcas_visa_use_only",
             IssuingCardSpendingLimitCategories::EmploymentTempAgencies => "employment_temp_agencies",
             IssuingCardSpendingLimitCategories::EquipmentRental => "equipment_rental",
             IssuingCardSpendingLimitCategories::ExterminatingServices => "exterminating_services",
@@ -887,6 +900,10 @@ impl IssuingCardSpendingLimitCategories {
             IssuingCardSpendingLimitCategories::GlassPaintAndWallpaperStores => "glass_paint_and_wallpaper_stores",
             IssuingCardSpendingLimitCategories::GlasswareCrystalStores => "glassware_crystal_stores",
             IssuingCardSpendingLimitCategories::GolfCoursesPublic => "golf_courses_public",
+            IssuingCardSpendingLimitCategories::GovernmentLicensedHorseDogRacingUsRegionOnly => "government_licensed_horse_dog_racing_us_region_only",
+            IssuingCardSpendingLimitCategories::GovernmentLicensedOnlineCasionsOnlineGamblingUsRegionOnly => "government_licensed_online_casions_online_gambling_us_region_only",
+            IssuingCardSpendingLimitCategories::GovernmentOwnedLotteriesNonUsRegion => "government_owned_lotteries_non_us_region",
+            IssuingCardSpendingLimitCategories::GovernmentOwnedLotteriesUsRegionOnly => "government_owned_lotteries_us_region_only",
             IssuingCardSpendingLimitCategories::GovernmentServices => "government_services",
             IssuingCardSpendingLimitCategories::GroceryStoresSupermarkets => "grocery_stores_supermarkets",
             IssuingCardSpendingLimitCategories::HardwareEquipmentAndSupplies => "hardware_equipment_and_supplies",
@@ -913,6 +930,7 @@ impl IssuingCardSpendingLimitCategories {
             IssuingCardSpendingLimitCategories::LumberBuildingMaterialsStores => "lumber_building_materials_stores",
             IssuingCardSpendingLimitCategories::ManualCashDisburse => "manual_cash_disburse",
             IssuingCardSpendingLimitCategories::MarinasServiceAndSupplies => "marinas_service_and_supplies",
+            IssuingCardSpendingLimitCategories::Marketplaces => "marketplaces",
             IssuingCardSpendingLimitCategories::MasonryStoneworkAndPlaster => "masonry_stonework_and_plaster",
             IssuingCardSpendingLimitCategories::MassageParlors => "massage_parlors",
             IssuingCardSpendingLimitCategories::MedicalAndDentalLabs => "medical_and_dental_labs",
