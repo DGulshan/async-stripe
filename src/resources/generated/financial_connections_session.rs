@@ -215,7 +215,7 @@ impl std::default::Default for CreateFinancialConnectionsSessionPermissions {
 }
 
 /// An enum representing the possible values of an `CreateFinancialConnectionsSession`'s `prefetch` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateFinancialConnectionsSessionPrefetch {
     Balances,
@@ -287,7 +287,7 @@ impl std::default::Default for FinancialConnectionsSessionPermissions {
 }
 
 /// An enum representing the possible values of an `FinancialConnectionsSession`'s `prefetch` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum FinancialConnectionsSessionPrefetch {
     Balances,

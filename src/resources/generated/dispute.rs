@@ -304,7 +304,7 @@ impl Paginable for ListDisputes<'_> {
     }
 }
 /// An enum representing the possible values of an `DisputePaymentMethodDetails`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum DisputePaymentMethodDetailsType {
     Card,

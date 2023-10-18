@@ -549,7 +549,7 @@ impl std::default::Default for CreateBillingPortalSessionFlowDataAfterCompletion
 }
 
 /// An enum representing the possible values of an `CreateBillingPortalSessionFlowDataSubscriptionCancelRetention`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateBillingPortalSessionFlowDataSubscriptionCancelRetentionType {
     CouponOffer,
@@ -697,7 +697,7 @@ impl std::default::Default for PortalFlowsFlowType {
 }
 
 /// An enum representing the possible values of an `PortalFlowsRetention`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PortalFlowsRetentionType {
     CouponOffer,

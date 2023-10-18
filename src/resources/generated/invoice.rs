@@ -1760,7 +1760,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateInvoicePaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections`'s `prefetch` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateInvoicePaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
     Balances,
@@ -2310,7 +2310,7 @@ impl std::default::Default for InvoicePendingInvoiceItemsBehavior {
 }
 
 /// An enum representing the possible values of an `Invoice`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum InvoiceStatus {
     Draft,
@@ -2428,7 +2428,7 @@ impl std::default::Default for InvoicesPaymentSettingsPaymentMethodTypes {
 }
 
 /// An enum representing the possible values of an `TaxAmount`'s `taxability_reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum TaxAmountTaxabilityReason {
     CustomerExempt,

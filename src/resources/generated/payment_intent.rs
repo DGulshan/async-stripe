@@ -4706,7 +4706,7 @@ pub struct UpdatePaymentIntentPaymentMethodOptionsCustomerBalanceBankTransferEuB
 }
 
 /// An enum representing the possible values of an `CreatePaymentIntentAutomaticPaymentMethods`'s `allow_redirects` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentIntentAutomaticPaymentMethodsAllowRedirects {
     Always,
@@ -6216,7 +6216,7 @@ impl std::default::Default for CreatePaymentIntentPaymentMethodOptionsCardSetupF
 }
 
 /// An enum representing the possible values of an `CreatePaymentIntentPaymentMethodOptionsCashapp`'s `capture_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentIntentPaymentMethodOptionsCashappCaptureMethod {
     Manual,
@@ -6248,7 +6248,7 @@ impl std::default::Default for CreatePaymentIntentPaymentMethodOptionsCashappCap
 }
 
 /// An enum representing the possible values of an `CreatePaymentIntentPaymentMethodOptionsCashapp`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentIntentPaymentMethodOptionsCashappSetupFutureUsage {
     None,
@@ -7034,7 +7034,7 @@ impl std::default::Default for CreatePaymentIntentPaymentMethodOptionsPaynowSetu
 }
 
 /// An enum representing the possible values of an `CreatePaymentIntentPaymentMethodOptionsPaypal`'s `capture_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentIntentPaymentMethodOptionsPaypalCaptureMethod {
     Manual,
@@ -7066,7 +7066,7 @@ impl std::default::Default for CreatePaymentIntentPaymentMethodOptionsPaypalCapt
 }
 
 /// An enum representing the possible values of an `CreatePaymentIntentPaymentMethodOptionsPaypal`'s `preferred_locale` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentIntentPaymentMethodOptionsPaypalPreferredLocale {
     #[serde(rename = "cs-CZ")]
@@ -7159,7 +7159,7 @@ impl std::default::Default for CreatePaymentIntentPaymentMethodOptionsPaypalPref
 }
 
 /// An enum representing the possible values of an `CreatePaymentIntentPaymentMethodOptionsPaypal`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentIntentPaymentMethodOptionsPaypalSetupFutureUsage {
     None,
@@ -7423,7 +7423,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreatePaymentIntentPaymentMethodOptionsUsBankAccountFinancialConnections`'s `prefetch` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentIntentPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
     Balances,
@@ -7497,7 +7497,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreatePaymentIntentPaymentMethodOptionsUsBankAccount`'s `preferred_settlement_speed` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentIntentPaymentMethodOptionsUsBankAccountPreferredSettlementSpeed {
     Fastest,
@@ -7683,7 +7683,7 @@ impl std::default::Default for CreatePaymentIntentPaymentMethodOptionsWechatPayS
 }
 
 /// An enum representing the possible values of an `CreatePaymentIntentPaymentMethodOptionsZip`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentIntentPaymentMethodOptionsZipSetupFutureUsage {
     None,
@@ -7793,7 +7793,7 @@ impl std::default::Default for FundingInstructionsBankTransferFinancialAddressTy
 }
 
 /// An enum representing the possible values of an `PaymentFlowsAutomaticPaymentMethodsPaymentIntent`'s `allow_redirects` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentFlowsAutomaticPaymentMethodsPaymentIntentAllowRedirects {
     Always,
@@ -8515,7 +8515,7 @@ impl std::default::Default for PaymentIntentPaymentMethodOptionsSepaDebitSetupFu
 }
 
 /// An enum representing the possible values of an `PaymentIntentPaymentMethodOptionsUsBankAccount`'s `preferred_settlement_speed` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentIntentPaymentMethodOptionsUsBankAccountPreferredSettlementSpeed {
     Fastest,
@@ -9191,7 +9191,7 @@ impl std::default::Default for PaymentMethodOptionsCardMandateOptionsSupportedTy
 }
 
 /// An enum representing the possible values of an `PaymentMethodOptionsCashapp`'s `capture_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodOptionsCashappCaptureMethod {
     Manual,
@@ -9223,7 +9223,7 @@ impl std::default::Default for PaymentMethodOptionsCashappCaptureMethod {
 }
 
 /// An enum representing the possible values of an `PaymentMethodOptionsCashapp`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodOptionsCashappSetupFutureUsage {
     None,
@@ -9745,7 +9745,7 @@ impl std::default::Default for PaymentMethodOptionsPaynowSetupFutureUsage {
 }
 
 /// An enum representing the possible values of an `PaymentMethodOptionsPaypal`'s `capture_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodOptionsPaypalCaptureMethod {
     Manual,
@@ -9777,7 +9777,7 @@ impl std::default::Default for PaymentMethodOptionsPaypalCaptureMethod {
 }
 
 /// An enum representing the possible values of an `PaymentMethodOptionsPaypal`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodOptionsPaypalSetupFutureUsage {
     None,
@@ -10021,7 +10021,7 @@ impl std::default::Default for PaymentMethodOptionsWechatPaySetupFutureUsage {
 }
 
 /// An enum representing the possible values of an `PaymentMethodOptionsZip`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodOptionsZipSetupFutureUsage {
     None,
@@ -11495,7 +11495,7 @@ impl std::default::Default for UpdatePaymentIntentPaymentMethodOptionsCardSetupF
 }
 
 /// An enum representing the possible values of an `UpdatePaymentIntentPaymentMethodOptionsCashapp`'s `capture_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdatePaymentIntentPaymentMethodOptionsCashappCaptureMethod {
     Manual,
@@ -11527,7 +11527,7 @@ impl std::default::Default for UpdatePaymentIntentPaymentMethodOptionsCashappCap
 }
 
 /// An enum representing the possible values of an `UpdatePaymentIntentPaymentMethodOptionsCashapp`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdatePaymentIntentPaymentMethodOptionsCashappSetupFutureUsage {
     None,
@@ -12313,7 +12313,7 @@ impl std::default::Default for UpdatePaymentIntentPaymentMethodOptionsPaynowSetu
 }
 
 /// An enum representing the possible values of an `UpdatePaymentIntentPaymentMethodOptionsPaypal`'s `capture_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdatePaymentIntentPaymentMethodOptionsPaypalCaptureMethod {
     Manual,
@@ -12345,7 +12345,7 @@ impl std::default::Default for UpdatePaymentIntentPaymentMethodOptionsPaypalCapt
 }
 
 /// An enum representing the possible values of an `UpdatePaymentIntentPaymentMethodOptionsPaypal`'s `preferred_locale` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdatePaymentIntentPaymentMethodOptionsPaypalPreferredLocale {
     #[serde(rename = "cs-CZ")]
@@ -12438,7 +12438,7 @@ impl std::default::Default for UpdatePaymentIntentPaymentMethodOptionsPaypalPref
 }
 
 /// An enum representing the possible values of an `UpdatePaymentIntentPaymentMethodOptionsPaypal`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdatePaymentIntentPaymentMethodOptionsPaypalSetupFutureUsage {
     None,
@@ -12702,7 +12702,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `UpdatePaymentIntentPaymentMethodOptionsUsBankAccountFinancialConnections`'s `prefetch` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdatePaymentIntentPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
     Balances,
@@ -12776,7 +12776,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `UpdatePaymentIntentPaymentMethodOptionsUsBankAccount`'s `preferred_settlement_speed` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdatePaymentIntentPaymentMethodOptionsUsBankAccountPreferredSettlementSpeed {
     Fastest,
@@ -12962,7 +12962,7 @@ impl std::default::Default for UpdatePaymentIntentPaymentMethodOptionsWechatPayS
 }
 
 /// An enum representing the possible values of an `UpdatePaymentIntentPaymentMethodOptionsZip`'s `setup_future_usage` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdatePaymentIntentPaymentMethodOptionsZipSetupFutureUsage {
     None,

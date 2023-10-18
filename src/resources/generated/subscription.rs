@@ -1705,7 +1705,7 @@ pub struct UpdateSubscriptionPaymentSettingsPaymentMethodOptionsCustomerBalanceB
 }
 
 /// An enum representing the possible values of an `CancellationDetails`'s `feedback` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CancellationDetailsFeedback {
     CustomerService,
@@ -1751,7 +1751,7 @@ impl std::default::Default for CancellationDetailsFeedback {
 }
 
 /// An enum representing the possible values of an `CancellationDetails`'s `reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CancellationDetailsReason {
     CancellationRequested,
@@ -2093,7 +2093,7 @@ impl std::default::Default for CreateSubscriptionPaymentSettingsPaymentMethodOpt
 }
 
 /// An enum representing the possible values of an `CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections`'s `prefetch` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch
 {
@@ -2958,7 +2958,7 @@ impl std::default::Default for SubscriptionsTrialsResourceEndBehaviorMissingPaym
 }
 
 /// An enum representing the possible values of an `UpdateSubscriptionCancellationDetails`'s `feedback` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSubscriptionCancellationDetailsFeedback {
     CustomerService,
@@ -3346,7 +3346,7 @@ impl std::default::Default for UpdateSubscriptionPaymentSettingsPaymentMethodOpt
 }
 
 /// An enum representing the possible values of an `UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections`'s `prefetch` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSubscriptionPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch
 {

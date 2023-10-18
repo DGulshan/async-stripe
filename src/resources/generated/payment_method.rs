@@ -1340,7 +1340,7 @@ pub struct CreatePaymentMethodKlarnaDob {
 }
 
 /// An enum representing the possible values of an `CardPresent`'s `read_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CardPresentReadMethod {
     ContactEmv,
@@ -2186,7 +2186,7 @@ impl std::default::Default for PaymentMethodIdealBic {
 }
 
 /// An enum representing the possible values of an `PaymentMethodInteracPresent`'s `read_method` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodInteracPresentReadMethod {
     ContactEmv,
@@ -2566,7 +2566,7 @@ impl std::default::Default for PaymentMethodUsBankAccountAccountType {
 }
 
 /// An enum representing the possible values of an `PaymentMethodUsBankAccountBlocked`'s `network_code` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodUsBankAccountBlockedNetworkCode {
     #[serde(rename = "R02")]
@@ -2632,7 +2632,7 @@ impl std::default::Default for PaymentMethodUsBankAccountBlockedNetworkCode {
 }
 
 /// An enum representing the possible values of an `PaymentMethodUsBankAccountBlocked`'s `reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodUsBankAccountBlockedReason {
     BankAccountClosed,

@@ -2682,7 +2682,7 @@ impl std::default::Default for PaymentMethodDetailsUsBankAccountAccountType {
 }
 
 /// An enum representing the possible values of an `PaypalSellerProtection`'s `dispute_categories` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaypalSellerProtectionDisputeCategories {
     Fraudulent,
@@ -2716,7 +2716,7 @@ impl std::default::Default for PaypalSellerProtectionDisputeCategories {
 }
 
 /// An enum representing the possible values of an `PaypalSellerProtection`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaypalSellerProtectionStatus {
     Eligible,
@@ -2752,7 +2752,7 @@ impl std::default::Default for PaypalSellerProtectionStatus {
 }
 
 /// An enum representing the possible values of an `ThreeDSecureDetailsCharge`'s `authentication_flow` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ThreeDSecureDetailsChargeAuthenticationFlow {
     Challenge,
@@ -2786,7 +2786,7 @@ impl std::default::Default for ThreeDSecureDetailsChargeAuthenticationFlow {
 }
 
 /// An enum representing the possible values of an `ThreeDSecureDetailsCharge`'s `result` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ThreeDSecureDetailsChargeResult {
     AttemptAcknowledged,
@@ -2828,7 +2828,7 @@ impl std::default::Default for ThreeDSecureDetailsChargeResult {
 }
 
 /// An enum representing the possible values of an `ThreeDSecureDetailsCharge`'s `result_reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ThreeDSecureDetailsChargeResultReason {
     Abandoned,
@@ -2872,7 +2872,7 @@ impl std::default::Default for ThreeDSecureDetailsChargeResultReason {
 }
 
 /// An enum representing the possible values of an `ThreeDSecureDetailsCharge`'s `version` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ThreeDSecureDetailsChargeVersion {
     #[serde(rename = "1.0.2")]

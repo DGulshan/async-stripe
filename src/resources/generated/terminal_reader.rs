@@ -358,7 +358,7 @@ impl std::default::Default for TerminalReaderReaderResourceReaderActionType {
 }
 
 /// An enum representing the possible values of an `TerminalReaderReaderResourceRefundPaymentAction`'s `reason` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum TerminalReaderReaderResourceRefundPaymentActionReason {
     Duplicate,

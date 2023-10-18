@@ -394,40 +394,6 @@ impl std::default::Default for MandateBacsDebitNetworkStatus {
     }
 }
 
-/// An enum representing the possible values of an `MandateBlik`'s `type` field.
-#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
-#[serde(rename_all = "snake_case")]
-pub enum MandateBlikType {
-    OffSession,
-    OnSession,
-}
-
-impl MandateBlikType {
-    pub fn as_str(self) -> &'static str {
-        match self {
-            MandateBlikType::OffSession => "off_session",
-            MandateBlikType::OnSession => "on_session",
-        }
-    }
-}
-
-impl AsRef<str> for MandateBlikType {
-    fn as_ref(&self) -> &str {
-        self.as_str()
-    }
-}
-
-impl std::fmt::Display for MandateBlikType {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        self.as_str().fmt(f)
-    }
-}
-impl std::default::Default for MandateBlikType {
-    fn default() -> Self {
-        Self::OffSession
-    }
-}
-
 /// An enum representing the possible values of an `Mandate`'s `status` field.
 #[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]

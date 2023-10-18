@@ -1442,7 +1442,7 @@ impl std::default::Default for CreatePaymentLinkConsentCollectionTermsOfService 
 }
 
 /// An enum representing the possible values of an `CreatePaymentLinkCustomFieldsLabel`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentLinkCustomFieldsLabelType {
     Custom,
@@ -1474,7 +1474,7 @@ impl std::default::Default for CreatePaymentLinkCustomFieldsLabelType {
 }
 
 /// An enum representing the possible values of an `CreatePaymentLinkCustomFields`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreatePaymentLinkCustomFieldsType {
     Dropdown,
@@ -2773,7 +2773,7 @@ impl std::default::Default for PaymentLinksResourceConsentCollectionTermsOfServi
 }
 
 /// An enum representing the possible values of an `PaymentLinksResourceCustomFieldsLabel`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentLinksResourceCustomFieldsLabelType {
     Custom,
@@ -2805,7 +2805,7 @@ impl std::default::Default for PaymentLinksResourceCustomFieldsLabelType {
 }
 
 /// An enum representing the possible values of an `PaymentLinksResourceCustomFields`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentLinksResourceCustomFieldsType {
     Dropdown,
@@ -3686,7 +3686,7 @@ impl std::default::Default for UpdatePaymentLinkAfterCompletionType {
 }
 
 /// An enum representing the possible values of an `UpdatePaymentLinkCustomFieldsLabel`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdatePaymentLinkCustomFieldsLabelType {
     Custom,
@@ -3718,7 +3718,7 @@ impl std::default::Default for UpdatePaymentLinkCustomFieldsLabelType {
 }
 
 /// An enum representing the possible values of an `UpdatePaymentLinkCustomFields`'s `type` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdatePaymentLinkCustomFieldsType {
     Dropdown,

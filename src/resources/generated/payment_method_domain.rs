@@ -200,7 +200,7 @@ impl<'a> UpdatePaymentMethodDomain<'a> {
 }
 
 /// An enum representing the possible values of an `PaymentMethodDomainResourcePaymentMethodStatus`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentMethodDomainResourcePaymentMethodStatusStatus {
     Active,

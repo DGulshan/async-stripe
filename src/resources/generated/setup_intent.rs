@@ -2002,7 +2002,7 @@ pub struct UpdateSetupIntentPaymentMethodOptionsUsBankAccountNetworks {
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentAutomaticPaymentMethods`'s `allow_redirects` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentAutomaticPaymentMethodsAllowRedirects {
     Always,
@@ -3068,7 +3068,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `CreateSetupIntentPaymentMethodOptionsUsBankAccountFinancialConnections`'s `prefetch` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CreateSetupIntentPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
     Balances,
@@ -3184,7 +3184,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `PaymentFlowsAutomaticPaymentMethodsSetupIntent`'s `allow_redirects` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum PaymentFlowsAutomaticPaymentMethodsSetupIntentAllowRedirects {
     Always,
@@ -3674,40 +3674,6 @@ impl std::default::Default
 {
     fn default() -> Self {
         Self::Business
-    }
-}
-
-/// An enum representing the possible values of an `SetupIntentPaymentMethodOptionsMandateOptionsBlik`'s `type` field.
-#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
-#[serde(rename_all = "snake_case")]
-pub enum SetupIntentPaymentMethodOptionsMandateOptionsBlikType {
-    OffSession,
-    OnSession,
-}
-
-impl SetupIntentPaymentMethodOptionsMandateOptionsBlikType {
-    pub fn as_str(self) -> &'static str {
-        match self {
-            SetupIntentPaymentMethodOptionsMandateOptionsBlikType::OffSession => "off_session",
-            SetupIntentPaymentMethodOptionsMandateOptionsBlikType::OnSession => "on_session",
-        }
-    }
-}
-
-impl AsRef<str> for SetupIntentPaymentMethodOptionsMandateOptionsBlikType {
-    fn as_ref(&self) -> &str {
-        self.as_str()
-    }
-}
-
-impl std::fmt::Display for SetupIntentPaymentMethodOptionsMandateOptionsBlikType {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        self.as_str().fmt(f)
-    }
-}
-impl std::default::Default for SetupIntentPaymentMethodOptionsMandateOptionsBlikType {
-    fn default() -> Self {
-        Self::OffSession
     }
 }
 
@@ -4792,7 +4758,7 @@ impl std::default::Default
 }
 
 /// An enum representing the possible values of an `UpdateSetupIntentPaymentMethodOptionsUsBankAccountFinancialConnections`'s `prefetch` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum UpdateSetupIntentPaymentMethodOptionsUsBankAccountFinancialConnectionsPrefetch {
     Balances,

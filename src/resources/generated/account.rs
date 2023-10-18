@@ -3126,7 +3126,7 @@ impl std::default::Default for AccountCapabilitiesCartesBancairesPayments {
 }
 
 /// An enum representing the possible values of an `AccountCapabilities`'s `cashapp_payments` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum AccountCapabilitiesCashappPayments {
     Active,
@@ -3774,7 +3774,7 @@ impl std::default::Default for AccountCapabilitiesUsBankAccountAchPayments {
 }
 
 /// An enum representing the possible values of an `AccountCapabilities`'s `zip_payments` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum AccountCapabilitiesZipPayments {
     Active,

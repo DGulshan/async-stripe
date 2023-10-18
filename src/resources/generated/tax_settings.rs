@@ -80,7 +80,7 @@ pub struct TaxProductResourceTaxSettingsStatusDetailsResourcePending {
 }
 
 /// An enum representing the possible values of an `TaxProductResourceTaxSettingsDefaults`'s `tax_behavior` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum TaxProductResourceTaxSettingsDefaultsTaxBehavior {
     Exclusive,
@@ -116,7 +116,7 @@ impl std::default::Default for TaxProductResourceTaxSettingsDefaultsTaxBehavior 
 }
 
 /// An enum representing the possible values of an `TaxSettings`'s `status` field.
-#[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum TaxSettingsStatus {
     Active,
