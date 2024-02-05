@@ -1618,9 +1618,10 @@ impl std::default::Default for CreateInvoiceFromInvoiceAction {
 
 /// An enum representing the possible values of an `CreateInvoiceIssuer`'s `type` field.
 #[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
-#[serde(rename_all = "snake_case")]
 pub enum CreateInvoiceIssuerType {
+    #[serde(rename = "account")]
     Account,
+    #[serde(rename = "self")]
     Self_,
 }
 
