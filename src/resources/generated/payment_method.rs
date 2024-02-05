@@ -128,10 +128,16 @@ pub struct PaymentMethod {
     pub radar_options: Option<RadarRadarOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub revolut_pay: Option<PaymentMethodRevolutPay>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sepa_debit: Option<PaymentMethodSepaDebit>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sofort: Option<PaymentMethodSofort>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub swish: Option<PaymentMethodSwish>,
 
     /// The type of the PaymentMethod.
     ///
@@ -339,6 +345,8 @@ pub struct Networks {
     pub available: Vec<String>,
 
     /// The preferred network for the card.
+    ///
+    /// Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
     pub preferred: Option<String>,
 }
 
@@ -564,7 +572,7 @@ pub struct PaymentMethodGrabpay {}
 pub struct PaymentMethodIdeal {
     /// The customer's bank, if provided.
     ///
-    /// Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+    /// Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
     pub bank: Option<PaymentMethodIdealBank>,
 
     /// The Bank Identifier Code of the customer's bank, if the bank was provided.
@@ -689,13 +697,11 @@ pub struct PaymentMethodPaypal {
     ///
     /// Values are provided by PayPal directly (if supported) at the time of authorization or settlement.
     /// They cannot be set or mutated.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub payer_email: Option<String>,
 
     /// PayPal account PayerID.
     ///
     /// This identifier uniquely identifies the PayPal customer.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub payer_id: Option<String>,
 }
 
@@ -704,6 +710,9 @@ pub struct PaymentMethodPix {}
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct PaymentMethodPromptpay {}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct PaymentMethodRevolutPay {}
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct PaymentMethodSepaDebit {
@@ -735,6 +744,9 @@ pub struct PaymentMethodSofort {
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct PaymentMethodSwish {}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct PaymentMethodUsBankAccount {
     /// Account holder type: individual or company.
     pub account_holder_type: Option<PaymentMethodUsBankAccountAccountHolderType>,
@@ -748,7 +760,6 @@ pub struct PaymentMethodUsBankAccount {
     pub bank_name: Option<String>,
 
     /// The ID of the Financial Connections Account used to create the payment method.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub financial_connections_account: Option<String>,
 
     /// Uniquely identifies this particular bank account.
@@ -766,7 +777,6 @@ pub struct PaymentMethodUsBankAccount {
     pub routing_number: Option<String>,
 
     /// Contains information about the future reusability of this PaymentMethod.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub status_details: Option<PaymentMethodUsBankAccountStatusDetails>,
 }
 
@@ -960,6 +970,10 @@ pub struct CreatePaymentMethod<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub radar_options: Option<CreatePaymentMethodRadarOptions>,
 
+    /// If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub revolut_pay: Option<CreatePaymentMethodRevolutPay>,
+
     /// If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sepa_debit: Option<CreatePaymentMethodSepaDebit>,
@@ -967,6 +981,10 @@ pub struct CreatePaymentMethod<'a> {
     /// If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sofort: Option<CreatePaymentMethodSofort>,
+
+    /// If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub swish: Option<CreatePaymentMethodSwish>,
 
     /// The type of the PaymentMethod.
     ///
@@ -1025,8 +1043,10 @@ impl<'a> CreatePaymentMethod<'a> {
             pix: Default::default(),
             promptpay: Default::default(),
             radar_options: Default::default(),
+            revolut_pay: Default::default(),
             sepa_debit: Default::default(),
             sofort: Default::default(),
+            swish: Default::default(),
             type_: Default::default(),
             us_bank_account: Default::default(),
             wechat_pay: Default::default(),
@@ -1275,6 +1295,9 @@ pub struct CreatePaymentMethodRadarOptions {
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct CreatePaymentMethodRevolutPay {}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct CreatePaymentMethodSepaDebit {
     /// IBAN of the bank account.
     pub iban: String,
@@ -1285,6 +1308,9 @@ pub struct CreatePaymentMethodSofort {
     /// Two-letter ISO code representing the country the bank account is located in.
     pub country: CreatePaymentMethodSofortCountry,
 }
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct CreatePaymentMethodSwish {}
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct CreatePaymentMethodUsBankAccount {
@@ -1322,9 +1348,13 @@ pub struct UpdatePaymentMethodLink {}
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct UpdatePaymentMethodUsBankAccount {
-    /// Bank account type.
+    /// Bank account holder type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub account_holder_type: Option<UpdatePaymentMethodUsBankAccountAccountHolderType>,
+
+    /// Bank account type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub account_type: Option<UpdatePaymentMethodUsBankAccountAccountType>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -1597,6 +1627,7 @@ pub enum CreatePaymentMethodIdealBank {
     Knab,
     Moneyou,
     N26,
+    Nn,
     Rabobank,
     Regiobank,
     Revolut,
@@ -1617,6 +1648,7 @@ impl CreatePaymentMethodIdealBank {
             CreatePaymentMethodIdealBank::Knab => "knab",
             CreatePaymentMethodIdealBank::Moneyou => "moneyou",
             CreatePaymentMethodIdealBank::N26 => "n26",
+            CreatePaymentMethodIdealBank::Nn => "nn",
             CreatePaymentMethodIdealBank::Rabobank => "rabobank",
             CreatePaymentMethodIdealBank::Regiobank => "regiobank",
             CreatePaymentMethodIdealBank::Revolut => "revolut",
@@ -2059,6 +2091,7 @@ pub enum PaymentMethodIdealBank {
     Knab,
     Moneyou,
     N26,
+    Nn,
     Rabobank,
     Regiobank,
     Revolut,
@@ -2079,6 +2112,7 @@ impl PaymentMethodIdealBank {
             PaymentMethodIdealBank::Knab => "knab",
             PaymentMethodIdealBank::Moneyou => "moneyou",
             PaymentMethodIdealBank::N26 => "n26",
+            PaymentMethodIdealBank::Nn => "nn",
             PaymentMethodIdealBank::Rabobank => "rabobank",
             PaymentMethodIdealBank::Regiobank => "regiobank",
             PaymentMethodIdealBank::Revolut => "revolut",
@@ -2129,6 +2163,8 @@ pub enum PaymentMethodIdealBic {
     Knabnl2h,
     #[serde(rename = "MOYONL21")]
     Moyonl21,
+    #[serde(rename = "NNBANL2G")]
+    Nnbanl2g,
     #[serde(rename = "NTSBDEB1")]
     Ntsbdeb1,
     #[serde(rename = "RABONL2U")]
@@ -2157,6 +2193,7 @@ impl PaymentMethodIdealBic {
             PaymentMethodIdealBic::Ingbnl2a => "INGBNL2A",
             PaymentMethodIdealBic::Knabnl2h => "KNABNL2H",
             PaymentMethodIdealBic::Moyonl21 => "MOYONL21",
+            PaymentMethodIdealBic::Nnbanl2g => "NNBANL2G",
             PaymentMethodIdealBic::Ntsbdeb1 => "NTSBDEB1",
             PaymentMethodIdealBic::Rabonl2u => "RABONL2U",
             PaymentMethodIdealBic::Rbrbnl21 => "RBRBNL21",
@@ -2341,8 +2378,10 @@ pub enum PaymentMethodType {
     Paypal,
     Pix,
     Promptpay,
+    RevolutPay,
     SepaDebit,
     Sofort,
+    Swish,
     UsBankAccount,
     WechatPay,
     Zip,
@@ -2379,8 +2418,10 @@ impl PaymentMethodType {
             PaymentMethodType::Paypal => "paypal",
             PaymentMethodType::Pix => "pix",
             PaymentMethodType::Promptpay => "promptpay",
+            PaymentMethodType::RevolutPay => "revolut_pay",
             PaymentMethodType::SepaDebit => "sepa_debit",
             PaymentMethodType::Sofort => "sofort",
+            PaymentMethodType::Swish => "swish",
             PaymentMethodType::UsBankAccount => "us_bank_account",
             PaymentMethodType::WechatPay => "wechat_pay",
             PaymentMethodType::Zip => "zip",
@@ -2435,8 +2476,10 @@ pub enum PaymentMethodTypeFilter {
     Paypal,
     Pix,
     Promptpay,
+    RevolutPay,
     SepaDebit,
     Sofort,
+    Swish,
     UsBankAccount,
     WechatPay,
     Zip,
@@ -2471,8 +2514,10 @@ impl PaymentMethodTypeFilter {
             PaymentMethodTypeFilter::Paypal => "paypal",
             PaymentMethodTypeFilter::Pix => "pix",
             PaymentMethodTypeFilter::Promptpay => "promptpay",
+            PaymentMethodTypeFilter::RevolutPay => "revolut_pay",
             PaymentMethodTypeFilter::SepaDebit => "sepa_debit",
             PaymentMethodTypeFilter::Sofort => "sofort",
+            PaymentMethodTypeFilter::Swish => "swish",
             PaymentMethodTypeFilter::UsBankAccount => "us_bank_account",
             PaymentMethodTypeFilter::WechatPay => "wechat_pay",
             PaymentMethodTypeFilter::Zip => "zip",
@@ -2708,6 +2753,40 @@ impl std::fmt::Display for UpdatePaymentMethodUsBankAccountAccountHolderType {
 impl std::default::Default for UpdatePaymentMethodUsBankAccountAccountHolderType {
     fn default() -> Self {
         Self::Company
+    }
+}
+
+/// An enum representing the possible values of an `UpdatePaymentMethodUsBankAccount`'s `account_type` field.
+#[derive(strum_macros::EnumString, Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum UpdatePaymentMethodUsBankAccountAccountType {
+    Checking,
+    Savings,
+}
+
+impl UpdatePaymentMethodUsBankAccountAccountType {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            UpdatePaymentMethodUsBankAccountAccountType::Checking => "checking",
+            UpdatePaymentMethodUsBankAccountAccountType::Savings => "savings",
+        }
+    }
+}
+
+impl AsRef<str> for UpdatePaymentMethodUsBankAccountAccountType {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+
+impl std::fmt::Display for UpdatePaymentMethodUsBankAccountAccountType {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.as_str().fmt(f)
+    }
+}
+impl std::default::Default for UpdatePaymentMethodUsBankAccountAccountType {
+    fn default() -> Self {
+        Self::Checking
     }
 }
 

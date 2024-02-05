@@ -44,7 +44,10 @@ pub fn gen_struct(
     let struct_name = meta.schema_to_rust_type(object);
     let schema = meta.spec.get_schema_unwrapped(object).as_item().expect("Expected item");
     let obj = as_object_type(schema).expect("Expected object type");
-    let schema_title = schema.schema_data.title.as_ref().expect("No title found");
+    let schema_title = schema.schema_data.title.as_ref().unwrap_or_else(|| {
+        tracing::warn!("{} has no title", object);
+        &object
+    });
 
     let deleted_schema = meta.spec.component_schemas().get(&format!("deleted_{}", object));
     let deleted_properties =
@@ -695,6 +698,7 @@ pub fn gen_unions(out: &mut String, unions: &BTreeMap<String, InferredUnion>, me
 pub fn gen_variant_name(wire_name: &str, meta: &Metadata) -> String {
     match wire_name {
         "*" => "All".to_string(),
+        "self" => "Self_".to_string(),
         n => {
             if n.chars().next().unwrap().is_digit(10) {
                 format!("V{}", n.to_string().replace('-', "_").replace('.', "_"))
@@ -1036,7 +1040,7 @@ fn gen_field_type(
 ) -> String {
     match &field.schema_kind {
         // N.B. return immediately; if we want to use `Default` for bool rather than `Option`
-        SchemaKind::Type(Type::Boolean {}) => "bool".into(),
+        SchemaKind::Type(Type::Boolean(_)) => "bool".into(),
         SchemaKind::Type(Type::Number(_)) => "f64".into(),
         SchemaKind::Type(Type::Integer(format)) => {
             infer_integer_type(state, field_name, &format.format)
@@ -1287,6 +1291,11 @@ pub fn gen_field_rust_type<T: Borrow<Schema>>(
     // currency_options field is represented by an optional HashMap<String, T>, where the String is the currency code in ISO 4217 format.
     if field_name == "currency_options" {
         state.use_params.insert("CurrencyMap");
+
+        if ty.contains("CurrencyMap<") {
+            return ty;
+        }
+
         return format!("Option<CurrencyMap<{}>>", ty);
     }
 

@@ -41,7 +41,7 @@ async fn main() {
 
     println!("created a customer at https://dashboard.stripe.com/test/customers/{}", customer.id);
 
-    // create a new exmaple project
+    // create a new example project
     let product = {
         let mut create_product = CreateProduct::new("T-Shirt");
         create_product.metadata = Some(std::collections::HashMap::from([(
@@ -73,7 +73,7 @@ async fn main() {
 
     // finally, create a checkout session for this product / price
     let checkout_session = {
-        let mut params = CreateCheckoutSession::new("http://test.com/success");
+        let mut params = CreateCheckoutSession::new();
         params.cancel_url = Some("http://test.com/cancel");
         params.customer = Some(customer.id);
         params.mode = Some(CheckoutSessionMode::Payment);

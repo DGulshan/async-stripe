@@ -51,6 +51,13 @@ mod billing {
 }
 
 #[path = "resources"]
+#[cfg(feature = "products")]
+mod products {
+    pub mod price_ext;
+    pub mod product_ext;
+}
+
+#[path = "resources"]
 #[cfg(feature = "checkout")]
 mod checkout {
     pub mod checkout_session_ext;
@@ -111,9 +118,11 @@ pub use {
     generated::core::{
         address::*,
         balance::*,
+        balance_amount_by_source_type::*,
         balance_transaction::*,
         billing_details::*,
         charge::*,
+        connect_account_reference::*,
         customer::*,
         custom_unit_amount::*,
         cash_balance::*,
@@ -126,10 +135,10 @@ pub use {
         payment_intent::*,
         payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code::*,
         linked_account_options_us_bank_account::*,
-        payment_method_details_card_checks::*,
         payment_method_details_card_wallet_apple_pay::*,
         payment_method_details_card_wallet_google_pay::*,
         payment_method_options_customer_balance_eu_bank_account::*,
+        payment_method_options_us_bank_account_mandate_options::*,
         payment_method_config_biz_payment_method_configuration_details::*,
         payout::*,
         platform_tax_fee::*,
@@ -224,6 +233,7 @@ pub use {
         // need to import this afterwards so that the SubscriptionItemPriceDataRecurring
         // isn't silently ignored
         subscription::*,
+        subscriptions_trials_resource_trial_settings::*,
         subscription::PlanInterval as SubscriptionInterval,
         subscription::SubscriptionItemPriceDataRecurring as SubscriptionPriceDataRecurring,
         subscription::SubscriptionItemPriceData as SubscriptionPriceData,
@@ -289,6 +299,7 @@ pub use {
     generated::issuing::{
         issuing_authorization::*,
         issuing_card::*,
+        issuing_token::*,
         issuing_cardholder::*,
         issuing_dispute::*,
         issuing_transaction::*,
