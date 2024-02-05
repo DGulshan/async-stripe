@@ -21,9 +21,10 @@ pub struct ConnectAccountReference {
 
 /// An enum representing the possible values of an `ConnectAccountReference`'s `type` field.
 #[derive(Copy, Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
-#[serde(rename_all = "snake_case")]
 pub enum ConnectAccountReferenceType {
+    #[serde(rename = "account")]
     Account,
+    #[serde(rename = "self")]
     Self_,
 }
 
