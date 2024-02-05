@@ -95,7 +95,7 @@ pub struct InvoiceLineItem {
 
     /// A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
     #[serde(rename = "type")]
-    pub type_: InvoiceLineItemType,
+    pub type_: Option<InvoiceLineItemType>,
 
     /// The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
     pub unit_amount_excluding_tax: Option<String>,
